@@ -1,0 +1,7 @@
+To generate angular components and modules, use the @nrwl schemas
+
+As an example
+
+    nx g @nrwl/angular:component \apps\milestone\src\app\layout\my-component
+
+Directories can be added to instruct Nx to create the component/module where it is desired
