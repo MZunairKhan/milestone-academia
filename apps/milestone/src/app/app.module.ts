@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
+import { SharedModule } from './shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -13,8 +16,11 @@ import { LayoutModule } from './layout/layout.module';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
-    LayoutModule
+    SharedModule,
+    LayoutModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
