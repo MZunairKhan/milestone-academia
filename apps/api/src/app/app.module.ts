@@ -1,18 +1,21 @@
 import { Module } from '@nestjs/common';
+import { RouterModule } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from '../config.service';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './modules/user/users.module';
 
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    RouterModule.register([
+      {
+        path: 'users',
+        module: UsersModule,
+      }
+    ]),
     UsersModule
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+  ]
 })
 export class AppModule {}
