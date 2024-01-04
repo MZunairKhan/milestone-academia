@@ -1,11 +1,15 @@
-<milestone-academia-navbar></milestone-academia-navbar>
-<div style="text-align: center">
-  <h1>Welcome to milestone!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-    alt="Nx - Smart, Fast and Extensible Build System"
-  />
-</div>
-<div>Message: {{ hello$ | async | json }}</div>
+<milestone-academia-navbar
+  (sideButtonClick)="toggleDrawer($event)"
+></milestone-academia-navbar>
+
+<mat-drawer-container class="milestone-container" autosize>
+  <mat-drawer #drawer class="milestone-sidenav" mode="side">
+    <p>Auto-resizing sidenav</p>
+  </mat-drawer>
+
+  <div class="milestone-sidenav-content">
+  </div>
+
+</mat-drawer-container>
+
 <router-outlet></router-outlet>

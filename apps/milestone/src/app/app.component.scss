@@ -1,0 +1,16 @@
+.milestone-sidenav {
+    padding: 10px;
+}
+
+.milestone-container {
+    width: inherit;
+    height: calc(100% - 64px);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  
+.milestone-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}

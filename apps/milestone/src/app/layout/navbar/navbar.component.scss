@@ -1,3 +1,10 @@
-.example-spacer {
-    flex: 1 1 auto;
+.milestone-navbar {
+    display: flex;
+    height: 64px !important;
+    justify-content: space-between;
+}
+
+.milestone-sidebar-div {
+    display: flex;
+    align-items: center;
 }
