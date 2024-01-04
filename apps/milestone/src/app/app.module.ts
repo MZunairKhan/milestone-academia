@@ -6,25 +6,22 @@ import { NxWelcomeComponent } from './nx-welcome.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
-import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NxWelcomeComponent
-  ],
+  declarations: [AppComponent, NxWelcomeComponent],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
     MaterialModule,
-    LayoutModule,
     BrowserAnimationsModule,
+    LayoutModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent],

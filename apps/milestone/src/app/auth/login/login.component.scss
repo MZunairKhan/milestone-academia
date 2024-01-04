@@ -1,0 +1,43 @@
+.milestone-login {
+    width: 55vw;
+    height: 55vh;
+
+    .mat-card-header{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mat-card-content {
+        width: inherit;
+        height: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .milestone-login-image {
+        width: 45%;
+        height: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .oversize {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .milestone-login-form {
+        width: 45%;
+        height: 90%;
+        display: flex;
+        align-items: center;
+
+        .full-width {
+            width: 100%;
+        }
+    }
+}
+

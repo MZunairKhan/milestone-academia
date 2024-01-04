@@ -1,0 +1,35 @@
+<mat-card class="milestone-login">
+
+    <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+        <div class="milestone-login-image">
+            <img class="oversize" src="/assets/Milestone_Academia.jpg" alt="image">
+        </div>
+    
+        <mat-card class="milestone-login-form">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
+                <mat-form-field class="full-width" appearance="fill">
+                  <mat-label>Username</mat-label>
+                  <input matInput formControlName="userName" placeholder="John Smith">
+                  <mat-error *ngIf="loginForm.value.userName === ''">
+                    Username is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+
+                
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password">
+                    <mat-error *ngIf="loginForm.value.password === ''">
+                      Password is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button class="full-width" color="primary" type="submit" [disabled]="!loginForm.valid">Log In</button>
+            </form>
+        </mat-card>
+    </mat-card-content>
+</mat-card>

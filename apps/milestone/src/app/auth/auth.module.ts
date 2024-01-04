@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
+import { AuthRoutingModule } from './auth-routing.module';
 
-import { NavbarComponent } from './navbar/navbar.component';
+import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    LoginComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-  ],
-  exports: [
-    NavbarComponent
+    AuthRoutingModule,
   ]
 })
-export class LayoutModule {}
+export class AuthModule { }
