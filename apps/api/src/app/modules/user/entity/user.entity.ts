@@ -13,6 +13,12 @@ export class User extends TimeBasesEntity{
   lastName: string;
 
   @Column()
+  userName: string;
+
+  @Column()
+  pwrd: string;
+
+  @Column()
   email: string;
 
   @Column({ default: true })

@@ -1,22 +1,32 @@
+import * as bcrypt from 'bcrypt';
+import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
+
 import { User } from './entity/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import { AppConfigurationService } from '../../common/appConfiguration.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    private readonly appConfigService: AppConfigurationService
   ) {}
 
-  create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
+    user.userName = createUserDto.userName;
     user.email = createUserDto.email;
     user.createdDate = new Date();
+    
+    const pepper = await this.appConfigService.findByKey('pepper');
+    console.log("pepper " + Number(pepper.value));
+    const hash = await bcrypt.hash(createUserDto.password, Number(pepper.value));
+    user.pwrd = hash;
 
     return this.usersRepository.save(user);
   }
@@ -27,6 +37,10 @@ export class UsersService {
 
   findOne(id: number): Promise<User> {
     return this.usersRepository.findOneBy({ id: id });
+  }
+
+  findOneByUsername(userName: string): Promise<User> {
+    return this.usersRepository.findOneBy({ userName: userName });
   }
 
   async remove(id: string): Promise<void> {

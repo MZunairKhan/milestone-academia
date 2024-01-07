@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from '../config.service';
 
 import { UsersModule } from './modules/user/users.module';
+import { CommonModule } from './common/common.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 
 @Module({
@@ -13,9 +15,19 @@ import { UsersModule } from './modules/user/users.module';
       {
         path: 'users',
         module: UsersModule,
+      },
+      {
+        path: 'auth',
+        module: AuthModule,
+      },
+      {
+        path: 'common',
+        module: CommonModule,
       }
     ]),
-    UsersModule
+    CommonModule,
+    UsersModule,
+    AuthModule,
   ]
 })
 export class AppModule {}
