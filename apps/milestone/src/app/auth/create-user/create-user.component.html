@@ -1,0 +1,70 @@
+<mat-card class="milestone-sign-up">
+
+    <mat-card-header>
+        <mat-card-title>Sign Up</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+        <form class="milestone-sign-up-form" [formGroup]="signUpForm" (ngSubmit)="onSubmit($event)">
+            
+            <div class="milestone-sign-up-form-row">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" placeholder="John Smith">
+                    <mat-error *ngIf="signUpForm.value.firstName === ''">
+                    Fist name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+    
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" placeholder="John Smith">
+                    <mat-error *ngIf="signUpForm.value.lastName === ''">
+                    Last name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            
+            <div class="milestone-sign-up-form-row">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="userName" placeholder="John Smith">
+                    <mat-error *ngIf="signUpForm.value.userName === ''">
+                    Username is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>E-mail Address</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error *ngIf="signUpForm.value.email === ''">
+                        E-mail Address is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            
+            <div class="milestone-sign-up-form-row">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password">
+                    <mat-error *ngIf="signUpForm.value.password === ''">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput formControlName="confirmPassword">
+                    <mat-error *ngIf="signUpForm.value.confirmPassword === ''">
+                        Confirm Password is <strong>required</strong>
+                    </mat-error>
+                    <!-- <mat-error *ngIf="signUpForm.value.confirmPassword === '' && (signUpForm.value.confirmPassword === signUpForm.value.password)">
+                        Confirm Password <strong>does not match</strong> Password
+                    </mat-error> -->
+                </mat-form-field>
+            </div>
+
+            <button mat-raised-button class="full-width" color="primary" type="submit" [disabled]="!signUpForm.valid">register</button>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,57 @@
+.milestone-sign-up {
+    width: 55vw;
+    height: 60vh;
+    padding: 10px;
+    
+    @media (max-width: 480px) {
+        width: 80vw;
+        height: auto;
+    }
+    
+    .mat-form-field {
+        margin: 6px 2px;
+        width: 230px;
+
+        @media (max-width: 480px) {
+            width: auto;
+        }
+    }
+
+    .mat-card-header{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mat-card-content {
+        width: inherit;
+        height: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mat-card-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .milestone-sign-up-form {
+        width: 75%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        .milestone-sign-up-form-row {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            
+            @media (max-width: 480px) {
+                flex-direction: column;
+            }
+        }
+    }
+}

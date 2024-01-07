@@ -1,6 +1,11 @@
 .milestone-login {
     width: 55vw;
     height: 55vh;
+    
+    @media (max-width: 480px) {
+        width: 70vw;
+        height: auto;
+    }
 
     .mat-card-header{
         display: flex;
@@ -10,10 +15,19 @@
 
     .mat-card-content {
         width: inherit;
-        height: 90%;
+        height: 80%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        @media (max-width: 480px) {
+            flex-direction: column;
+        }
+    }
+
+    .mat-card-actions {
+        display: flex;
+        justify-content: center;
     }
 
     .milestone-login-image {
@@ -34,6 +48,11 @@
         height: 90%;
         display: flex;
         align-items: center;
+
+        @media (max-width: 480px) {
+            width: 80%;
+            margin-top: 10px;
+        }
 
         .full-width {
             width: 100%;
