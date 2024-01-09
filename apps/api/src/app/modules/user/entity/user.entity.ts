@@ -4,8 +4,8 @@ import { UserType } from '../enums/userType.nume';
 
 @Entity('User')
 export class User extends TimeBasesEntity{
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   firstName: string;

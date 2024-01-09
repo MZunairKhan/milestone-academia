@@ -25,7 +25,7 @@ export class AppConfigurationService {
     return this.appConfigurationRepository.find();
   }
 
-  async findOne(id: number): Promise<AppConfiguration> {
+  async findOne(id: string): Promise<AppConfiguration> {
     return this.appConfigurationRepository.findOneBy({ id: id });
   }
 

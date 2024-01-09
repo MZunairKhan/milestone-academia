@@ -3,8 +3,8 @@ import { TimeBasesEntity } from "./timeBase.entity";
 
 @Entity()
 export class AppConfiguration extends TimeBasesEntity {
-    @PrimaryGeneratedColumn()
-    id: number;  
+    @PrimaryGeneratedColumn('uuid')
+    id: string;  
 
     @Column()
     key: string;

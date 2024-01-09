@@ -23,7 +23,7 @@ export class CommonController {
   }
 
   @Get('appConfig/:id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<AppConfiguration> {
+  findOne(@Param('id', ParseIntPipe) id: string): Promise<AppConfiguration> {
     return this.appConfigurationService.findOne(id);
   }
 
