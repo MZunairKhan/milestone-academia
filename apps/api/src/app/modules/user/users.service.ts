@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AppConfigurationService } from '../../common/appConfiguration.service';
+import { UserType } from './enums/userType.nume';
 
 @Injectable()
 export class UsersService {
@@ -22,9 +23,9 @@ export class UsersService {
     user.userName = createUserDto.userName;
     user.email = createUserDto.email;
     user.createdDate = new Date();
+    user.userType = UserType.Student;
     
     const pepper = await this.appConfigService.findByKey('pepper');
-    console.log("pepper " + Number(pepper.value));
     const hash = await bcrypt.hash(createUserDto.password, Number(pepper.value));
     user.pwrd = hash;
 

@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { TimeBasesEntity } from '../../../common/entities/timeBase.entity';
+import { UserType } from '../enums/userType.nume';
 
 @Entity('User')
 export class User extends TimeBasesEntity{
@@ -20,6 +21,12 @@ export class User extends TimeBasesEntity{
 
   @Column()
   email: string;
+
+  @Column({
+    type: 'enum',
+    enum: UserType
+  })
+  userType: string;
 
   @Column({ default: true })
   isActive: boolean;
