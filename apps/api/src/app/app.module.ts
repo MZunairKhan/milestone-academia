@@ -6,6 +6,7 @@ import { configService } from '../config.service';
 import { UsersModule } from './modules/user/users.module';
 import { CommonModule } from './common/common.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { SubjectsModule } from './modules/subject/subject.module';
 
 
 @Module({
@@ -23,11 +24,16 @@ import { AuthModule } from './modules/auth/auth.module';
       {
         path: 'common',
         module: CommonModule,
+      },
+      {
+        path: 'subject',
+        module: SubjectsModule
       }
     ]),
     CommonModule,
     UsersModule,
     AuthModule,
+    SubjectsModule,
   ]
 })
 export class AppModule {}
