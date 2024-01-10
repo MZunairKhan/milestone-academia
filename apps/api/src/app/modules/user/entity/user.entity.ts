@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { TimeBasesEntity } from '../../../common/entities/timeBase.entity';
-import { UserType } from '../enums/userType.nume';
+import { UserType } from '../enums/userType.enum';
 
 @Entity('User')
 export class User extends TimeBasesEntity{
