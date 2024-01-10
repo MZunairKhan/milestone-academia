@@ -6,7 +6,7 @@ import { SubjectService } from './subject.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 
   
-@ApiTags('Users')
+@ApiTags('Subject')
 @Controller()
 export class SubjectsController {
   constructor(private readonly usersService: SubjectService) {}
