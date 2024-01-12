@@ -1,5 +1,6 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Response, CookieOptions } from 'express';
+import { BadRequestException, Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
@@ -11,18 +12,26 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  async login(@Body() loginDto: LoginDto): Promise<any> {
+  async login(
+    @Body() loginDto: LoginDto,
+    @Res({ passthrough: true }) response: Response
+  ): Promise<any> {
     const user = await this.authService.validateUser(loginDto);
+
     if (user) {
-      return await this.authService.login(user);
+      const userData = await this.authService.login(user);
+      const cookieSettings: CookieOptions = this.authService.prepareCookieSettings();
+      
+      response.cookie(process.env.JWT_ACCESS_TOKEN_KEY, userData.access_token, cookieSettings);
     } else {
-      return null;
+      throw new BadRequestException("invalid username and/or password");
     }
   }
   
   @UseGuards(JwtAuthGuard)
   @Get('test')
-  async test(): Promise<boolean> {
+  async test(@Req() request): Promise<boolean> {
+    console.log(request.user)
     return true
   }
 }
