@@ -42,6 +42,7 @@ export class AuthService {
 
   logout() {
     this.userSource$.next(this.userData);
+    this.goToLogout();
   }
   
   private updateData(value: UserData) {
@@ -50,5 +51,9 @@ export class AuthService {
 
   private goToDashboard() {
     this.router.navigate(['user/dashboard']);
+  }
+
+  private goToLogout() {
+    this.router.navigate(['auth/logout']);
   }
 }

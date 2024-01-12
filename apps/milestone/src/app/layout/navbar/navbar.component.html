@@ -7,14 +7,14 @@
   </div>
 
   <div>
-    <button *ngIf="loggedIn$ | async" mat-icon-button (click)="test()" [matMenuTriggerFor]="menu" color="secondary">
+    <button *ngIf="loggedIn$ | async" mat-icon-button [matMenuTriggerFor]="menu" color="secondary">
       <mat-icon>person</mat-icon>
     </button>
   </div>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
+  <button (click)="logout()" mat-menu-item>
     <mat-icon>logout</mat-icon>
     <span>Logout</span>
   </button>

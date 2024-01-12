@@ -20,16 +20,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.authService.userSource$.asObservable().subscribe(value => {
       this.user$ = value;
-      console.log("this.user$ " + this.user$)
     })
-
-    // this.authService.userSource.asObservable().
-
-    // this.authService.loggedIn.subscribe(v => {
-    //   console.log(v)
-    //   // this.loggedIn = v
-    // })
-    // this.loggedIn = this.authService.loggedIn$
   }
 
   @Output() sideButtonClick = new EventEmitter<boolean>();
@@ -38,7 +29,7 @@ export class NavbarComponent implements OnInit {
     this.sideButtonClick.emit(true);
   }
 
-  test() {
-    console.log(this.authService.userSource$.getValue())
+  logout() {
+    this.authService.logout();
   }
 }
