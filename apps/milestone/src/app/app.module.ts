@@ -22,10 +22,10 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     MaterialModule,
     BrowserAnimationsModule,
     LayoutModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

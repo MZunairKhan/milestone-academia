@@ -2,3 +2,20 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+$milestone-text-color-secondary: #f44336;
+
+.milestone-color-secondary {
+    color: $milestone-text-color-secondary;
+}
+
+.milestone-heading {
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.milestone-subheading {
+    font-weight: bold;
+    font-size: 1.5em;
+}
