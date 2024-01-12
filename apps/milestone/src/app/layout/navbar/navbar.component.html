@@ -14,15 +14,15 @@
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
+  <button (click)="goToProfile()" mat-menu-item>
+    <mat-icon>person_outline</mat-icon>
+    <span>Profile</span>
+  </button>
   <button (click)="logout()" mat-menu-item>
     <mat-icon>logout</mat-icon>
     <span>Logout</span>
   </button>
-  <!-- <button mat-menu-item disabled>
-    <mat-icon>voicemail</mat-icon>
-    <span>Check voice mail</span>
-  </button>
-  <button mat-menu-item>
+  <!-- <button mat-menu-item>
     <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button> -->

@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'milestone-academia-navbar',
@@ -13,7 +14,8 @@ export class NavbarComponent implements OnInit {
   loggedIn$: Observable<boolean> = this.authService.loggedIn$;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
   }
 
@@ -31,5 +33,9 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  goToProfile() {
+    this.router.navigate(['user/profile']);
   }
 }

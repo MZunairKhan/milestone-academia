@@ -4,7 +4,9 @@
 
 <mat-drawer-container class="milestone-container" autosize>
   <mat-drawer #drawer class="milestone-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
+    <div class="sidenav-custom-button"  (click)="routeTo('user/dashboard')">
+      Dashboard
+    </div>
   </mat-drawer>
 
   <div class="milestone-sidenav-content">
