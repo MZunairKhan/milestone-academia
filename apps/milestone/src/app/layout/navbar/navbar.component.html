@@ -1,13 +1,13 @@
 <mat-toolbar class="milestone-navbar"  color="primary">
   <div class="milestone-sidebar-div">
-    <button mat-icon-button (click)="sideButtonClicked()">
+    <button *ngIf="loggedIn$ | async" mat-icon-button (click)="sideButtonClicked()">
       <mat-icon>menu</mat-icon>
     </button>
     <span>Milestone Academia</span>
   </div>
 
   <div>
-    <button mat-icon-button [matMenuTriggerFor]="menu" color="secondary">
+    <button *ngIf="loggedIn$ | async" mat-icon-button (click)="test()" [matMenuTriggerFor]="menu" color="secondary">
       <mat-icon>person</mat-icon>
     </button>
   </div>
@@ -15,8 +15,8 @@
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item>
-    <mat-icon>login</mat-icon>
-    <span>Login</span>
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
   </button>
   <!-- <button mat-menu-item disabled>
     <mat-icon>voicemail</mat-icon>

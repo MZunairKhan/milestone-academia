@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './auth/auth.interceptor';
 
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +25,6 @@ import { MaterialModule } from './shared/material.module';
     BrowserAnimationsModule,
     LayoutModule,
     AuthModule,
-    // UserModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

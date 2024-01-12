@@ -3,11 +3,27 @@ import { HttpClient } from '@angular/common/http';
 
 import { APIS } from '../../environments/api-routes';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { UserData } from './models/auth.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  userData = {
+    sub: '',
+    upn: '',
+    userType: '',
+    username: ''
+  }
+
+  userSource$: BehaviorSubject<UserData> = new BehaviorSubject<UserData>(this.userData)
+  
+  loggedIn$: Observable<boolean> = this.userSource$.asObservable()
+  .pipe(
+    map(value => value.username ? true : false)
+  );
 
   constructor(
     private http: HttpClient,
@@ -16,14 +32,22 @@ export class AuthService {
   }
 
   login(userName: string, password: string) {  
-    this.http.post<any>(APIS.auth.login, {userName, password})
+    this.http.post<UserData>(APIS.auth.login, {userName, password})
     .subscribe(value => {
+      this.updateData(value)
       this.goToDashboard();
-      console.log(value)
-      this.http.get<any>(APIS.auth.test).subscribe(value => console.log(value));
+      console.log(this.userSource$.value)
     })
   }
+
+  logout() {
+    this.userSource$.next(this.userData);
+  }
   
+  private updateData(value: UserData) {
+    this.userSource$.next(value);
+  }
+
   private goToDashboard() {
     this.router.navigate(['user/dashboard']);
   }
