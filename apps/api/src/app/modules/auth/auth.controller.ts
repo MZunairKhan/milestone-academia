@@ -23,6 +23,8 @@ export class AuthController {
       const cookieSettings: CookieOptions = this.authService.prepareCookieSettings();
       
       response.cookie(process.env.JWT_ACCESS_TOKEN_KEY, userData.access_token, cookieSettings);
+
+      return userData.payload
     } else {
       throw new BadRequestException("invalid username and/or password");
     }
