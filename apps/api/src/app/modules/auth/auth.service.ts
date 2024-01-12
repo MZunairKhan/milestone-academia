@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt';
-import { Injectable } from '@nestjs/common';
+import { CookieOptions } from 'express';
 import { JwtService } from '@nestjs/jwt';
+import { Injectable } from '@nestjs/common';
 
 import { UsersService } from '../user/users.service';
 import { LoginDto } from './dto/login.dto';
@@ -25,13 +26,26 @@ export class AuthService {
 
   async login(user: User) {
     const payload = { 
-      username: user.userName,
+      sub: user.id,
       upn: user.email,
-      sub: user.id 
+      userType: user.userType,
+      username: user.userName,
     };
     
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  prepareCookieSettings(): CookieOptions {
+    const expiry = new Date();
+    expiry.setHours(expiry.getHours() + 24);
+
+    return {
+      httpOnly: true,
+      expires: expiry,
+      secure: true,
+      sameSite: 'none'
+    }
   }
 }

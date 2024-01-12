@@ -7,7 +7,8 @@
     "postinstall": "node ./decorate-angular-cli.js",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "api": "nx serve api"
   },
   "private": true,
   "dependencies": {
@@ -31,6 +32,7 @@
     "@nrwl/angular": "15.0.11",
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
@@ -61,6 +63,7 @@
     "@nrwl/nest": "15.0.11",
     "@nrwl/node": "15.0.11",
     "@nrwl/workspace": "15.0.11",
+    "@types/cookie-parser": "^1.4.6",
     "@types/jest": "28.1.1",
     "@types/node": "18.7.1",
     "@types/passport-jwt": "^4.0.0",
