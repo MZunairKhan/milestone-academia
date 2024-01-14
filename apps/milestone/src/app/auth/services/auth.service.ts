@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { APIS } from '../../environments/api-routes';
+import { APIS } from '../../../environments/api-routes';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { UserData } from './models/auth.models';
+import { UserData } from '../models/auth.models';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,19 +23,25 @@ export class AuthService {
   
   loggedIn$: Observable<boolean> = this.userSource$.asObservable()
   .pipe(
-    map(value => value.username ? true : false)
+    map(value => {
+      const userData: UserData | null = value.username ? value : this.storageService.getValue('userData');
+      console.log("username "  + userData?.username)
+      return userData?.username ? true : false;
+    })
   );
 
   constructor(
+    private router: Router,
     private http: HttpClient,
-    private router: Router
+    private storageService: StorageService,
   ) {
   }
 
   login(userName: string, password: string) {  
     this.http.post<UserData>(APIS.auth.login, {userName, password})
     .subscribe(value => {
-      this.updateData(value)
+      this.updateData(value);
+      this.storageService.setValue('userData', value);
       this.goToDashboard();
       console.log(this.userSource$.value)
     })

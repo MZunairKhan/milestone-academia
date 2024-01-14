@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
