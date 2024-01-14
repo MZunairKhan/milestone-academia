@@ -44,6 +44,7 @@ export class AuthService {
   }
 
   logout() {
+    this.storageService.removeValue(AUTH_CONSTANTS.STORAGE.USER_DATA);
     this.userSource$.next(this.userData);
     this.goToLogout();
   }

@@ -20,5 +20,12 @@ export class StorageService {
       return JSON.parse(data);
     }
     return null;
-  };
+  };  
+
+  removeValue = (key: string) => {
+    const value = localStorage.getItem(key);
+    if (value) {
+      localStorage.removeItem(key);
+    }
+  }
 }
