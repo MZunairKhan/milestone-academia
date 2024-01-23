@@ -1,4 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { PresenceType } from "../enums/presenceType.enum";
 
 export class CreateUserDto {
     @ApiProperty()
@@ -15,4 +16,9 @@ export class CreateUserDto {
     
     @ApiProperty()
     email: string;
+    
+    @ApiPropertyOptional({
+        enum: PresenceType
+    })
+    presenceType: PresenceType;
 }

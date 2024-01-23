@@ -30,6 +30,10 @@ export class UsersService {
     user.createdDate = new Date();
     user.userType = UserType.Student;
     
+    if (createUserDto.presenceType) {
+      user.presenceType = createUserDto.presenceType;
+    }
+    
     const pepper = await this.appConfigService.findByKey('pepper');
     const hash = await bcrypt.hash(createUserDto.password, Number(pepper.value));
     user.pwrd = hash;
