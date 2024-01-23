@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
-import { TimeBasesEntity } from '../../../common/entities/timeBase.entity';
+import { TimeBaseEntity } from '../../../common/entities/timeBase.entity';
 import { Course } from '../../course/entity/course.entity';
 
 @Entity()
-export class Subject extends TimeBasesEntity{
+export class Subject extends TimeBaseEntity{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

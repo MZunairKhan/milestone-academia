@@ -1,6 +1,6 @@
 import { Column } from "typeorm";
 
-export class TimeBasesEntity {
+export class TimeBaseEntity {
 
     @Column({nullable: true})
     createdDate: Date;

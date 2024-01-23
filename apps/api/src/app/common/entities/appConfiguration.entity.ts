@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { TimeBasesEntity } from "./timeBase.entity";
+import { TimeBaseEntity } from "./timeBase.entity";
 
 @Entity()
-export class AppConfiguration extends TimeBasesEntity {
+export class AppConfiguration extends TimeBaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;  
 

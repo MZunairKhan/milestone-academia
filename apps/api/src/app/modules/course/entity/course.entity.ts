@@ -1,12 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column, ManyToOne } from 'typeorm';
 
-import { TimeBasesEntity } from '../../../common/entities/timeBase.entity';
+import { TimeBaseEntity } from '../../../common/entities/timeBase.entity';
 import { Instructor } from '../../instructor/entity/instructor.entity';
 import { Subject } from '../../subject/entity/subject.entity';
 import { CourseType } from '../enums/courseTypes.enum';
 
 @Entity()
-export class Course extends TimeBasesEntity{
+export class Course extends TimeBaseEntity{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

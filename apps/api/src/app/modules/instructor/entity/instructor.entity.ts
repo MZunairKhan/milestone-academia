@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 
 import { User } from '../../user/entity/user.entity';
-import { TimeBasesEntity } from '../../../common/entities/timeBase.entity';
+import { TimeBaseEntity } from '../../../common/entities/timeBase.entity';
 
 @Entity()
-export class Instructor extends TimeBasesEntity{
+export class Instructor extends TimeBaseEntity{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
