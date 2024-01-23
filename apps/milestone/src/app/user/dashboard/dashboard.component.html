@@ -1,6 +1,10 @@
 <div class="dashboard-row">
     <mat-card class="dashboard-header">
-        <h2>Hi User!</h2>
+        <h2>Hi
+            <span *ngIf="(user$ | async) as userData; else default_username">
+              {{userData.userName}} !
+            </span>
+        </h2>
     </mat-card>
 </div>
 
@@ -30,3 +34,6 @@
         </milestone-dashboard-courses>
     </mat-card>
 </div>
+
+
+<ng-template #default_username>User !</ng-template>

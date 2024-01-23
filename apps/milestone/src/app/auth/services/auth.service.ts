@@ -3,26 +3,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
-import { StorageService } from './storage.service';
+import { StorageService } from '../../shared/services/storage.service';
 import { APIS } from '../../../environments/api-routes';
 
-import { UserData } from '../models/auth.models';
 import { AUTH_CONSTANTS } from '../auth.constants';
+import { AuthData } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  userData: UserData = Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_USER_OBJECT);
+  authData: AuthData = Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT);
 
-  userSource$: BehaviorSubject<UserData> = new BehaviorSubject<UserData>(this.userData)
+  authSource$: BehaviorSubject<AuthData> = new BehaviorSubject<AuthData>(this.authData)
   
-  loggedIn$: Observable<boolean> = this.userSource$.asObservable()
+  loggedIn$: Observable<boolean> = this.authSource$.asObservable()
   .pipe(
     map(value => {
-      const userData: UserData | null = 
-        value.username ? value : this.storageService.getValue(AUTH_CONSTANTS.STORAGE.USER_DATA);
+      const userData: AuthData | null = 
+        value.username ? value : this.storageService.getValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
       return userData?.username ? true : false;
     })
   );
@@ -35,26 +35,30 @@ export class AuthService {
   }
 
   login(userName: string, password: string) {  
-    this.http.post<UserData>(APIS.auth.login, {userName, password})
+    this.http.post<AuthData>(APIS.auth.login, {userName, password})
     .subscribe(value => {
       this.updateData(value);
-      this.storageService.setValue(AUTH_CONSTANTS.STORAGE.USER_DATA, value);
+      this.storageService.setValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA, value);
       this.goToDashboard();
     })
   }
 
   logout() {
-    this.storageService.removeValue(AUTH_CONSTANTS.STORAGE.USER_DATA);
-    this.userSource$.next(this.userData);
+    this.storageService.removeValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
+    this.authSource$.next(this.authData);
     this.goToLogout();
   }
   
-  private updateData(value: UserData) {
-    this.userSource$.next(value);
+  private updateData(value: AuthData) {
+    this.authSource$.next(value);
   }
 
   private goToDashboard() {
     this.router.navigate(['user/dashboard']);
+  }
+
+  goToLogin() {
+    this.router.navigate(['auth/login']);
   }
 
   private goToLogout() {

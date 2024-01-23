@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'milestone-academia-logout',
@@ -6,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./logout.component.scss'],
 })
 export class LogoutComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {}
+
+  login() {
+    this.authService.goToLogin()
+  }
 }

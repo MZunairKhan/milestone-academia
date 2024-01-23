@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request as RequestType } from 'express';
+import { InternalAuthData } from './models/internalAuthData.model';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -17,7 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   // method to validate JWT
-  async validate(payload: any) {
+  async validate(payload: any): Promise<InternalAuthData> {
     return { 
       upn: payload.upn,
       userId: payload.sub,

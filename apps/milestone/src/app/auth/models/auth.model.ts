@@ -1,4 +1,4 @@
-export interface UserData {
+export interface AuthData {
     sub: string;
     upn: string;
     userType: string;

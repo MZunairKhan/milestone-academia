@@ -1,7 +1,7 @@
 export const AUTH_CONSTANTS = {
     STORAGE: {
-        USER_DATA: 'userData',
-        DEFAULT_USER_OBJECT: {
+        AUTH_DATA: 'authData',
+        DEFAULT_AUTH_OBJECT: {
             sub: '',
             upn: '',
             userType: '',

@@ -6,7 +6,10 @@
     <span>Milestone Academia</span>
   </div>
 
-  <div>
+  <div class="milestone-navbar-user">
+    <span *ngIf="(auth$ | async) as authData">
+      {{authData.username}}
+    </span>
     <button *ngIf="loggedIn$ | async" mat-icon-button [matMenuTriggerFor]="menu" color="secondary">
       <mat-icon>person</mat-icon>
     </button>

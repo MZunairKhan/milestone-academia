@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { AuthService } from '../../auth/services/auth.service';
 import { Router } from '@angular/router';
+import { AuthData } from '../../auth/models/auth.model';
 
 @Component({
   selector: 'milestone-academia-navbar',
@@ -10,7 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  user$ = {};
+  auth$: Observable<AuthData> = this.authService.authSource$.asObservable();
+
   loggedIn$: Observable<boolean> = this.authService.loggedIn$;
 
   constructor(
@@ -19,11 +21,7 @@ export class NavbarComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-    this.authService.userSource$.asObservable().subscribe(value => {
-      this.user$ = value;
-    })
-  }
+  ngOnInit(): void {}
 
   @Output() sideButtonClick = new EventEmitter<boolean>();
 
