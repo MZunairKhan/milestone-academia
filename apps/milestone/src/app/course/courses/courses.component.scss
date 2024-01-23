@@ -1,0 +1,21 @@
+.course-list-row {
+    width: 95%;
+    margin: 10px 0px;
+}
+
+.course-list-header {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+        margin-bottom: 0;
+    }
+}
+
+.scrollable {
+    max-height: calc(100% - 80px);
+    overflow: hidden;
+    overflow-y: auto;
+}

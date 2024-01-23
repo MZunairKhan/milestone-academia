@@ -13,6 +13,10 @@ import { ProfileComponent } from './profile/profile.component';
     DashboardCoursesComponent,
     ProfileComponent,
   ],
-  imports: [CommonModule, SharedModule, UserRoutingModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    UserRoutingModule
+  ],
 })
 export class UserModule {}

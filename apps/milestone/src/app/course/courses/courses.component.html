@@ -1,0 +1,31 @@
+<div class="course-list-row">
+    <mat-card class="course-list-header">
+        <h2>Courses</h2>
+
+        <mat-button-toggle-group #group="matButtonToggleGroup" value="1">
+            <mat-button-toggle value="1" aria-label="List" (change)="buttonToggled($event.value)">
+              <mat-icon>view_list</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="2" aria-label="Grid" (change)="buttonToggled($event.value)">
+              <mat-icon>view_module</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </mat-card>
+</div>
+
+<div class="course-list-row scrollable">
+
+    <mat-grid-list [cols]="columns" gutterSize="12px" rowHeight="200px">
+        <mat-grid-tile
+            *ngFor="let tile of tiles"
+            [colspan]="tile.cols"
+            [rowspan]="tile.rows">
+
+            <div style="width: 100%; height: 100%; display: flex; justify-content: center;">
+                <mat-card style="width: 100%; height: 80%;">
+                    {{tile.text}}
+                </mat-card>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
