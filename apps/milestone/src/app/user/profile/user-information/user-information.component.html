@@ -1,0 +1,58 @@
+<form class="milestone-user-info" [formGroup]="userDataForm">
+
+    <div class="user-info-row">
+        <mat-form-field appearance="fill" style="width: 45%;">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" placeholder="John">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" style="width: 45%;">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" placeholder="Smith">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+    
+    <div class="user-info-row">
+        <mat-label>E-mail:</mat-label>
+        <mat-form-field appearance="fill" style="width: 70%;">
+            <input matInput formControlName="firstName" placeholder="John">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+    
+    <div class="user-info-row">
+        <mat-label>User Name:</mat-label>
+        <mat-form-field appearance="fill" style="width: 70%;">
+            <input matInput formControlName="lastName" placeholder="Smith">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+    
+    <div class="user-info-row">
+        <mat-form-field appearance="fill" style="width: 45%;">
+            <mat-label>User Type</mat-label>
+            <input matInput formControlName="userType">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" style="width: 45%;">
+            <mat-label>Presence</mat-label>
+            <input matInput formControlName="presenceType">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+</form>

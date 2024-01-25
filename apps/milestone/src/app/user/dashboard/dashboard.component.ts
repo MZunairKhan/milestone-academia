@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
 
-  user$: Observable<UserData> = this.userService.userSource$.asObservable();
+  user$: Observable<UserData> = this.userService.userData$;
 
   constructor(
     private userService: UserService
@@ -21,5 +21,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUserData()
+    .subscribe((userData: UserData) => {
+      console.log("userData", userData)
+    });
   }
 }

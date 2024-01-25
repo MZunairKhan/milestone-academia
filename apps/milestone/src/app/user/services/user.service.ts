@@ -1,19 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { APIS } from 'apps/milestone/src/environments/api-routes';
-import { StorageService } from '../../shared/services/storage.service';
-import { USER_CONSTANTS } from '../constants/user.constants';
+
 import { UserData } from '../models/user.model';
-import { BehaviorSubject } from 'rxjs';
+import { USER_CONSTANTS } from '../constants/user.constants';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  userData: UserData = Object.create(USER_CONSTANTS.DEFAULT_USER_OBJECT);
+  userSource$: BehaviorSubject<UserData> = new BehaviorSubject<UserData>(
+    Object.create(USER_CONSTANTS.DEFAULT_USER_OBJECT)
+  );
 
-  userSource$: BehaviorSubject<UserData> = new BehaviorSubject<UserData>(this.userData)
+  userData$: Observable<UserData> = this.userSource$.asObservable()
+  .pipe(
+    map((value: UserData) => {
+      const userData: UserData = 
+        value?.userName ? value : this.storageService.getValue(USER_CONSTANTS.USER_DATA);
+      return userData;
+    })
+  );
+
+  isStudent$: Observable<boolean> = this.userSource$.asObservable()
+  .pipe(
+    map((value: UserData) => {
+      const userData: UserData = 
+        value?.userName ? value : this.storageService.getValue(USER_CONSTANTS.USER_DATA);
+      return userData.userType === 'Student';
+    })
+  );
   
   constructor(
     private http: HttpClient,
@@ -21,14 +40,14 @@ export class UserService {
   ) { }
 
   getUserData() {
-    this.http.get<UserData>(APIS.users.getUserData)
-      .subscribe((userData: UserData) => {
-        this.storageService.setValue(USER_CONSTANTS.USER_DATA, userData);
-        this.updateData(userData);
-      });
+    return this.http.get<UserData>(APIS.users.getUserData)
+      .pipe(
+        tap((value: UserData) => this.updateUserData(value))
+      )
   }
 
-  private updateData(value: UserData) {
+  private updateUserData(value: UserData) {
+    this.storageService.setValue(USER_CONSTANTS.USER_DATA, value);
     this.userSource$.next(value);
   }
 }
