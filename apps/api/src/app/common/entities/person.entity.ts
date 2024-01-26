@@ -4,11 +4,29 @@ import { TimeBaseEntity } from "./timeBase.entity";
 export class PersonEntity extends TimeBaseEntity  {
 
     @Column({nullable: true})
-    address: string;
+    personalIdentification: string;
 
     @Column({nullable: true})
-    guardian: string;
+    addressLine1: string;
+    
+    @Column({nullable: true})
+    addressLine2: string;
+    
+    @Column({nullable: true})
+    postalCode: string;
+    
+    @Column({nullable: true})
+    city: string;
+    
+    @Column({nullable: true})
+    country: string;
 
     @Column({nullable: true})
-    phone: string;
+    guardianName: string;
+
+    @Column({nullable: true})
+    guardianIdentification: string;
+
+    @Column({nullable: true})
+    phoneNumber: string;
 }

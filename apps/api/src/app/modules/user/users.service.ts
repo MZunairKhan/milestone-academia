@@ -3,13 +3,13 @@ import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { StudentsService } from '../student/student.service';
+import { StudentsService } from './extended-users/student/student.service';
 import { AppConfigurationService } from '../../common/appConfiguration.service';
-import { UserType } from './enums/userType.enum';
+import { InstructorService } from './extended-users/instructor/instructor.service';
 
 import { User } from './entity/user.entity';
+import { UserType } from './enums/userType.enum';
 import { CreateUserDto } from './dto/create-user.dto';
-import { InstructorService } from '../instructor/instructor.service';
 
 @Injectable()
 export class UsersService {
@@ -21,7 +21,7 @@ export class UsersService {
     private readonly instructorService: InstructorService
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto, userType?: UserType): Promise<User> {
     const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
@@ -40,7 +40,11 @@ export class UsersService {
 
     const createdUser = await this.createUser(user);
 
-    await this.createAssociatedEntity(createdUser, UserType.Student);
+    if (userType) {
+      if (userType === UserType.Student) {
+        await this.createAssociatedEntity(createdUser, UserType.Student);
+      }
+    }
 
     return createdUser;
   }

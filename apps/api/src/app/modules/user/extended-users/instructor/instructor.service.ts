@@ -2,8 +2,9 @@ import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { User } from '../user/entity/user.entity';
+import { User } from '../../entity/user.entity';
 import { Instructor } from './entity/instructor.entity';
+import { ReadInstructorDto } from './dto/read-instructor.dto';
 
 @Injectable()
 export class InstructorService {
@@ -27,7 +28,25 @@ export class InstructorService {
     return this.instructorsRepository.findOneBy({ id: id });
   }
 
+  findOneByUser(user: User): Promise<Instructor> {
+    return this.instructorsRepository.findOne({ where: {user: user}, relations: ['user']})
+  }
+
+  findOneByUsername(userName: string): Promise<Instructor> {
+    return this.instructorsRepository.findOne({ where: {user: { userName : userName} }, relations: ['user']})
+  }
+
   async remove(id: string): Promise<void> {
     await this.instructorsRepository.delete(id);
+  }
+
+  mapToDto(student: Instructor): ReadInstructorDto {
+    const { id, personalIdentification, addressLine1, addressLine2, postalCode, city,
+      country, guardianName, guardianIdentification, phoneNumber
+    } = student;
+
+    return { id, personalIdentification, addressLine1, addressLine2, postalCode, city,
+      country, guardianName, guardianIdentification, phoneNumber
+    } as ReadInstructorDto;
   }
 }

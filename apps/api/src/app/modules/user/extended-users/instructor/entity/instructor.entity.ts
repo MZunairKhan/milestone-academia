@@ -1,10 +1,10 @@
+import { PersonEntity } from 'apps/api/src/app/common/entities/person.entity';
 import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { User } from '../../../entity/user.entity';
 
-import { User } from '../../user/entity/user.entity';
-import { PersonEntity } from '../../../common/entities/person.entity';
 
 @Entity()
-export class Student extends PersonEntity{
+export class Instructor extends PersonEntity{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

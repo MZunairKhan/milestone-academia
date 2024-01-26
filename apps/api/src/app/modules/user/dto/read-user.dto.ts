@@ -1,8 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { PresenceType } from "../enums/presenceType.enum";
-import { UserType } from "../enums/userType.enum";
 
-export class RetrieveUserDto {
+import { UserType } from "../enums/userType.enum";
+import { PresenceType } from "../enums/presenceType.enum";
+
+import { ReadStudentDto } from "../extended-users/student/dto/read-student.dto";
+import { ReadInstructorDto } from "../extended-users/instructor/dto/read-instructor.dto";
+
+export class ReadUserDto {
     @ApiProperty()
     userId: string;
 
@@ -27,4 +31,10 @@ export class RetrieveUserDto {
         enum: PresenceType
     })
     presenceType: PresenceType;
+
+    @ApiPropertyOptional()
+    studentData?: ReadStudentDto;
+    
+    @ApiPropertyOptional()
+    instructorData?: ReadInstructorDto;
 }
