@@ -5,7 +5,9 @@
         ></milestone-academia-user-information>
     </mat-tab>
     <mat-tab label="Student Information" *ngIf="student$ | async">
-        <milestone-academia-student-information></milestone-academia-student-information>
+        <milestone-academia-student-information
+            [studentData]="studentData$ | async"
+        ></milestone-academia-student-information>
     </mat-tab>
     <mat-tab label="Teacher Information" *ngIf="!(student$ | async)">
         <milestone-academia-teacher-information></milestone-academia-teacher-information>

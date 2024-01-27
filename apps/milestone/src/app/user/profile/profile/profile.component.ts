@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { UserData } from '../../models/user.model';
+import { StudentData, UserData } from '../../models/user.model';
 
 import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
 
   user$: Observable<UserData> = this.userService.userData$;
   student$: Observable<boolean> = this.userService.isStudent$;
+  studentData$: Observable<StudentData> = this.userService.studentData$;
 
   userData: UserData = {
     userId: '',

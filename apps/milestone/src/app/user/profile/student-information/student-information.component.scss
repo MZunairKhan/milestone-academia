@@ -1,0 +1,18 @@
+.milestone-student-info {
+    width: 90%;
+    overflow: hidden;
+    overflow-y: auto;
+    margin: 10px auto;
+}
+
+.student-info-row {
+    width: 70%;
+    display: flex;
+    margin: 10px auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.student-info-divider {
+    margin: 10px 0px;
+}

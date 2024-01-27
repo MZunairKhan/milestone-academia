@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { APIS } from 'apps/milestone/src/environments/api-routes';
 
-import { UserData } from '../models/user.model';
+import { StudentData, UserData } from '../models/user.model';
 import { USER_CONSTANTS } from '../constants/user.constants';
 import { StorageService } from '../../shared/services/storage.service';
 
@@ -22,6 +22,15 @@ export class UserService {
       const userData: UserData = 
         value?.userName ? value : this.storageService.getValue(USER_CONSTANTS.USER_DATA);
       return userData;
+    })
+  );
+
+  studentData$: Observable<StudentData> = this.userSource$.asObservable()
+  .pipe(
+    map((value: UserData) => {
+      const userData: UserData = 
+        value?.userName ? value : this.storageService.getValue(USER_CONSTANTS.USER_DATA);
+      return userData.userType === 'Student' ? userData.studentData : {};
     })
   );
 
