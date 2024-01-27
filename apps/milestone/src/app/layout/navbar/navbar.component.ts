@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
   }
 
-  goToProfile() {
-    this.router.navigate(['user/profile']);
+  goToRoute(route: string) {
+    this.router.navigate([route]);
   }
 }
