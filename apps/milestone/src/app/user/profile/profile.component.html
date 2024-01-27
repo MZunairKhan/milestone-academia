@@ -1,15 +1,16 @@
 <mat-tab-group mat-align-tabs="start" color="warn" class="profile-tabs">
     <mat-tab label="User">
-        <milestone-academia-user-information
+        <milestone-academia-user-details
             [userData]="user$ | async"
-        ></milestone-academia-user-information>
+            [parentForm]="userDataForm"
+        ></milestone-academia-user-details>
     </mat-tab>
     <mat-tab label="Student Information" *ngIf="student$ | async">
-        <milestone-academia-student-information
-            [studentData]="studentData$ | async"
-        ></milestone-academia-student-information>
+        <milestone-academia-personal-details
+            [parentForm]="studentDataForm"
+            [personalData]="studentData$ | async"
+        ></milestone-academia-personal-details>
     </mat-tab>
     <mat-tab label="Teacher Information" *ngIf="!(student$ | async)">
-        <milestone-academia-teacher-information></milestone-academia-teacher-information>
     </mat-tab>
 </mat-tab-group>
