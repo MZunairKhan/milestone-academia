@@ -87,4 +87,15 @@ export class UsersService {
 
     return associatedEntity
   }
+
+  mapToDto(user: User) {
+    return {
+      email: user.email,
+      userName: user.userName,
+      lastName: user.lastName,
+      firstName: user.firstName,
+      userType: user.userType,
+      presenceType: user.presenceType
+    };
+  }
 }

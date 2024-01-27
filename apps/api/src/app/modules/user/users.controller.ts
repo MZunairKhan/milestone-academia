@@ -34,14 +34,7 @@ export class UsersController {
       throw new HttpException(`Had an issue creating user ${createUserDto.userName}`, HttpStatus.BAD_REQUEST);
     }
 
-    return {
-      email: user.email,
-      userName: user.userName,
-      lastName: user.lastName,
-      firstName: user.firstName,
-      userType: user.userType,
-      presenceType: user.presenceType
-    };
+    return this.usersService.mapToDto(user);
   }
 
   @Post('create-student')
@@ -86,8 +79,9 @@ export class UsersController {
   }
 
   @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  async findAll(): Promise<Partial<User>[]> {
+    const users: User[] = await this.usersService.findAll();
+    return users.map(user => this.usersService.mapToDto(user));
   }
 
   @Get(':id')
