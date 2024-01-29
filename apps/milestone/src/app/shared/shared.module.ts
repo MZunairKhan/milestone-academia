@@ -7,7 +7,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { PersonalDetailsComponent } from './components/personal-details/personal-details.component';
 import { AddressDetailsComponent } from './components/address-details/address-details.component';
-
+import { DynamicDialogModule } from './modules/dialog/dialog.module';
 
 
 @NgModule({
@@ -22,11 +22,13 @@ import { AddressDetailsComponent } from './components/address-details/address-de
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    DynamicDialogModule
   ],
   exports: [
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
+    DynamicDialogModule,
     NotFoundComponent,
     UserDetailsComponent,
     AddressDetailsComponent,

@@ -20,7 +20,7 @@ export class PersonalDetailsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const personalData = changes['personalData'];
     
-    if (JSON.stringify(personalData.currentValue) !== JSON.stringify(personalData.previousValue)) {
+    if (JSON.stringify(personalData?.currentValue) !== JSON.stringify(personalData?.previousValue)) {
       this.initForm();
     }
   }

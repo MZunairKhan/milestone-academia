@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -6,13 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss'],
 })
-export class AddUserComponent implements OnInit {
-  
-  constructor(
-    private formBuilder: FormBuilder
-  ) {}
-
-  ngOnInit(): void {}
+export class AddUserComponent implements OnChanges {
 
   userDataForm = this.formBuilder.group({
     firstName: ['', [Validators.required]],
@@ -37,4 +31,12 @@ export class AddUserComponent implements OnInit {
     city: ['', [Validators.required]],
     country: ['', [Validators.required]],
   });
+  
+  constructor(
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
 }

@@ -1,6 +1,7 @@
-import { ComponentType } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.component';
+import { DynamicDialogInput } from './models/dynamicDialogInput.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class DialogService {
     public dialog: MatDialog
   ) { }
 
-  openDialog(component: ComponentType<any>, data: any) {
-    const dialog_ref = this.dialog.open(component, {
+  openDialog(data: DynamicDialogInput) {
+    const dialog_ref = this.dialog.open(DynamicDialogComponent, {
       autoFocus: true,
       // backdropClass: 'cdk-overlay-transparent-backdrop',
       closeOnNavigation: true,
@@ -21,7 +22,6 @@ export class DialogService {
       // height: height,
       // width: width,
       data: data,
-
     });
     return dialog_ref;
   }

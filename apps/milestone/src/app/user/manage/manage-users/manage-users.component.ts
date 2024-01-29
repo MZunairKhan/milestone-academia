@@ -31,7 +31,6 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     private dialogService: DialogService,
     private manageUserService: ManageUserService,
   ) {
-    // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource();
   }
 
@@ -57,8 +56,12 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   }
 
   openAddUserDialog() {
-    const dialog_ref = this.dialogService.openDialog(AddUserComponent, {});
-
-    dialog_ref.afterClosed().subscribe(data => console.log(data));
+    this.dialogService
+      .openDialog({
+        title: 'Add a User',
+        component: AddUserComponent
+      })
+      .afterClosed()
+      .subscribe(data => console.log(data));
   }
 }
