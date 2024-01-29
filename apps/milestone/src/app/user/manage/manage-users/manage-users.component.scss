@@ -21,6 +21,12 @@ h3 {
     margin: 10px auto;
 }
 
+.manage-user-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .manage-users-table-div {
     width: 100%;
     overflow: hidden;

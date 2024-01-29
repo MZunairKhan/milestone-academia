@@ -20,8 +20,10 @@ export class UserDetailsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const userData = changes['userData'];
     
-    if (JSON.stringify(userData.currentValue) !== JSON.stringify(userData.previousValue)) {
-      this.initForm();
+    if (userData) {
+      if (JSON.stringify(userData.currentValue) !== JSON.stringify(userData.previousValue)) {
+        this.initForm();
+      }
     }
   }
 

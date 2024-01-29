@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { PersonalDetailsComponent } from './components/personal-details/personal-details.component';
+import { AddressDetailsComponent } from './components/address-details/address-details.component';
 
 
 
@@ -13,6 +14,7 @@ import { PersonalDetailsComponent } from './components/personal-details/personal
   declarations: [
     NotFoundComponent,
     UserDetailsComponent,
+    AddressDetailsComponent,
     PersonalDetailsComponent
   ],
   imports: [
@@ -27,6 +29,7 @@ import { PersonalDetailsComponent } from './components/personal-details/personal
     ReactiveFormsModule,
     NotFoundComponent,
     UserDetailsComponent,
+    AddressDetailsComponent,
     PersonalDetailsComponent
   ]
 })

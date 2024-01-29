@@ -1,0 +1,52 @@
+<form class="milestone-student-info" [formGroup]="parentForm">
+
+    <mat-label>
+        <h3>Address Information :</h3>
+    </mat-label>
+    
+    <div class="student-info-row">
+        <mat-label>Address Line 1</mat-label>
+        <mat-form-field appearance="fill" style="width: 70%;">
+            <input matInput formControlName="addressLine1">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+    
+    <div class="student-info-row">
+        <mat-label>Address Line 2</mat-label>
+        <mat-form-field appearance="fill" style="width: 70%;">
+            <input matInput formControlName="addressLine2">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+
+    <div class="student-info-row">
+        <mat-form-field appearance="fill" style="width: 30%;">
+            <mat-label>Postal Code</mat-label>
+            <input matInput formControlName="postalCode">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" style="width: 30%;">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" style="width: 30%;">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+</form>

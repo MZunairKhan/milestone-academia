@@ -1,0 +1,49 @@
+<mat-stepper linear #stepper>
+
+    <mat-step [stepControl]="userDataForm" editable="true">
+        <form [formGroup]="userDataForm">
+            <ng-template matStepLabel>User Information</ng-template>
+            <milestone-academia-user-details
+                [parentForm]="userDataForm"
+            ></milestone-academia-user-details>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form>    
+    </mat-step>
+
+    <mat-step [stepControl]="personalDataForm" editable="true">
+      <form [formGroup]="personalDataForm">
+        <ng-template matStepLabel>Personal Information</ng-template>
+        <milestone-academia-personal-details
+            [parentForm]="personalDataForm"
+        ></milestone-academia-personal-details>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="addressDataForm" editable="true">
+      <form [formGroup]="addressDataForm">
+        <ng-template matStepLabel>Personal Information</ng-template>
+          <milestone-academia-address-details
+            [parentForm]="addressDataForm"
+          ></milestone-academia-address-details>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+      </div>
+    </mat-step>
+
+</mat-stepper>

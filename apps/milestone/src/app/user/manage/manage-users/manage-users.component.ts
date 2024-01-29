@@ -1,11 +1,14 @@
 import { Observable } from 'rxjs';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+
 import { ManageUserService } from '../../services/manage-user.service';
+import { DialogService } from '../../../shared/modules/dialog/dialog-service.service';
 
 import { UserData } from '../../models/user.model';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { AddUserComponent } from '../add-user/add-user.component';
 
 @Component({
   selector: 'milestone-academia-manage-users',
@@ -25,7 +28,8 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   userList$: Observable<UserData[]> = this.manageUserService.userListSource$;
 
   constructor(
-    private manageUserService: ManageUserService
+    private dialogService: DialogService,
+    private manageUserService: ManageUserService,
   ) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource();
@@ -50,5 +54,11 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openAddUserDialog() {
+    const dialog_ref = this.dialogService.openDialog(AddUserComponent, {});
+
+    dialog_ref.afterClosed().subscribe(data => console.log(data));
   }
 }

@@ -1,8 +1,15 @@
 <mat-card class="manage-users-card">
 
-    <mat-label>
-        <h3>All User</h3>
-    </mat-label>
+    <div class="manage-user-row">
+      <mat-label>
+          <h3>All User</h3>
+      </mat-label>
+
+      <button mat-raised-button color="warn" (click)="openAddUserDialog()">
+        <mat-icon>person_add</mat-icon>
+        Add New User
+      </button>
+    </div>
     
     <mat-form-field appearance="standard">
         <mat-label>Filter</mat-label>

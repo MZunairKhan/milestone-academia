@@ -9,8 +9,9 @@ import { StudentData } from '../../../user/models/user.model';
 })
 export class PersonalDetailsComponent implements OnInit, OnChanges {
 
-  @Input() personalData: StudentData | null = null;
   @Input() parentForm: FormGroup;
+  @Input() addressEnabled: boolean = false;
+  @Input() personalData: StudentData | null = null;
 
   constructor() {}
 
@@ -28,11 +29,11 @@ export class PersonalDetailsComponent implements OnInit, OnChanges {
 
   initForm() {
     this.updateValue('personalIdentification', this.personalData?.personalIdentification ?? '');
-    this.updateValue('addressLine1', this.personalData?.addressLine1 ?? '');
-    this.updateValue('addressLine2', this.personalData?.addressLine2 ?? '');
-    this.updateValue('postalCode', this.personalData?.postalCode ?? '');
-    this.updateValue('city', this.personalData?.city ?? '');
-    this.updateValue('country', this.personalData?.country ?? '');
+    // this.updateValue('addressLine1', this.personalData?.addressLine1 ?? '');
+    // this.updateValue('addressLine2', this.personalData?.addressLine2 ?? '');
+    // this.updateValue('postalCode', this.personalData?.postalCode ?? '');
+    // this.updateValue('city', this.personalData?.city ?? '');
+    // this.updateValue('country', this.personalData?.country ?? '');
     this.updateValue('guardianName', this.personalData?.guardianName ?? '');
     this.updateValue('guardianIdentification', this.personalData?.guardianIdentification ?? '');
     this.updateValue('phoneNumber', this.personalData?.phoneNumber ?? '');
