@@ -4,15 +4,15 @@ table {
   
 .mat-form-field {
     font-size: 14px;
-    width: 100%;
+    width: 30%;
 }
 
 td, th {
-    width: 25%;
+    width: 15%;
 }
 
 h3 {
-    margin: 0;
+    // margin: 0;
 }
 
 .manage-users-card {
@@ -31,5 +31,5 @@ h3 {
     width: 100%;
     overflow: hidden;
     overflow-y: auto;
-    height: calc(100% - 148px);
+    height: calc(100% - 180px);
 }

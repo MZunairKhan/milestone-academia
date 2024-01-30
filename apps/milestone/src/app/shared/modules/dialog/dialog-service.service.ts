@@ -19,7 +19,7 @@ export class DialogService {
       closeOnNavigation: true,
       disableClose: false,
       hasBackdrop: true,
-      // height: height,
+      height: '90vh',
       // width: width,
       data: data,
     });

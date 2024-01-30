@@ -56,9 +56,9 @@ export class UsersController {
     return this.studentsService.mapToDto(student);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiOkResponse({ description: 'User Data', type: ReadUserDto })
   @Get('userData')
+  @ApiOkResponse({ description: 'User Data', type: ReadUserDto })
+  @UseGuards(JwtAuthGuard)
   async findOne(@Req() request): Promise<ReadUserDto> {
     const user = await this.usersService.findOne(request.user['userId']);
 
@@ -79,9 +79,12 @@ export class UsersController {
   }
 
   @Get()
-  async findAll(): Promise<Partial<User>[]> {
+  @UseGuards(JwtAuthGuard)
+  async findAll(@Req() request): Promise<Partial<User>[]> {
     const users: User[] = await this.usersService.findAll();
-    return users.map(user => this.usersService.mapToDto(user));
+    return users
+    .filter(user => user.email !== request?.user?.upn)
+    .map(user => this.usersService.mapToDto(user));
   }
 
   @Get(':id')

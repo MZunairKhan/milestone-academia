@@ -1,9 +1,10 @@
-import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
+import { UserService } from '../../services/user.service';
 import { ManageUserService } from '../../services/manage-user.service';
 import { DialogService } from '../../../shared/modules/dialog/dialog-service.service';
 
@@ -19,15 +20,25 @@ import { AddUserComponent } from '../add-user/add-user.component';
   }
 })
 export class ManageUsersComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'username', 'email', 'presence'];
+  displayedColumns = [
+    'name',
+    'username',
+    'email',
+    'type',
+    'presence',
+    'action'
+  ];
+
   dataSource: MatTableDataSource<UserData>;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  userList$: Observable<UserData[]> = this.manageUserService.userListSource$;
+  userFilter = new FormControl('');
+  userFilterOptions = ['Student', 'Instructor', 'Master', 'Staff'];
 
   constructor(
+    private userService: UserService,
     private dialogService: DialogService,
     private manageUserService: ManageUserService,
   ) {
@@ -42,7 +53,7 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
 
     this.manageUserService.getUserList().subscribe((list: UserData[]) => {
       console.log(list);
-      this.dataSource = new MatTableDataSource(list);
+      this.dataSource = new MatTableDataSource(list.filter(u => u.email !== this.userService.currentUser.email));
     });
   }
 
@@ -63,5 +74,13 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
       })
       .afterClosed()
       .subscribe(data => console.log(data));
+  }
+
+  userInfo(id: string) {
+    console.log(id);
+  }
+
+  deleteUser(id: string) {
+    console.log(id);
   }
 }

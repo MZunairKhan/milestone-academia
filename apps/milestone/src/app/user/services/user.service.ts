@@ -20,7 +20,7 @@ export class UserService {
   .pipe(
     map((value: UserData) => {
       const userData: UserData = 
-        value?.userName ? value : this.storageService.getValue(USER_CONSTANTS.USER_DATA);
+        value?.userName ? value : this.storedUserData;
       return userData;
     })
   );
@@ -29,7 +29,7 @@ export class UserService {
   .pipe(
     map((value: UserData) => {
       const userData: UserData = 
-        value?.userName ? value : this.storageService.getValue(USER_CONSTANTS.USER_DATA);
+        value?.userName ? value : this.storedUserData;
       return userData.userType === 'Student' ? userData.studentData : {};
     })
   );
@@ -38,7 +38,7 @@ export class UserService {
   .pipe(
     map((value: UserData) => {
       const userData: UserData = 
-        value?.userName ? value : this.storageService.getValue(USER_CONSTANTS.USER_DATA);
+        value?.userName ? value : this.storedUserData;
       return userData.userType === 'Student';
     })
   );
@@ -47,6 +47,19 @@ export class UserService {
     private http: HttpClient,
     private storageService: StorageService,
   ) { }
+
+  get storedUserData() {
+    return this.storageService.getValue(USER_CONSTANTS.USER_DATA);
+  }
+
+  get currentUser() {
+    if (this.userSource$.value.email) {
+      return this.userSource$.value;
+    }
+
+    this.userSource$.next(this.storedUserData);
+    return this.storedUserData;
+  }
 
   getUserData() {
     return this.http.get<UserData>(APIS.users.getUserData)

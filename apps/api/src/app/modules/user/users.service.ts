@@ -90,6 +90,7 @@ export class UsersService {
 
   mapToDto(user: User) {
     return {
+      userId: user.id,
       email: user.email,
       userName: user.userName,
       lastName: user.lastName,
