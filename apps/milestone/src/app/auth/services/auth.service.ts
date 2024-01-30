@@ -14,16 +14,25 @@ import { AuthData } from '../models/auth.model';
 })
 export class AuthService {
 
-  authData: AuthData = Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT);
+  authSource$: BehaviorSubject<AuthData> = new BehaviorSubject<AuthData>(
+    Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT)
+  );
 
-  authSource$: BehaviorSubject<AuthData> = new BehaviorSubject<AuthData>(this.authData)
+  authData$: Observable<AuthData> = this.authSource$.asObservable()
+  .pipe(
+    map((value: AuthData) => {
+      const userData: AuthData = 
+        value?.upn ? value : this.storageService.getValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
+      return userData;
+    })
+  );
   
   loggedIn$: Observable<boolean> = this.authSource$.asObservable()
   .pipe(
     map(value => {
       const userData: AuthData | null = 
-        value.username ? value : this.storageService.getValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
-      return userData?.username ? true : false;
+        value.upn ? value : this.storageService.getValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
+      return userData?.upn ? true : false;
     })
   );
 
@@ -39,29 +48,21 @@ export class AuthService {
     .subscribe(value => {
       this.updateData(value);
       this.storageService.setValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA, value);
-      this.goToDashboard();
+      this.routeTo('user/dashboard');
     })
   }
 
   logout() {
     this.storageService.removeValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
-    this.authSource$.next(this.authData);
-    this.goToLogout();
+    this.authSource$.next(Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT));
+    this.routeTo('auth/logout');
   }
   
   private updateData(value: AuthData) {
     this.authSource$.next(value);
   }
 
-  private goToDashboard() {
-    this.router.navigate(['user/dashboard']);
-  }
-
-  goToLogin() {
-    this.router.navigate(['auth/login']);
-  }
-
-  private goToLogout() {
-    this.router.navigate(['auth/logout']);
+  routeTo(route: string) {
+    this.router.navigate([route]);
   }
 }

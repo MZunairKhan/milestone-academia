@@ -11,7 +11,7 @@ import { AuthData } from '../../auth/models/auth.model';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  auth$: Observable<AuthData> = this.authService.authSource$.asObservable();
+  auth$: Observable<AuthData> = this.authService.authData$;
 
   loggedIn$: Observable<boolean> = this.authService.loggedIn$;
 
