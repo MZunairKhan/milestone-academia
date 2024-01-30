@@ -10,6 +10,7 @@ import { DialogService } from '../../../shared/modules/dialog/dialog-service.ser
 
 import { UserData } from '../../models/user.model';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { UserInfoComponent } from '../user-info/user-info.component';
 
 @Component({
   selector: 'milestone-academia-manage-users',
@@ -66,21 +67,41 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     }
   }
 
+  userInfo(id: string) {
+    this.userService.getUserDataById(id)
+    .subscribe(value => {
+      this.openInfoDialog(value);
+    });
+  }
+
+  deleteUser(id: string) {
+    console.log(id);
+  }
+
   openAddUserDialog() {
     this.dialogService
       .openDialog({
         title: 'Add a User',
         component: AddUserComponent
+      }, {
+        hasBackdrop: true
       })
       .afterClosed()
       .subscribe(data => console.log(data));
   }
 
-  userInfo(id: string) {
-    console.log(id);
-  }
-
-  deleteUser(id: string) {
-    console.log(id);
+  private openInfoDialog(data: UserData) {
+    this.dialogService
+      .openDialog({
+        title: 'User Info',
+        component: UserInfoComponent,
+        componentData: {userData: data}
+      }, {
+        hasBackdrop: true,
+        width: '60vw',
+        height: '85vh'
+      })
+      .afterClosed()
+      .subscribe(data => console.log(data));
   }
 }

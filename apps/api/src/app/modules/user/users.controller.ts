@@ -88,8 +88,11 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOneById(@Param('id', ParseIntPipe) id: string): Promise<User> {
-    return this.usersService.findOne(id);
+  async findOneById(id: string): Promise<ReadUserDto> {
+    const user = await this.usersService.findOne(id);
+    const dto = this.usersService.mapToDto(user);
+    await this.addExtendedUserData(dto, user);
+    return dto;
   }
 
   @Delete(':id')

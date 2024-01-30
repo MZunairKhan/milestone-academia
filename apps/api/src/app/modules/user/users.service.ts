@@ -10,6 +10,8 @@ import { InstructorService } from './extended-users/instructor/instructor.servic
 import { User } from './entity/user.entity';
 import { UserType } from './enums/userType.enum';
 import { CreateUserDto } from './dto/create-user.dto';
+import { ReadUserDto } from './dto/read-user.dto';
+import { PresenceType } from './enums/presenceType.enum';
 
 @Injectable()
 export class UsersService {
@@ -88,15 +90,15 @@ export class UsersService {
     return associatedEntity
   }
 
-  mapToDto(user: User) {
+  mapToDto(user: User): ReadUserDto {
     return {
       userId: user.id,
       email: user.email,
       userName: user.userName,
       lastName: user.lastName,
       firstName: user.firstName,
-      userType: user.userType,
-      presenceType: user.presenceType
+      userType: UserType[user.userType],
+      presenceType: PresenceType[user.presenceType]
     };
   }
 }

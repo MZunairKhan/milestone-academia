@@ -68,6 +68,13 @@ export class UserService {
       )
   }
 
+  getUserDataById(id: string) {
+    return this.http.get<UserData>(APIS.users.getById(id))
+      // .pipe(
+        // tap((value: UserData) => this.updateUserData(value))
+      // )
+  }
+
   private updateUserData(value: UserData) {
     this.storageService.setValue(USER_CONSTANTS.USER_DATA, value);
     this.userSource$.next(value);

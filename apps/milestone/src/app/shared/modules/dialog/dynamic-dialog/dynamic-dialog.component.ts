@@ -26,12 +26,13 @@ export class DynamicDialogComponent implements OnChanges, AfterViewInit {
 
     if (data) {
       if (JSON.stringify(data.currentValue) === JSON.stringify(data.previousValue)) {
-        this.divContainer.createComponent(data.currentValue);
+        this.createChild(data.currentValue);
       }
     }
   }
 
   createChild(data: DynamicDialogInput) {
-    this.divContainer.createComponent(data.component);
+    const compRef = this.divContainer.createComponent(data.component);
+    compRef.instance.data = data.componentData;
   }
 }

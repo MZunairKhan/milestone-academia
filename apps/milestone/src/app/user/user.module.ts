@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManageUsersComponent } from './manage/manage-users/manage-users.component';
 import { DashboardCoursesComponent } from './dashboard-courses/dashboard-courses.component';
 import { AddUserComponent } from './manage/add-user/add-user.component';
+import { UserInfoComponent } from './manage/user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AddUserComponent } from './manage/add-user/add-user.component';
     ManageUsersComponent,
     DashboardCoursesComponent,
     AddUserComponent,
+    UserInfoComponent,
   ],
   imports: [CommonModule, SharedModule, UserRoutingModule],
 })
