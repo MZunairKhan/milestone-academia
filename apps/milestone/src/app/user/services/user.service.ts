@@ -70,9 +70,14 @@ export class UserService {
 
   getUserDataById(id: string) {
     return this.http.get<UserData>(APIS.users.getById(id))
-      // .pipe(
-        // tap((value: UserData) => this.updateUserData(value))
-      // )
+  }
+
+  deleteUserById(id: string) {
+    return this.http.delete(APIS.users.deleteById(id))
+  }
+
+  createStudentUser(data: any) {
+    return this.http.post<UserData>(APIS.users.createStudent, data)
   }
 
   private updateUserData(value: UserData) {

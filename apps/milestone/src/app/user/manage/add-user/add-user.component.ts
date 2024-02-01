@@ -1,12 +1,15 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DialogCloseConfig, DynamicDialogComponent } from '../../../shared/modules/dialog/models/dynamicDialogComponent';
 
 @Component({
   selector: 'milestone-academia-add-user',
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss'],
 })
-export class AddUserComponent implements OnChanges {
+export class AddUserComponent implements OnChanges, DynamicDialogComponent {
+
+  @Output() close = new EventEmitter<DialogCloseConfig>();
 
   userDataForm = this.formBuilder.group({
     firstName: ['', [Validators.required]],
@@ -38,5 +41,16 @@ export class AddUserComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+  }
+
+  submitData() {
+    this.close.next({
+      data: {
+        userData: this.userDataForm.value,
+        personalData: this.personalDataForm.value,
+        addressData: this.addressDataForm.value,
+      },
+      dialogResult: true
+    })
   }
 }

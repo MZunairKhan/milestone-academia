@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, 
-  ParseIntPipe, UseGuards, Req, HttpException, HttpStatus, } from '@nestjs/common';
+  UseGuards, Req, HttpException, HttpStatus, } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from './users.service';

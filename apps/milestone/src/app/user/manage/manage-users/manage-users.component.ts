@@ -2,7 +2,7 @@ import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { UserService } from '../../services/user.service';
 import { ManageUserService } from '../../services/manage-user.service';
@@ -75,33 +75,37 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   }
 
   deleteUser(id: string) {
-    console.log(id);
+    // this.userService.deleteUserById(id)
+    // .subscribe(value => {
+    // });
   }
 
   openAddUserDialog() {
-    this.dialogService
-      .openDialog({
+    this.dialogService.createComponentDialog({
+      componentData: {
         title: 'Add a User',
         component: AddUserComponent
-      }, {
+      },
+      dialogOptions: {
         hasBackdrop: true
-      })
-      .afterClosed()
-      .subscribe(data => console.log(data));
+      },
+      dialogCloseHandler: data => console.log(data),
+    });
   }
 
   private openInfoDialog(data: UserData) {
-    this.dialogService
-      .openDialog({
+    this.dialogService.createComponentDialog({
+      componentData: {
         title: 'User Info',
         component: UserInfoComponent,
         componentData: {userData: data}
-      }, {
+      },
+      dialogOptions: {
         hasBackdrop: true,
         width: '60vw',
         height: '85vh'
-      })
-      .afterClosed()
-      .subscribe(data => console.log(data));
+      },
+      dialogCloseHandler: data => console.log(data),
+    });
   }
 }

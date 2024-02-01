@@ -39,10 +39,10 @@
     </mat-step>
     
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
+      <ng-template matStepLabel>Create User</ng-template>
+      <p>User data has been filled, do you wish to create this user?</p>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperPrevious (click)="submitData()">Create</button>
       </div>
     </mat-step>
 
