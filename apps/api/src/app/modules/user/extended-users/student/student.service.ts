@@ -35,6 +35,10 @@ export class StudentsService {
     return this.studentsRepository.findOne({ where: {user: user}, relations: ['user']})
   }
 
+  findOneByUserId(id: string): Promise<Student> {
+    return this.studentsRepository.findOne({ where: {user: { id : id}}, relations: ['user']})
+  }
+
   findOneByUsername(userName: string) {
     return this.studentsRepository.findOne({ where: {user: { userName : userName} }, relations: ['user']})
   }

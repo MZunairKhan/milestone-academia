@@ -88,7 +88,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async findOneById(id: string): Promise<ReadUserDto> {
+  async findOneById(@Param('id') id: string): Promise<ReadUserDto> {
     const user = await this.usersService.findOne(id);
     const dto = this.usersService.mapToDto(user);
     await this.addExtendedUserData(dto, user);
@@ -116,12 +116,12 @@ export class UsersController {
 
     switch (user.userType) {
       case UserType.Student:
-        const student = await this.studentsService.findOneByUser(user);
+        const student = await this.studentsService.findOneByUserId(user.id);
         dto.studentData = this.studentsService.mapToDto(student);
         break;
     
       case UserType.Instructor:
-        const instructor = await this.instructorsService.findOneByUser(user);
+        const instructor = await this.instructorsService.findOneByUserId(user.id);
         dto.instructorData = this.instructorsService.mapToDto(instructor);
         break;
 
