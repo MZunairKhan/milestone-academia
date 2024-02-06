@@ -36,6 +36,10 @@ export class InstructorService {
     return this.instructorsRepository.findOne({ where: {user: { userName : userName} }, relations: ['user']})
   }
 
+  findOneByUPN(email: string) {
+    return this.instructorsRepository.findOne({ where: {user: { email : email} }, relations: ['user']})
+  }
+
   async remove(id: string): Promise<void> {
     await this.instructorsRepository.delete(id);
   }

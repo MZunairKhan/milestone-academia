@@ -96,8 +96,20 @@ export class UsersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
-    return this.usersService.remove(id);
+  async remove(@Param('id') id: string): Promise<void> {
+    const user = await this.usersService.findOne(id);
+    if (user) {
+      const associatedEntity = await this.usersService.getAssociatedEntity(user);
+      if (associatedEntity) {
+        if (user.userType = UserType.Student) {
+          this.studentsService.remove(associatedEntity.id);
+        }
+        if (user.userType = UserType.Instructor) {
+          this.instructorsService.remove(associatedEntity.id);
+        }
+      }
+      return this.usersService.remove(id);
+    }
   }
 
   private async addExtendedUserData(dto: ReadUserDto, user: User): Promise<void> {

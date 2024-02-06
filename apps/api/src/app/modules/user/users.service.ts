@@ -30,7 +30,7 @@ export class UsersService {
     user.userName = createUserDto.userName;
     user.email = createUserDto.email;
     user.createdDate = new Date();
-    user.userType = UserType.Student;
+    user.userType = userType ?? UserType.Student;
     
     if (createUserDto.presenceType) {
       user.presenceType = createUserDto.presenceType;
@@ -79,7 +79,7 @@ export class UsersService {
         associatedEntity = await this.studentService.create(user);
         break;
     
-      case UserType.Student:
+      case UserType.Instructor:
         associatedEntity = await this.instructorService.create(user);
         break;
         
@@ -87,7 +87,26 @@ export class UsersService {
         break;
     }
 
-    return associatedEntity
+    return associatedEntity;
+  }
+
+  async getAssociatedEntity(user: User) {
+    let associatedEntity: any = null;
+
+    switch (user.userType) {
+      case UserType.Student:
+        associatedEntity = await this.studentService.findOneByUPN(user.email);
+        break;
+    
+      case UserType.Instructor:
+        associatedEntity = await this.instructorService.findOneByUPN(user.email);
+        break;
+        
+      default:
+        break;
+    }
+
+    return associatedEntity;
   }
 
   mapToDto(user: User): ReadUserDto {
