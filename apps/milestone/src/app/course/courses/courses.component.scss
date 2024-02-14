@@ -19,3 +19,38 @@
     overflow: hidden;
     overflow-y: auto;
 }
+
+.courses-list-element {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.course-tile {
+    width: 100%;
+    height: 80%;
+
+    .course-tile-header {
+        h3 {
+            margin: 0;
+        }
+    }
+
+    .course-tile-section {
+        display: flex;
+        height: inherit;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .course-tile-image {
+        width: 125px;
+        height: 125px;
+    }
+
+    .course-tile-details {
+        width: calc(100% - 150px);
+        height: inherit;
+    }
+}
