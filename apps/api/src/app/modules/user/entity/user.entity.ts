@@ -18,7 +18,7 @@ export class User extends TimeBaseEntity{
   @Column()
   userName: string;
 
-  @Column()
+  @Column({ nullable: true })
   pwrd: string;
 
   @Column()
