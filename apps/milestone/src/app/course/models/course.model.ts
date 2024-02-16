@@ -8,6 +8,7 @@ export interface Course {
     title: string;
     subText: string;
     details: string;
+    price: number;
     features?: CourseFeatures[];
     availableBookings?: CourseBooking;
     content?: CourseContent[];
@@ -23,8 +24,8 @@ export interface CourseFeatures {
 export interface CourseBooking {
     days: string[];
     slots: string[];
-    startData: Date;
-    endData: Date;
+    startDate: Date;
+    endDate: Date;
 }
 
 export interface CourseContent {

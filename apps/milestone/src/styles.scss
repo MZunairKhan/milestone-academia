@@ -52,3 +52,17 @@ $milestone-text-color-secondary-dark: #e61005;
     font-weight: bold;
     font-size: 1.5em;
 }
+
+.show-on-mobile {
+    display: none;
+    
+    @media (max-width: 480px) {
+        display: initial;
+    }
+}
+
+.hide-on-mobile {
+    @media (max-width: 480px) {
+        display: none;
+    }
+}

@@ -4,22 +4,24 @@
     
     <div class="course-detail-main">
         <div class="course-detail-body">
-            <div class="back-button-row">
+            <div class="back-button-row hide-on-mobile">
                 <button mat-raised-button color="primary" (click)="goToCourses()">
                     <mat-icon>arrow_back</mat-icon>
                     Course List
                 </button>
             </div>
             
-            <mat-card class="course-detail-section">
-                <h2>{{courseData?.title}}</h2>
-                <p>
-                   {{courseData?.subText}}
-                </p>
-                <p>
-                    this secction is to contain the name of the instructor
-                </p>
-            </mat-card>
+            <div class="hide-on-mobile">
+                <mat-card class="course-detail-section">
+                    <h2>{{courseData?.title}}</h2>
+                    <p>
+                       {{courseData?.subText}}
+                    </p>
+                    <p>
+                        this section is to contain the name of the instructor
+                    </p>
+                </mat-card>
+            </div>
     
             <mat-card class="course-detail-section">
                 <h4>Description</h4>
@@ -48,12 +50,36 @@
         </div>
     
         <mat-card class="course-detail-side">
+            <div class="back-button-row show-on-mobile">
+                <button mat-raised-button color="primary" (click)="goToCourses()">
+                    <mat-icon>arrow_back</mat-icon>
+                    Course List
+                </button>
+            </div>
+            
+            <div class="show-on-mobile">
+                <mat-card class="course-detail-section">
+                    <h2>{{courseData?.title}}</h2>
+                    <p>
+                    {{courseData?.subText}}
+                    </p>
+                    <p>
+                        this section is to contain the name of the instructor
+                    </p>
+                </mat-card>
+            </div>
+            
             <div>
-                <h1>$ 199.00</h1>
+                <h1>$ {{courseData?.price}}.00</h1>
             </div>
             <div>
                 <h4>Course Duration</h4>
-                <h2>15th February 2024  -  25th May 2024</h2>
+                
+                <div class="course-detail-duration">
+                    <h2>{{courseData?.availableBookings?.startDate | date }}</h2>
+                    <h2> - </h2>
+                    <h2>{{courseData?.availableBookings?.endDate | date }}</h2>
+                </div>
 
                 <div class="slot-select-div">
                     <mat-form-field appearance="fill" class="slot-select">

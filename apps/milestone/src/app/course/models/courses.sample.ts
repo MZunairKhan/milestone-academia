@@ -49,8 +49,8 @@ const booking: CourseBooking = {
     "8 pm - 9 pm",
     "9 pm - 10 pm"
   ],
-  startData: new Date('15-02-2024'),
-  endData: new Date('15-05-2024'),
+  startDate: new Date('02-12-2024'),
+  endDate: new Date('05-15-2024'),
 }
 
 const courseContent: CourseContent[] = [
@@ -61,12 +61,12 @@ const courseContent: CourseContent[] = [
 ]
 
 export const sampleCourses: Course[] = [
-    {id: '1', title: 'One', cols: 1, rows: 1, subText, availableBookings: booking , color: 'lightblue', details: sampleText, features: features, content: courseContent},
-    {id: '2', title: 'Two', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightgreen', details: sampleTextV2, features: features, content: courseContent},
-    {id: '3', title: 'Three', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightpink', details: sampleText, features: features, content: courseContent},
-    {id: '4', title: 'Four', cols: 1, rows: 1, subText, availableBookings: booking, color: '#DDBDF1', details: sampleTextV2, features: features, content: courseContent},
-    {id: '5', title: 'One', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightblue', details: sampleText, features: features, content: courseContent},
-    {id: '6', title: 'Two', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightgreen', details: sampleTextV2, features: features, content: courseContent},
-    {id: '7', title: 'Three', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightpink', details: sampleText, features: features, content: courseContent},
-    {id: '8', title: 'Four', cols: 1, rows: 1, subText, availableBookings: booking, color: '#DDBDF1', details: sampleTextV2, features: features, content: courseContent},
+    {id: '1', price: 199, title: 'One', cols: 1, rows: 1, subText, availableBookings: booking , color: 'lightblue', details: sampleText, features: features, content: courseContent},
+    {id: '2', price: 299, title: 'Two', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightgreen', details: sampleTextV2, features: features, content: courseContent},
+    {id: '3', price: 199, title: 'Three', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightpink', details: sampleText, features: features, content: courseContent},
+    {id: '4', price: 299, title: 'Four', cols: 1, rows: 1, subText, availableBookings: booking, color: '#DDBDF1', details: sampleTextV2, features: features, content: courseContent},
+    {id: '5', price: 199, title: 'Five', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightblue', details: sampleText, features: features, content: courseContent},
+    {id: '6', price: 299, title: 'Six', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightgreen', details: sampleTextV2, features: features, content: courseContent},
+    {id: '7', price: 199, title: 'Seven', cols: 1, rows: 1, subText, availableBookings: booking, color: 'lightpink', details: sampleText, features: features, content: courseContent},
+    {id: '8', price: 299, title: 'Eight', cols: 1, rows: 1, subText, availableBookings: booking, color: '#DDBDF1', details: sampleTextV2, features: features, content: courseContent},
   ];

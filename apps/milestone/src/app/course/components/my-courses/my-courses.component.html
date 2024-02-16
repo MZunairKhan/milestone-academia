@@ -1,0 +1,42 @@
+<div class="course-list-row">
+    <mat-card class="course-list-header">
+        <h1>My Courses</h1>
+    </mat-card>
+</div>
+
+<div class="course-list-row">
+    <h2>Recent Courses</h2>
+</div>
+
+<div class="course-list-row">
+    <div class="courses-recent">
+        <mat-card class="courses-recent-card" *ngFor="let course of recentCourse">
+            <div class="course-recent-image" [ngStyle]="{'background-color': course.color}"></div>
+            <h3>{{course.title}}</h3>
+        </mat-card>
+    </div>
+</div>
+
+<div class="course-list-row">
+    <h2>All Courses</h2>
+</div>
+
+<div class="course-list-row scrollable">
+    <mat-grid-list [cols]="columns" gutterSize="12px" rowHeight="200px">
+        <mat-grid-tile
+            *ngFor="let course of allCourses"
+            [colspan]="course.cols"
+            [rowspan]="course.rows">
+
+            <div class="courses-list-element">
+                <mat-card class="course-tile">
+                    <div class="course-tile-header"><h3>{{course.title}}</h3></div>
+                    <div class="course-tile-section">
+                        <div class="course-tile-image" [ngStyle]="{'background-color': course.color}"></div>
+                        <div class="course-tile-details">{{course.subText}}</div>
+                    </div>
+                </mat-card>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

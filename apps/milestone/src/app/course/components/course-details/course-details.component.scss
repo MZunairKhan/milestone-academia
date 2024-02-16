@@ -2,7 +2,7 @@
     padding: 0;
     width: 100% !important;
     height: 100% !important;
-} 
+}
 
 .back-button-row {
     width: 95%;
@@ -24,9 +24,19 @@
         display: flex;
         margin: 25px auto;
         justify-content: space-between;
+
+        @media (max-width: 480px) {
+            flex-direction: column-reverse;
+            align-items: center;
+        }
         
         .course-detail-body{
             width: 65%;
+
+            @media (max-width: 480px) {
+                width: 98%;
+                margin: 10px 0;
+            }
     
             .course-detail-section {
                 margin-bottom: 10px;
@@ -41,6 +51,19 @@
             display: flex;
             flex-direction: column;
             height: max-content;
+
+            @media (max-width: 480px) {
+                width: 90%;
+            }
+
+            .course-detail-duration{
+                display: flex;
+                justify-content: space-evenly;
+                
+                h2 {
+                    margin-top: 0;
+                }
+            }
         }
     }
 }
@@ -50,6 +73,10 @@
     height: 55px;
     font-size: 22px;
     margin: 10px auto;
+
+    @media (max-width: 480px) {
+        width: 90%;
+    }
 }
 
 .slot-select-div {
@@ -60,5 +87,9 @@
     .slot-select {
         width: 70%;
         margin: 0px auto;
+
+        @media (max-width: 480px) {
+            width: 90%;
+        }
     }
 }
