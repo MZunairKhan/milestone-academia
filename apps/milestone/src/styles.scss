@@ -4,9 +4,20 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-$milestone-text-color-secondary: #f44336;
-$milestone-text-color-secondary-dark: #e61005;
+$milestone-color-primary: #071f45;
+$milestone-color-primary-dark: #011433;
 
+$milestone-color-secondary: #f44336;
+$milestone-color-secondary-dark: #e61005;
+
+
+.milestone-text-color-secondary {
+    color: $milestone-color-primary;
+}
+
+.milestone-text-color-secondary {
+    color: $milestone-color-secondary;
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -21,13 +32,13 @@ $milestone-text-color-secondary-dark: #e61005;
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: $milestone-text-color-secondary;
+    background: $milestone-color-secondary;
     border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: $milestone-text-color-secondary-dark;
+    background: $milestone-color-secondary-dark;
 }
 
 .milestone-router-component {
@@ -40,7 +51,7 @@ $milestone-text-color-secondary-dark: #e61005;
 }
 
 .milestone-color-secondary {
-    color: $milestone-text-color-secondary;
+    color: $milestone-color-secondary;
 }
 
 .milestone-heading {
