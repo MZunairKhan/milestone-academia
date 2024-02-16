@@ -1,0 +1,64 @@
+:host {
+    padding: 0;
+    width: 100% !important;
+    height: 100% !important;
+} 
+
+.back-button-row {
+    width: 95%;
+    margin: 0px 0px 10px 0px;
+}
+
+.course-detail-panel {
+    width: 100%;
+
+    .course-detail-background {
+        height: 25%;
+        max-height: 350px;
+        width: 100%;
+        position: absolute;
+    }
+
+    .course-detail-main {
+        width: 95%;
+        display: flex;
+        margin: 25px auto;
+        justify-content: space-between;
+        
+        .course-detail-body{
+            width: 65%;
+    
+            .course-detail-section {
+                margin-bottom: 10px;
+                // max-height: 30vh;
+                // overflow: hidden;
+                // overflow-y: auto;
+            }
+        }
+    
+        .course-detail-side {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            height: max-content;
+        }
+    }
+}
+
+.enroll-button {
+    width: 50%;
+    height: 55px;
+    font-size: 22px;
+    margin: 10px auto;
+}
+
+.slot-select-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    .slot-select {
+        width: 70%;
+        margin: 0px auto;
+    }
+}

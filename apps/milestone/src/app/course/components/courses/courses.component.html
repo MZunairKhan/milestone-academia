@@ -22,11 +22,11 @@
             [rowspan]="tile.rows">
 
             <div class="courses-list-element">
-                <mat-card class="course-tile">
-                    <div class="course-tile-header"><h3>{{tile.text}}</h3></div>
+                <mat-card class="course-tile" (click)="openDetails(tile)">
+                    <div class="course-tile-header"><h3>{{tile.title}}</h3></div>
                     <div class="course-tile-section">
                         <div class="course-tile-image" [ngStyle]="{'background-color': tile.color}"></div>
-                        <div class="course-tile-details">{{tile.details}}</div>
+                        <div class="course-tile-details">{{tile.subText}}</div>
                     </div>
                 </mat-card>
             </div>
