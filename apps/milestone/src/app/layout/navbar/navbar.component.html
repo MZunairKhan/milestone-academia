@@ -3,7 +3,8 @@
     <button *ngIf="loggedIn$ | async" mat-icon-button (click)="sideButtonClicked()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Milestone Academia</span>
+    <img class="milestone-navbar-logo" src="/assets/Milestone_Academia-Logo_No_BG.png" alt="image" (click)="goToRoute('user/dashboard')">
+    <span (click)="goToRoute('user/dashboard')">Milestone Academia</span>
   </div>
 
   <div class="milestone-navbar-user">

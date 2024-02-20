@@ -15,8 +15,16 @@ $milestone-color-secondary-dark: #e61005;
     color: $milestone-color-primary;
 }
 
+.milestone-text-color-secondary-dark {
+    color: $milestone-color-primary-dark;
+}
+
 .milestone-text-color-secondary {
     color: $milestone-color-secondary;
+}
+
+.milestone-text-color-secondary-dark {
+    color: $milestone-color-secondary-dark;
 }
 
 /* width */
@@ -48,10 +56,6 @@ $milestone-color-secondary-dark: #e61005;
     align-items: center;
     flex-direction: column;
     padding: 10px;
-}
-
-.milestone-color-secondary {
-    color: $milestone-color-secondary;
 }
 
 .milestone-heading {

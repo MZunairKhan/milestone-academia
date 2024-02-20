@@ -2,6 +2,7 @@
 export interface Course {
     id: string;
     instrcutorId?: string;
+    subject: string;
     color: string;
     cols: number;
     rows: number;
