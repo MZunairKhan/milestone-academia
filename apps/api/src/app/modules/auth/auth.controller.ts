@@ -24,7 +24,7 @@ export class AuthController {
       
       response.cookie(process.env.JWT_ACCESS_TOKEN_KEY, userData.access_token, cookieSettings);
 
-      return userData.payload
+      return userData.tokenData;
     } else {
       throw new BadRequestException("invalid username and/or password");
     }

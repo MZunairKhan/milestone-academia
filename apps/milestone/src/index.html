@@ -9,8 +9,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+  </head>
   <body>
     <milestone-academia-root></milestone-academia-root>
   </body>
+  <script>
+    function checkAndInvalidateAuthData() {
+      const authDataString = localStorage.getItem('authData');
+      if (authDataString) {
+        const authData = JSON.parse(authDataString);
+        const timeNow = Date.now();
+        console.log(
+          `timeNow: ${timeNow}`,
+          `timeExp: ${authData.exp}`, 
+          `timeDiff: ${timeNow - (authData.exp * 1000)}`
+        );
+        return Date.now() >= authData.exp * 1000;
+      }
+    }
+  </script>
 </html>
