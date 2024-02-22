@@ -1,4 +1,9 @@
+import { Observable } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+
+import { AuthService } from '../../auth/services/auth.service';
+import { Router } from '@angular/router';
+import { AuthData } from '../../auth/models/auth.model';
 
 @Component({
   selector: 'milestone-academia-navbar',
@@ -6,7 +11,15 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor() {}
+  auth$: Observable<AuthData> = this.authService.authData$;
+
+  loggedIn$: Observable<boolean> = this.authService.loggedIn$;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {}
 
@@ -14,5 +27,13 @@ export class NavbarComponent implements OnInit {
 
   sideButtonClicked() {
     this.sideButtonClick.emit(true);
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+
+  goToRoute(route: string) {
+    this.router.navigate([route]);
   }
 }

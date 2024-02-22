@@ -1,0 +1,118 @@
+<div class="course-detail-panel">
+    
+    <div class="course-detail-background" [ngStyle]="{'background-color': courseData?.color}"></div>
+    
+    <div class="course-detail-main">
+        <div class="course-detail-body">
+            <div class="back-button-row hide-on-mobile">
+                <button mat-raised-button color="primary" (click)="goToCourses()">
+                    <mat-icon>arrow_back</mat-icon>
+                    Course List
+                </button>
+            </div>
+            
+            <div class="hide-on-mobile">
+                <mat-card class="course-detail-section">
+                    <h2>{{courseData?.title}}</h2>
+                    <p>
+                       {{courseData?.subText}}
+                    </p>
+                    <p>
+                        this section is to contain the name of the instructor
+                    </p>
+                </mat-card>
+            </div>
+    
+            <mat-card class="course-detail-section">
+                <h4>Description</h4>
+                <p>{{courseData?.details}}</p>
+            </mat-card>
+            
+            <mat-card class="course-detail-section">
+                <h4>Content</h4>
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle *ngFor="let content of courseData?.content">
+                        <mat-expansion-panel-header style="background-color: #e9e9e9;">
+                            <mat-panel-title>
+                            {{content.heading}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-list role="list" *ngFor="let point of content?.points">
+                            <mat-list-item role="listitem"> - {{point}}</mat-list-item>
+                        </mat-list>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-card>
+            
+            <mat-card class="course-detail-section">
+                <h4>Pre-requisites</h4>
+            </mat-card>
+        </div>
+    
+        <mat-card class="course-detail-side">
+            <div class="back-button-row show-on-mobile">
+                <button mat-raised-button color="primary" (click)="goToCourses()">
+                    <mat-icon>arrow_back</mat-icon>
+                    Course List
+                </button>
+            </div>
+            
+            <div class="show-on-mobile">
+                <mat-card class="course-detail-section">
+                    <h2>{{courseData?.title}}</h2>
+                    <p>
+                    {{courseData?.subText}}
+                    </p>
+                    <p>
+                        this section is to contain the name of the instructor
+                    </p>
+                </mat-card>
+            </div>
+            
+            <div>
+                <h1>$ {{courseData?.price}}.00</h1>
+            </div>
+            <div>
+                <h4>Course Duration</h4>
+                
+                <div class="course-detail-duration">
+                    <h2>{{courseData?.availableBookings?.startDate | date }}</h2>
+                    <h2> - </h2>
+                    <h2>{{courseData?.availableBookings?.endDate | date }}</h2>
+                </div>
+
+                <div class="slot-select-div">
+                    <mat-form-field appearance="fill" class="slot-select">
+                        <mat-label>Select Day</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let day of courseData?.availableBookings?.days" value="day">{{day}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="fill" class="slot-select">
+                        <mat-label>Select Time Slot</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let slot of courseData?.availableBookings?.slots" value="slot">{{slot}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <mat-divider></mat-divider>
+            </div>
+            <button class="enroll-button" mat-raised-button color="primary">
+                Enroll Now
+            </button>
+            <div>
+                <mat-divider></mat-divider>
+                <h4>This course includes</h4>
+                <mat-list>
+                    <mat-list-item *ngFor="let item of courseData?.features">
+                        <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+                        <div mat-line>{{item.value}} {{item.name}}</div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                </mat-list>
+            </div>
+        </mat-card>
+    </div>
+</div>

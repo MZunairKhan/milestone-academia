@@ -12,10 +12,12 @@ export const APIS = {
         deleteById: (id: string) => `${extension}/common/appConfig/${id}`
     },
     users: {
-        create: `${extension}/common/user`,
-        getAll: `${extension}/common/user`,
-        getById: (id: string) => `${extension}/common/user/${id}`,
-        deleteById: (id: string) => `${extension}/common/user/${id}`
+        create: `${extension}/users`,
+        getAll: `${extension}/users`,
+        getUserData: `${extension}/users/userData`,
+        createStudent: `${extension}/users/create-student`,
+        getById: (id: string) => `${extension}/users/${id}`,
+        deleteById: (id: string) => `${extension}/users/${id}`
     },
     auth: {
         login: `${extension}/auth/login`,

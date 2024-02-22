@@ -1,0 +1,35 @@
+table {
+    width: 100%;
+}
+  
+.mat-form-field {
+    font-size: 14px;
+    width: 30%;
+}
+
+td, th {
+    width: 15%;
+}
+
+h3 {
+    // margin: 0;
+}
+
+.manage-users-card {
+    width: 90%;
+    height: 90%;
+    margin: 10px auto;
+}
+
+.manage-user-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.manage-users-table-div {
+    width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    height: calc(100% - 180px);
+}

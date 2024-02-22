@@ -9,7 +9,7 @@ export class AuthInterceptor implements HttpInterceptor {
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // this.loader.show();
-    console.log(req);
+    // console.log(req);
     return next.handle(req).pipe(
       finalize(() => {
         // this.loader.hide();

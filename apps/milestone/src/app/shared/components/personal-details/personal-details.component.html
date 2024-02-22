@@ -1,0 +1,56 @@
+<form class="milestone-student-info" [formGroup]="parentForm">
+
+    <mat-label>
+        <h3>Personal Information :</h3>
+    </mat-label>
+
+    <div class="student-info-row">
+        <mat-form-field appearance="fill" style="width: 45%;">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" style="width: 45%;">
+            <mat-label>Personal Identification</mat-label>
+            <input matInput formControlName="personalIdentification">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+
+    <mat-divider class="student-info-divider" *ngIf="addressEnabled"></mat-divider>
+
+    <milestone-academia-address-details
+        *ngIf="addressEnabled"
+        [parentForm]="parentForm"
+        [personalData]="personalData"
+    ></milestone-academia-address-details>
+
+    <mat-divider class="student-info-divider"></mat-divider>
+    
+    <mat-label>
+        <h3>Guardian Information :</h3>
+    </mat-label>
+
+    <div class="student-info-row">
+        <mat-form-field appearance="fill" style="width: 45%;">
+            <mat-label>Guardian Name</mat-label>
+            <input matInput formControlName="guardianName">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" style="width: 45%;">
+            <mat-label>Guardian Identification</mat-label>
+            <input matInput formControlName="guardianIdentification">
+            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
+            Fist name is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+    </div>
+</form>

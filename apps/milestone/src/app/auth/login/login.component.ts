@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'milestone-academia-login',
@@ -21,11 +21,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(data: any) {
-    console.log(data);
-
     const {userName, password} = this.loginForm.value;
     this.authService
-    .login(userName as string, password as string)
-    // .subscribe(value => console.log(value));
+    .login(userName as string, password as string);
   }
 }

@@ -2,3 +2,82 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+$milestone-color-primary: #071f45;
+$milestone-color-primary-dark: #011433;
+
+$milestone-color-secondary: #f44336;
+$milestone-color-secondary-dark: #e61005;
+
+
+.milestone-text-color-secondary {
+    color: $milestone-color-primary;
+}
+
+.milestone-text-color-secondary-dark {
+    color: $milestone-color-primary-dark;
+}
+
+.milestone-text-color-secondary {
+    color: $milestone-color-secondary;
+}
+
+.milestone-text-color-secondary-dark {
+    color: $milestone-color-secondary-dark;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    // background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $milestone-color-secondary;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $milestone-color-secondary-dark;
+}
+
+.milestone-router-component {
+    height: calc(100% - 20px) !important;
+    width: calc(100% - 20px) !important;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.milestone-heading {
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.milestone-subheading {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.show-on-mobile {
+    display: none;
+    
+    @media (max-width: 480px) {
+        display: initial;
+    }
+}
+
+.hide-on-mobile {
+    @media (max-width: 480px) {
+        display: none;
+    }
+}

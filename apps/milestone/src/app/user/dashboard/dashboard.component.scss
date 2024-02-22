@@ -1,0 +1,32 @@
+.mat-card {
+    margin: 10px 0px;
+}
+
+.dashboard-row {
+    width: 95%;
+}
+
+.dashboard-header {
+    width: auto;
+}
+
+.dashboard-summary {
+    display: flex;
+    justify-content: space-between;
+    
+    @media (max-width: 480px) {
+        flex-direction: column;
+    }
+
+    .mat-card {
+        width: 15%;
+
+        @media (max-width: 480px) {
+            width: auto;
+        }
+    }
+}
+
+.dashboard-user-course {
+    
+}

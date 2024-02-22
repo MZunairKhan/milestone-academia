@@ -1,0 +1,46 @@
+<div class="course-list-row">
+    <mat-card class="course-list-header">
+        <h2>Courses</h2>
+
+        <mat-button-toggle-group #group="matButtonToggleGroup" value="1" class="course-list-view-toggle">
+            <mat-button-toggle value="1" aria-label="List" (change)="buttonToggled($event.value)">
+              <mat-icon>view_list</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="2" aria-label="Grid" (change)="buttonToggled($event.value)">
+              <mat-icon>view_module</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </mat-card>
+</div>
+
+<div class="course-list-row" style="display: flex;">
+    <mat-chip-list aria-label="Fish selection" style="margin-right: 20px;">
+        <mat-chip *ngFor="let filter of selectedFilters" color="warn" (click)="deactivateFilter(filter)" selected>{{filter}}</mat-chip>
+    </mat-chip-list>
+    <mat-chip-list aria-label="Fish selection">
+        <mat-chip *ngFor="let filter of unselectedFilters" (click)="activateFilter(filter)">{{filter}}</mat-chip>
+    </mat-chip-list>
+</div>
+
+<div class="course-list-row scrollable">
+
+    <mat-grid-list [cols]="columns" gutterSize="12px" rowHeight="200px">
+        <mat-grid-tile
+            *ngFor="let course of displayedCourses"
+            [colspan]="course.cols"
+            [rowspan]="course.rows">
+
+            <div class="courses-list-element">
+                <mat-card class="course-tile" (click)="openDetails(course)">
+                    <div class="course-tile-section">
+                        <div class="course-tile-image" [ngStyle]="{'background-color': course.color}"></div>
+                        <div class="course-tile-details">
+                            <div class="course-tile-header"><h3>{{course.title}}</h3></div>
+                            <p>{{course.subText}}</p>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
