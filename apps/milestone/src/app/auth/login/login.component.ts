@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   moveToDashboard(isLoggedIn: boolean) {
     if (isLoggedIn) {
-      this.authService.routeTo('user/dashboard');
+      // this.authService.routeTo('user/dashboard');
     }
   }
 }
