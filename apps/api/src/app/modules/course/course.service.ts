@@ -20,7 +20,7 @@ export class CourseService {
     if (subject) {
       const course = new Course();
       course.name = createSubjectDto.name;
-      course.subject = subject;
+      course.courseType = createSubjectDto.courseType;
       return this.coursesRepository.save(course);
     }
 
