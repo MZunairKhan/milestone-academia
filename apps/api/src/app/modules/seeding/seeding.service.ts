@@ -12,6 +12,9 @@ import { Course } from '../course/entity/course.entity';
 import { CreateAppConfigurationDto } from '../../common/dto/appConfiguration.dto';
 import { AppConfiguration } from '../../common/entities/appConfiguration.entity';
 import { AppConfigurationService } from '../../common/appConfiguration.service';
+import { StudentsService } from '../user/extended-users/student/student.service';
+import { Student } from '../user/extended-users/student/entity/student.entity';
+import { UserType } from '../user/enums/userType.enum';
 
 @Injectable()
 export class SeedingService {
@@ -19,12 +22,12 @@ export class SeedingService {
     private readonly userSeedingService: UsersService,
     private readonly courseSeedingService: CourseService,
     private readonly subjectSeedingService: SubjectService,
-    private readonly pepperSeedingService: AppConfigurationService
-
+    private readonly appConfigSeedingService: AppConfigurationService,
+    private readonly studentSeedingService: StudentsService
   ) {}
-  
+
   async seedUser(createUserDto: CreateUserDto): Promise<User> {
-    return this.userSeedingService.create(createUserDto);
+    return this.userSeedingService.create(createUserDto, UserType.Student);
   }
 
   async seedSubject(createSubjectDto: CreateSubjectDto): Promise<Subject> {
@@ -35,8 +38,17 @@ export class SeedingService {
     return this.courseSeedingService.create(createCourseDto);
   }
 
-  async seedPepper(createAppConfigurationDto: CreateAppConfigurationDto): Promise<AppConfiguration> {
-    return this.pepperSeedingService.create(createAppConfigurationDto);
+  async seedPepper(
+    createAppConfigurationDto: CreateAppConfigurationDto
+  ): Promise<AppConfiguration> {
+    return this.appConfigSeedingService.create(createAppConfigurationDto);
   }
-  
+
+  async findStudentById(id: any): Promise<Student> {
+    return this.studentSeedingService.findOneByUserId(id);
+  }
+
+  async seedStudent(data: any) {
+    return await this.studentSeedingService.updateStudent(data);
+  }
 }

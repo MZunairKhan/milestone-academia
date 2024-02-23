@@ -16,7 +16,41 @@ export class StudentsService {
 
   async create(user: User): Promise<Student> {
     const student = new Student();
-    return await this.createViaObject(this.associateToUser(student,user));
+    return await this.createViaObject(this.associateToUser(student, user));
+  }
+
+  async updateStudent(data: any) {
+    const {
+      id,
+      personalIdentification,
+      city,
+      phoneNumber,
+      guardianIdentification,
+      guardianName,
+      country,
+      postalCode,
+      addressLine2,
+      addressLine1,
+    } = data;
+
+    const existingCourse = await this.findOneByUserId(id);
+
+    if (!existingCourse) {
+      throw new Error(`Course with ID ${id} not found`);
+    }
+
+    return await this.studentsRepository.save({
+      id: id,
+      personalIdentification,
+      addressLine1,
+      addressLine2,
+      postalCode,
+      country,
+      guardianName,
+      guardianIdentification,
+      phoneNumber,
+      city,
+    });
   }
 
   async createViaObject(student: Student): Promise<Student> {
@@ -32,19 +66,31 @@ export class StudentsService {
   }
 
   findOneByUser(user: User): Promise<Student> {
-    return this.studentsRepository.findOne({ where: {user: user}, relations: ['user']})
+    return this.studentsRepository.findOne({
+      where: { user: user },
+      relations: ['user'],
+    });
   }
 
-  findOneByUserId(id: string): Promise<Student> {
-    return this.studentsRepository.findOne({ where: {user: { id : id}}, relations: ['user']})
+  async findOneByUserId(id: string): Promise<Student> {
+    return await this.studentsRepository.findOne({
+      where: { user: { id: id } },
+      relations: ['user'],
+    });
   }
 
   findOneByUsername(userName: string) {
-    return this.studentsRepository.findOne({ where: {user: { userName : userName} }, relations: ['user']})
+    return this.studentsRepository.findOne({
+      where: { user: { userName: userName } },
+      relations: ['user'],
+    });
   }
 
   findOneByUPN(email: string) {
-    return this.studentsRepository.findOne({ where: {user: { email : email} }, relations: ['user']})
+    return this.studentsRepository.findOne({
+      where: { user: { email: email } },
+      relations: ['user'],
+    });
   }
 
   async remove(id: string): Promise<void> {
@@ -52,12 +98,30 @@ export class StudentsService {
   }
 
   mapToDto(student: Student): ReadStudentDto {
-    const { id, personalIdentification, addressLine1, addressLine2, postalCode, city,
-      country, guardianName, guardianIdentification, phoneNumber
+    const {
+      id,
+      personalIdentification,
+      addressLine1,
+      addressLine2,
+      postalCode,
+      city,
+      country,
+      guardianName,
+      guardianIdentification,
+      phoneNumber,
     } = student;
 
-    return { id, personalIdentification, addressLine1, addressLine2, postalCode, city,
-      country, guardianName, guardianIdentification, phoneNumber
+    return {
+      id,
+      personalIdentification,
+      addressLine1,
+      addressLine2,
+      postalCode,
+      city,
+      country,
+      guardianName,
+      guardianIdentification,
+      phoneNumber,
     } as ReadStudentDto;
   }
 

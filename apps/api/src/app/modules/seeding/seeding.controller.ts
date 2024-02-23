@@ -7,6 +7,8 @@ import { CourseType } from '../course/enums/courseTypes.enum';
 import { CreateCourseDto } from '../course/dto/create-course.dto';
 import { CreateSubjectDto } from '../subject/dto/create-subject.dto';
 import { SeedingService } from './seeding.service';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+import { Student } from '../user/extended-users/student/entity/student.entity';
 
 @ApiTags('Seeding')
 @Controller()
@@ -16,23 +18,43 @@ export class SeedingController {
   @Post()
   async seedUser(): Promise<string> {
     const pepper = {
-        key: 'pepper',
-        value: '10'
-    }
-    
+      key: 'pepper',
+      value: '10',
+    };
+
     const createPepper = await this.seedingService.seedPepper(pepper);
 
-
-    const user = {
-      firstName: 'muhammad',
-      lastName: 'haseeb',
-      userName: 'haseeb786',
-      email: 'email@gmail.com',
-      password: 'haseeb',
-      userType: UserType.Student,
+    const user: CreateUserDto = {
+      firstName: 'new',
+      lastName: 'new',
+      userName: 'new',
+      email: 'new@gmail.com',
+      password: 'new',
       presenceType: PresenceType.Online,
     };
+
     const newUser = await this.seedingService.seedUser(user);
+
+    const studentData = {
+      createdDate: null,
+      createdBy: null,
+      updatedDate: null,
+      deletedDate: null,
+      personalIdentification: 'ss',
+      addressLine1: 'line1',
+      addressLine2: 'line2',
+      postalCode: '765',
+      city: 'ISB',
+      country: 'PAK',
+      guardianName: 'has',
+      guardianIdentification: 'done',
+      phoneNumber: '567',
+      user: newUser,
+    };
+
+    const newStudent = await this.seedingService.findStudentById(newUser.id);
+
+    const updatedStudent = await this.seedingService.seedStudent(studentData);
 
     const subject: CreateSubjectDto = {
       name: 'seeding',

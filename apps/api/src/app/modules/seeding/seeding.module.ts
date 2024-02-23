@@ -6,13 +6,15 @@ import { SubjectsModule } from '../subject/subject.module';
 import {SeedingService} from  './seeding.service'
 import { SeedingController } from './seeding.controller';
 import { CommonModule } from '../../common/common.module';
+import { StudentsModule } from '../user/extended-users/student/students.module';
 
 @Module({
   imports: [
     UsersModule,
     CoursesModule,
     SubjectsModule,
-    CommonModule
+    CommonModule,
+    StudentsModule
    
   ],
   providers: [SeedingService],
