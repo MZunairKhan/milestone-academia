@@ -1,22 +1,22 @@
 export type BaseRole = UserRoles | SubjectRoles | CourseRoles;
 
 export enum UserRoles {
-    'CreateUser',
-    'RetrieveUser',
-    'UpdateUser',
-    'DeleteUser',
+    CreateUser = 'CreateUser',
+    RetrieveUser = 'RetrieveUser',
+    UpdateUser = 'UpdateUser',
+    DeleteUser = 'DeleteUser',
 }
 
 export enum SubjectRoles {
-    'CreateSubject',
-    'RetrieveSubject',
-    'UpdateSubject',
-    'DeleteSubject',
+    CreateSubject = 'CreateSubject',
+    RetrieveSubject = 'RetrieveSubject',
+    UpdateSubject = 'UpdateSubject',
+    DeleteSubject = 'DeleteSubject',
 }
 
 export enum CourseRoles {
-    'CreateCourse',
-    'RetrieveCourse',
-    'UpdateCourse',
-    'DeleteCourse',
+    CreateCourse = 'CreateCourse',
+    RetrieveCourse = 'RetrieveCourse',
+    UpdateCourse = 'UpdateCourse',
+    DeleteCourse = 'DeleteCourse',
 }
