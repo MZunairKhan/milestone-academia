@@ -1,7 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { Request as RequestType } from 'express';
 import { InternalAuthData } from './models/internalAuthData.model';
 import { AUTH_UTILS } from './auth.utils';
 
@@ -13,7 +12,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         AUTH_UTILS.extractJWT,
         ExtractJwt.fromAuthHeaderAsBearerToken(),
       ]),
-      passReqToCallback: true,
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET,
     });

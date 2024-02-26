@@ -5,6 +5,8 @@ import { BadRequestException, Body, Controller, Get, Post, Req, Res, UseGuards }
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { BaseRole } from './roles/roles.enum';
+import { USER_ROLE_SET } from './roles/userRoles';
   
 @ApiTags('Auth')
 @Controller()
@@ -35,5 +37,13 @@ export class AuthController {
   async test(@Req() request): Promise<boolean> {
     console.log(request.user)
     return true
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('role-set')
+  async getRoleSet(@Req() request): Promise<BaseRole[]> {
+    const userType = request?.user?.userType;
+    const userTypeRoles: BaseRole[] = USER_ROLE_SET[userType];
+    return userTypeRoles ?? []
   }
 }

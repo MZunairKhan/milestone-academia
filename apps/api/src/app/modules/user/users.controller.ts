@@ -65,7 +65,6 @@ export class UsersController {
   async findOne(@Req() request): Promise<ReadUserDto> {
     const user = await this.usersService.findOne(request.user['userId']);
 
-
     const dto: ReadUserDto = {
       userId: user.id,
       email: user.email,
