@@ -8,6 +8,7 @@ import { CommonModule } from './common/common.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { SubjectsModule } from './modules/subject/subject.module';
 import { CoursesModule } from './modules/course/course.module';
+import { SeedingModule } from './modules/seeding/seeding.module';
 // import { StudentsModule } from './modules/student/students.module';
 // import { InstructorsModule } from './modules/instructor/instructor.module';
 
@@ -19,6 +20,10 @@ import { CoursesModule } from './modules/course/course.module';
       {
         path: 'users',
         module: UsersModule,
+      },
+      {
+        path: 'seeding',
+        module: SeedingModule,
       },
       {
         path: 'auth',
@@ -42,6 +47,7 @@ import { CoursesModule } from './modules/course/course.module';
     AuthModule,
     SubjectsModule,
     CoursesModule,
+    SeedingModule
     // StudentsModule,
     // InstructorsModule
   ]
