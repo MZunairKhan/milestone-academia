@@ -1,6 +1,6 @@
 
 import { SetMetadata } from '@nestjs/common';
-import { BaseRole } from './roles.enum';
+import { BaseRole } from '@milestone-academia/api-interfaces';
 
 export const ROLE_KEY = 'role';
 

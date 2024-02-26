@@ -3,9 +3,8 @@ import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { AUTH_UTILS } from '../auth.utils';
 
-import { BaseRole } from './roles.enum';
 import { ROLE_KEY } from './roles.decorator';
-import { USER_ROLE_SET } from './userRoles';
+import { USER_ROLE_SET, BaseRole } from '@milestone-academia/api-interfaces';
 import { InternalAuthData } from '../models/internalAuthData.model';
 
 @Injectable()

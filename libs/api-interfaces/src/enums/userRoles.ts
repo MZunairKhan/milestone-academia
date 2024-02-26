@@ -1,4 +1,4 @@
-import { UserType } from "../../user/enums/userType.enum";
+import { UserType } from "./userType.enum";
 import { CourseRoles, SubjectRoles, UserRoles } from "./roles.enum";
 
 export const USER_ROLE_SET = {

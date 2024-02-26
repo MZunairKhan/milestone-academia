@@ -2,8 +2,8 @@ import { Body, Controller, Delete, Get, Param, Post,
   UseGuards, Req, HttpException, HttpStatus, } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles/roles.decorator';
-import { UserRoles } from '../auth/roles/roles.enum';
 import { RolesGuard } from '../auth/roles/roles.guard';
+import { UserRoles } from '@milestone-academia/api-interfaces';
 
 import { UsersService } from './users.service';
 import { StudentsService } from './extended-users/student/student.service';
