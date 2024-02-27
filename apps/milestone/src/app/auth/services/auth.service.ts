@@ -46,9 +46,10 @@ export class AuthService {
   }
 
   getUserRoles() {  
-    this.http.get<AuthData>(APIS.auth.roleSet)
+    this.http.get<string[]>(APIS.auth.roleSet)
     .subscribe(value => {
-      console.log('getUserRoles', value)
+      console.log(AUTH_CONSTANTS.STORAGE.ROLES, value);
+      this.storageService.setValue(AUTH_CONSTANTS.STORAGE.ROLES, value);
     })
   }
 
@@ -83,10 +84,15 @@ export class AuthService {
   private removeUserData() {
     this.storageService.removeValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
     this.storageService.removeValue(USER_CONSTANTS.USER_DATA);
+    this.storageService.removeValue(AUTH_CONSTANTS.STORAGE.ROLES);
     this.authSource$.next(Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT));
   }
   
   private updateAuthData(value: AuthData) {
     this.authSource$.next(value);
+  }
+
+  currentUserRoles() {
+    return this.storageService.getValue(AUTH_CONSTANTS.STORAGE.ROLES);
   }
 }

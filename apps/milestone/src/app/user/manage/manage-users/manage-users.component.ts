@@ -53,7 +53,6 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
 
     this.manageUserService.getUserList().subscribe((list: UserData[]) => {
-      console.log(list);
       this.dataSource = new MatTableDataSource(list.filter(u => u.email !== this.userService.currentUser.email));
     });
   }

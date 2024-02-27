@@ -8,6 +8,7 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { PersonalDetailsComponent } from './components/personal-details/personal-details.component';
 import { AddressDetailsComponent } from './components/address-details/address-details.component';
 import { DynamicDialogModule } from './modules/dialog/dialog.module';
+import { RoleModule } from './modules/role/role.module';
 
 
 @NgModule({
@@ -22,13 +23,15 @@ import { DynamicDialogModule } from './modules/dialog/dialog.module';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    RoleModule
   ],
   exports: [
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
     DynamicDialogModule,
+    RoleModule,
     NotFoundComponent,
     UserDetailsComponent,
     AddressDetailsComponent,
