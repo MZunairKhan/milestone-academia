@@ -29,10 +29,7 @@ export class SeedingService {
     private readonly studentSeedingService: StudentsService,
     private readonly timeSlotService: TimeSlotService,
     private readonly courseDurationService: CourseDurationService,
-    private readonly bookingsService: BookingsService,
-
-
-
+    private readonly bookingsService: BookingsService
   ) {}
 
   async seedUser(createUserDto: CreateUserDto): Promise<User> {

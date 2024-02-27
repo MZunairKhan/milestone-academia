@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { DeepPartial, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CourseBooking } from './entities/courseBooking.entity';
@@ -8,6 +8,7 @@ import { CourseService } from '../../course/course.service';
 import { UsersService } from '../../user/users.service';
 import { CourseDurationService } from '../course-duration/courseDuration.service';
 import { TimeSlotService } from '../timeslot/timeSlot.service';
+import { UpdateBookingDto } from './dto/updateBooking.dto';
 
 @Injectable()
 export class BookingsService {
@@ -17,63 +18,82 @@ export class BookingsService {
     private readonly courseService: CourseService,
     private readonly usersService: UsersService,
     private readonly courseDurationService: CourseDurationService,
-    private readonly timeSlotService: TimeSlotService,
-
+    private readonly timeSlotService: TimeSlotService
   ) {}
 
- async create(createBookingDto: CreateBookingDto) {
-  const {courseId , userId , courseDurationId , timeSlotId}  = createBookingDto;
-  const user  = await this.usersService.findOne(userId);
-  const course  = await this.courseService.findOne(courseId);
-  const courseDuration  = await  this.courseDurationService.findOne(courseDurationId);
-  const timeSlot  = await  this.timeSlotService.findOne(timeSlotId);
+  async create(createBookingDto: CreateBookingDto) {
+    const { courseId, userId, courseDurationId, timeSlotId } = createBookingDto;
+    const user = await this.usersService.findOne(userId);
 
-  if(!user){
-    return 'User Not Found'
-  }
-  if(!course){
-    return 'course Not Found'
-  }
-  if(!courseDuration){
-    return 'courseDuration Not Found'
-  }
-  if(!timeSlot){
-    return 'timeSlot Not Found'
-  }
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    const course = await this.courseService.findOne(courseId);
+    if (!course) {
+      throw new NotFoundException(`course with ID ${courseId} not found`);
+    }
+    const courseDuration = await this.courseDurationService.findOne(
+      courseDurationId
+    );
+    if (!courseDuration) {
+      throw new NotFoundException(
+        `courseDuration with ID ${courseDurationId} not found`
+      );
+    }
+    const timeSlot = await this.timeSlotService.findOne(timeSlotId);
+    if (!timeSlot) {
+      throw new NotFoundException(`timeSlot with ID ${timeSlotId} not found`);
+    }
 
     const courseBooking = new CourseBooking();
-    courseBooking.course = course; 
-    courseBooking.user = user; 
-    courseBooking.courseDuration = courseDuration; 
-    courseBooking.timeSlot = timeSlot; 
+    courseBooking.course = course;
+    courseBooking.user = user;
+    courseBooking.courseDuration = courseDuration;
+    courseBooking.timeSlot = timeSlot;
 
     const savedBooking = await this.courseBookingRepository.save(courseBooking);
 
     return savedBooking;
-  
- }
+  }
 
   findAll() {
     return this.courseBookingRepository.find();
   }
 
   findOne(id: string) {
-    return this.courseBookingRepository.findBy({ id });
+    return this.courseBookingRepository.findOneBy({ id: id });
   }
 
-  async update(id: string, createBookingDto: CreateBookingDto) {
-    const existingBooking = this.findOne(id);
-
+  async update(id: string, updateBookingDto: UpdateBookingDto) {
+    const existingBooking = await this.findOne(id);
     if (!existingBooking) {
-      return 'Booking Not exists';
+      throw new NotFoundException(`Booking with ID ${id} not found`);
     }
-    const courseBooking = new CourseBooking();
-    courseBooking.course = { id: createBookingDto.courseId } as any; 
-    courseBooking.user = { id: createBookingDto.userId } as any; 
-    courseBooking.courseDuration = { id: createBookingDto.courseDurationId } as any; 
-    courseBooking.timeSlot = { id: createBookingDto.timeSlotId } as any; 
 
-    return await this.courseBookingRepository.save({ id, ...courseBooking });
+    const course = updateBookingDto.courseId
+      ? await this.courseService.findOne(updateBookingDto.courseId)
+      : existingBooking.course;
+
+    const user = updateBookingDto.userId
+      ? await this.usersService.findOne(updateBookingDto.userId)
+      : existingBooking.user;
+
+    const duration = updateBookingDto.courseDurationId
+      ? await this.courseDurationService.findOne(
+          updateBookingDto.courseDurationId
+        )
+      : existingBooking.courseDuration;
+
+    const timeSlot = updateBookingDto.timeSlotId
+      ? await this.timeSlotService.findOne(updateBookingDto.timeSlotId)
+      : existingBooking.timeSlot;
+
+    existingBooking.course = course;
+    existingBooking.user = user;
+    existingBooking.courseDuration = duration;
+    existingBooking.timeSlot = timeSlot;
+
+    return await this.courseBookingRepository.save(existingBooking);
   }
 
   async remove(id: string) {

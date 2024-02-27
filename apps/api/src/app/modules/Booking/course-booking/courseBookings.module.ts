@@ -9,17 +9,15 @@ import { DurationModule } from '../course-duration/courseDuration.module';
 import { UsersModule } from '../../user/users.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CourseBooking]),
-  CoursesModule,
-  UsersModule,
-  DurationModule,
-  TimeSlotModule
-  
-
-
-],
+  imports: [
+    TypeOrmModule.forFeature([CourseBooking]),
+    CoursesModule,
+    UsersModule,
+    DurationModule,
+    TimeSlotModule,
+  ],
   controllers: [BookingsController],
   providers: [BookingsService],
-  exports:[BookingsService]
+  exports: [BookingsService],
 })
 export class BookingsModule {}

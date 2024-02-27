@@ -10,6 +10,7 @@ import {
 import { CreateBookingDto } from './dto/createBooking.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { BookingsService } from './courseBookings.service';
+import { UpdateBookingDto } from './dto/updateBooking.dto';
 
 @ApiTags('Bookings')
 @Controller()
@@ -19,11 +20,6 @@ export class BookingsController {
   @Post()
   create(@Body() createBookingDto: CreateBookingDto) {
     return this.bookingsService.create(createBookingDto);
-  }
-
-  @Get()
-  async findAllDurations() {
-    return await this.bookingsService.findAll();
   }
 
   @Get()
@@ -37,8 +33,9 @@ export class BookingsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() CreateBookingDto: CreateBookingDto) {
-    return this.bookingsService.update(id, CreateBookingDto);
+  update(@Param('id') id: string, @Body() updateBookingDto: UpdateBookingDto) {
+    console.log('hit');
+    return this.bookingsService.update(id, updateBookingDto);
   }
 
   @Delete(':id')
