@@ -7,6 +7,9 @@ import {SeedingService} from  './seeding.service'
 import { SeedingController } from './seeding.controller';
 import { CommonModule } from '../../common/common.module';
 import { StudentsModule } from '../user/extended-users/student/students.module';
+import { DurationModule } from '../Booking/course-duration/courseDuration.module';
+import { TimeSlotModule } from '../Booking/timeslot/timeSlot.module';
+import { BookingsModule } from '../Booking/course-booking/courseBookings.module';
 
 @Module({
   imports: [
@@ -14,7 +17,10 @@ import { StudentsModule } from '../user/extended-users/student/students.module';
     CoursesModule,
     SubjectsModule,
     CommonModule,
-    StudentsModule
+    StudentsModule,
+    DurationModule,
+    TimeSlotModule,
+    BookingsModule
    
   ],
   providers: [SeedingService],

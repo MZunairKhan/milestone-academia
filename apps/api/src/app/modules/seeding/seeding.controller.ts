@@ -66,9 +66,34 @@ export class SeedingController {
       subjectId: newSubject.id,
     };
     const newCourse = await this.seedingService.seedCourse(course);
+    
+  const durationData = {
+    startDate: "2024-02-27T10:54:03.833Z",
+    endDate: "2024-02-27T10:54:03.833Z",
+    days: "Monday"
+  }
 
-    if (createPepper && newUser && newSubject && newCourse) {
-      return `Pepper Added . User ${newUser.firstName} created sucessfully. Subject ${newSubject.name}  created Successfully .Course ${newCourse.name}  created Successfully `;
+  const newDuration = await this.seedingService.seedDuration(durationData);
+
+  const timeSlotData = {
+    startTime: "string",
+    endTime: "string"
+  }
+   
+  const newTimeSlot =await this.seedingService.seedTimeSlot(timeSlotData);
+
+
+  const courseBookingData = {
+    courseId: newCourse.id,
+    userId: newUser.id,
+    courseDurationId: newDuration.id,
+    timeSlotId: newTimeSlot.id
+  }
+
+  const newCourseBooking = await this.seedingService.seedCoursebooking(courseBookingData)
+
+    if (newCourseBooking &&createPepper && newUser && newSubject && newCourse) {
+      return `Pepper Added . User ${newUser.firstName} created sucessfully. Subject ${newSubject.name}  created Successfully .Course ${newCourse.name}  created Successfully . New Course Booking Added  `;
     } else {
       return `Had an issue while seeding`;
     }

@@ -9,6 +9,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { SubjectsModule } from './modules/subject/subject.module';
 import { CoursesModule } from './modules/course/course.module';
 import { SeedingModule } from './modules/seeding/seeding.module';
+import { BookingsModule } from './modules/Booking/course-booking/courseBookings.module';
+import { DurationModule } from './modules/Booking/course-duration/courseDuration.module';
+import { TimeSlotModule } from './modules/Booking/timeslot/timeSlot.module';
 // import { StudentsModule } from './modules/student/students.module';
 // import { InstructorsModule } from './modules/instructor/instructor.module';
 
@@ -40,14 +43,31 @@ import { SeedingModule } from './modules/seeding/seeding.module';
       {
         path: 'course',
         module: CoursesModule
-      }
+      },
+      {
+        path: 'bookings',
+        module: BookingsModule
+      },
+      {
+        path: 'durations',
+        module: DurationModule
+      },
+      {
+        path: 'timeslots',
+        module: TimeSlotModule
+      },
+      
     ]),
     CommonModule,
     UsersModule,
+    SeedingModule,
     AuthModule,
     SubjectsModule,
     CoursesModule,
-    SeedingModule
+    BookingsModule,
+    DurationModule,
+    TimeSlotModule,
+
     // StudentsModule,
     // InstructorsModule
   ]

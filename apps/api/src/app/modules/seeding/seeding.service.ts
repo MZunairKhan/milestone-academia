@@ -15,6 +15,9 @@ import { AppConfigurationService } from '../../common/appConfiguration.service';
 import { StudentsService } from '../user/extended-users/student/student.service';
 import { Student } from '../user/extended-users/student/entity/student.entity';
 import { UserType } from '../user/enums/userType.enum';
+import { TimeSlotService } from '../Booking/timeslot/timeSlot.service';
+import { CourseDurationService } from '../Booking/course-duration/courseDuration.service';
+import { BookingsService } from '../Booking/course-booking/courseBookings.service';
 
 @Injectable()
 export class SeedingService {
@@ -23,7 +26,10 @@ export class SeedingService {
     private readonly courseSeedingService: CourseService,
     private readonly subjectSeedingService: SubjectService,
     private readonly appConfigSeedingService: AppConfigurationService,
-    private readonly studentSeedingService: StudentsService
+    private readonly studentSeedingService: StudentsService,
+    private readonly timeSlotService: TimeSlotService,
+    private readonly courseDurationService: CourseDurationService,
+    private readonly bookingsService: BookingsService
   ) {}
 
   async seedUser(createUserDto: CreateUserDto): Promise<User> {
@@ -50,5 +56,17 @@ export class SeedingService {
 
   async seedStudent(data: any) {
     return await this.studentSeedingService.updateStudent(data);
+  }
+
+  async seedDuration(data: any) {
+    return await this.courseDurationService.create(data);
+  }
+
+  async seedTimeSlot(data: any) {
+    return await this.timeSlotService.create(data);
+  }
+
+  async seedCoursebooking(data: any) {
+    return await this.bookingsService.create(data);
   }
 }
