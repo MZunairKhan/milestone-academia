@@ -12,6 +12,25 @@
                 "<node_internals>/**"
             ],
             "program": "${file}"
+        },
+        {
+          "name": "API Debug",
+          "type": "node",
+          "request": "launch",
+          "runtimeExecutable": "yarn",
+          "runtimeArgs": [
+            "nx",
+            "run",
+            "api:serve"
+          ],
+          "outputCapture": "std",
+          "internalConsoleOptions": "openOnSessionStart",
+          "console": "internalConsole",
+          "env": {
+            "TS_NODE_IGNORE": "false",
+            "TS_NODE_PROJECT": "${workspaceFolder}/apps/api/tsconfig.json"
+          },
+          "cwd": "${workspaceFolder}/apps/api/"
         }
     ]
 }
