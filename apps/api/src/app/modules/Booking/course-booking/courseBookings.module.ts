@@ -20,5 +20,6 @@ import { UsersModule } from '../../user/users.module';
 ],
   controllers: [BookingsController],
   providers: [BookingsService],
+  exports:[BookingsService]
 })
 export class BookingsModule {}

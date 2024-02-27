@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
-import { StorageService } from '../../shared/services/storage.service';
 import { APIS } from '../../../environments/api-routes';
+import { StorageService } from '../../shared/services/storage.service';
 
-import { AUTH_CONSTANTS } from '../auth.constants';
 import { AuthData } from '../models/auth.model';
+import { AUTH_CONSTANTS } from '../auth.constants';
+import { USER_CONSTANTS } from '../../user/constants/user.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,7 @@ export class AuthService {
     private http: HttpClient,
     private storageService: StorageService,
   ) {
+    this.checkAndInvalidateUser();
   }
 
   login(userName: string, password: string) {  
@@ -53,16 +55,30 @@ export class AuthService {
   }
 
   logout() {
-    this.storageService.removeValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
-    this.authSource$.next(Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT));
+    this.removeUserData();
     this.routeTo('auth/logout');
-  }
-  
-  private updateData(value: AuthData) {
-    this.authSource$.next(value);
   }
 
   routeTo(route: string) {
     this.router.navigate([route]);
+  }
+
+  private checkAndInvalidateUser() {
+    const authData = this.storageService.getValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
+    if (authData) {
+      if (Date.now() >= authData.exp * 1000) {
+        this.removeUserData();
+      }
+    }
+  }
+
+  private removeUserData() {
+    this.storageService.removeValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
+    this.storageService.removeValue(USER_CONSTANTS.USER_DATA);
+    this.authSource$.next(Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT));
+  }
+  
+  private updateData(value: AuthData) {
+    this.authSource$.next(value);
   }
 }
