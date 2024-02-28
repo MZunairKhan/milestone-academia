@@ -59,6 +59,11 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
+  async updatePassword(user: User, newPassword: string): Promise<User> {
+    user.pwrd = newPassword;
+   return await this.usersRepository.save(user);
+  }
+
   findOne(id: string): Promise<User> {
     return this.usersRepository.findOneBy({ id: id });
   }
