@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, 
   UseGuards, Req, HttpException, HttpStatus, } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Roles } from '../auth/roles/roles.decorator';
+import { RolesGuard } from '../auth/roles/roles.guard';
+import { UserRoles } from '@milestone-academia/api-interfaces';
 
 import { UsersService } from './users.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { StudentsService } from './extended-users/student/student.service';
 import { InstructorService } from './extended-users/instructor/instructor.service';
 
@@ -58,10 +60,10 @@ export class UsersController {
 
   @Get('userData')
   @ApiOkResponse({ description: 'User Data', type: ReadUserDto })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(RolesGuard)
+  @Roles([UserRoles.RetrieveUser])
   async findOne(@Req() request): Promise<ReadUserDto> {
     const user = await this.usersService.findOne(request.user['userId']);
-
 
     const dto: ReadUserDto = {
       userId: user.id,
@@ -79,7 +81,8 @@ export class UsersController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(RolesGuard)
+  @Roles([UserRoles.RetrieveUser])
   async findAll(@Req() request): Promise<Partial<User>[]> {
     const users: User[] = await this.usersService.findAll();
     return users

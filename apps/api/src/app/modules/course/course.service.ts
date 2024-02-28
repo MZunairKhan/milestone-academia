@@ -16,10 +16,10 @@ export class CourseService {
 
   async create(createSubjectDto: CreateCourseDto): Promise<Course> {
     const subject = await this.subjectsService.findOne(createSubjectDto.subjectId);
-
     if (subject) {
       const course = new Course();
       course.name = createSubjectDto.name;
+      course.courseType = createSubjectDto.courseType;
       course.subject = subject;
       return this.coursesRepository.save(course);
     }

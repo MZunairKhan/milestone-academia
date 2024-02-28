@@ -8,6 +8,8 @@ import { LoginDto } from './dto/login.dto';
 import { User } from '../user/entity/user.entity';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
 
+import { Message } from '@milestone-academia/api-interfaces';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -22,20 +24,23 @@ export class AuthService {
       const isMatch = await bcrypt.compare(loginDto.password, user.pwrd);
       return isMatch && user;
     }
+
+    const msg: Message = { message: 'vasd' };
     return null;
   }
 
   async login(user: User) {
-    const payload = {
+    const access_token = this.jwtService.sign({ 
       sub: user.id,
       upn: user.email,
       userType: user.userType,
       username: user.userName,
-    };
+    });
+    const tokenData = this.jwtService.decode(access_token);
 
     return {
-      access_token: this.jwtService.sign(payload),
-      payload,
+      access_token,
+      tokenData
     };
   }
 

@@ -22,6 +22,7 @@ export const APIS = {
     auth: {
         login: `${extension}/auth/login`,
         test: `${extension}/auth/test`,
+        roleSet: `${extension}/auth/role-set`,
     },
     subject: {
         create: `${extension}/subject/user`,

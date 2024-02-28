@@ -9,11 +9,11 @@ import { CreateSubjectDto } from './dto/create-subject.dto';
 @ApiTags('Subject')
 @Controller()
 export class SubjectsController {
-  constructor(private readonly usersService: SubjectService) {}
+  constructor(private readonly subjectService: SubjectService) {}
 
   @Post()
   async create(@Body() createSubjectDto: CreateSubjectDto): Promise<string> {
-    const subject = await this.usersService.create(createSubjectDto);
+    const subject = await this.subjectService.create(createSubjectDto);
     if (subject) {
       return `Subject ${subject.name} created sucessfully`
     } else {
@@ -23,16 +23,16 @@ export class SubjectsController {
 
   @Get()
   findAll(): Promise<Subject[]> {
-    return this.usersService.findAll();
+    return this.subjectService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: string): Promise<Subject> {
-    return this.usersService.findOne(id);
+    return this.subjectService.findOne(id);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
-    return this.usersService.remove(id);
+    return this.subjectService.remove(id);
   }
 }

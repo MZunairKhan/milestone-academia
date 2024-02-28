@@ -31,6 +31,7 @@ export class UsersService {
     user.email = createUserDto.email;
     user.createdDate = new Date();
     user.userType = userType ?? UserType.Student;
+
     
     if (createUserDto.presenceType) {
       user.presenceType = createUserDto.presenceType;
@@ -39,9 +40,9 @@ export class UsersService {
     const pepper = await this.appConfigService.findByKey('pepper');
     const hash = await bcrypt.hash(createUserDto.password, Number(pepper.value));
     user.pwrd = hash;
-
+    
     const createdUser = await this.createUser(user);
-
+    
     if (userType) {
       if (userType === UserType.Student) {
         await this.createAssociatedEntity(createdUser, UserType.Student);

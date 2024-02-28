@@ -15,7 +15,8 @@ import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
-
+import { USER_ROLE_SET, BaseRole } from '@milestone-academia/api-interfaces';
+  
 @ApiTags('Auth')
 @Controller()
 export class AuthController {
@@ -33,13 +34,7 @@ export class AuthController {
       const cookieSettings: CookieOptions =
         this.authService.prepareCookieSettings();
 
-      response.cookie(
-        process.env.JWT_ACCESS_TOKEN_KEY,
-        userData.access_token,
-        cookieSettings
-      );
-
-      return userData.payload;
+      return userData.tokenData;
     } else {
       throw new BadRequestException('invalid username and/or password');
     }
@@ -60,5 +55,12 @@ export class AuthController {
   ) {
     const userName = request.username;
     return this.authService.resetPassword(resetPasswordDto, userName);
+  }
+
+  @Get('role-set')
+  async getRoleSet(@Req() request): Promise<BaseRole[]> {
+    const userType = request?.user?.userType;
+    const userTypeRoles: BaseRole[] = USER_ROLE_SET[userType];
+    return userTypeRoles ?? []
   }
 }
