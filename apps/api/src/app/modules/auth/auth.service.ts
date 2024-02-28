@@ -7,6 +7,8 @@ import { UsersService } from '../user/users.service';
 import { LoginDto } from './dto/login.dto';
 import { User } from '../user/entity/user.entity';
 
+import { Message } from '@milestone-academia/api-interfaces';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -21,6 +23,8 @@ export class AuthService {
       const isMatch = await bcrypt.compare(loginDto.password, user.pwrd);
       return isMatch && user;
     }
+
+    const msg: Message = { message: 'vasd' };
     return null;
   }
 
