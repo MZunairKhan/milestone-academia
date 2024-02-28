@@ -11,7 +11,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { TimeSlotService } from './timeSlot.service';
 import { TimeSlotDto } from './dto/timeSlot.dto';
 
-@ApiTags('timeslots')
+@ApiTags('Timeslots')
 @Controller()
 export class TimeSlotController {
   constructor(private readonly timeSlotService: TimeSlotService) {}
