@@ -5,6 +5,7 @@ import { AuthService } from '../../auth/services/auth.service';
 import { Router } from '@angular/router';
 import { AuthData } from '../../auth/models/auth.model';
 import { UserRoles } from '@milestone-academia/api-interfaces';
+import { RoleService } from '../../shared/modules/role/role.service';
 
 @Component({
   selector: 'milestone-academia-navbar',
@@ -13,21 +14,26 @@ import { UserRoles } from '@milestone-academia/api-interfaces';
 })
 export class NavbarComponent implements OnInit {
   
-  manageUserPermissions = [UserRoles.CreateUser, UserRoles.RetrieveUser, UserRoles.UpdateUser, UserRoles.DeleteUser]
+  manageUserRoleList = [UserRoles.CreateUser, UserRoles.RetrieveUser, UserRoles.UpdateUser, UserRoles.DeleteUser]
   
   auth$: Observable<AuthData> = this.authService.authData$;
 
   loggedIn$: Observable<boolean> = this.authService.loggedIn$;
 
+  @Output() sideButtonClick = new EventEmitter<boolean>();
+
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private roleService: RoleService
   ) {
   }
 
   ngOnInit(): void {}
 
-  @Output() sideButtonClick = new EventEmitter<boolean>();
+  get displayManageUsers() {
+    return this.roleService.checkRoles(this.manageUserRoleList);
+  }
 
   sideButtonClicked() {
     this.sideButtonClick.emit(true);
