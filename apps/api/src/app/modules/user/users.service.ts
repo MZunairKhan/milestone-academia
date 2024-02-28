@@ -12,6 +12,7 @@ import { UserType } from './enums/userType.enum';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ReadUserDto } from './dto/read-user.dto';
 import { PresenceType } from './enums/presenceType.enum';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -60,9 +61,9 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  async updatePassword(user: User, newPassword: string): Promise<User> {
-    user.pwrd = newPassword;
-   return await this.usersRepository.save(user);
+  async update(id: string, updateUserDto: UpdateUserDto) {
+  
+   return await this.usersRepository.update(id, updateUserDto);
   }
 
   findOne(id: string): Promise<User> {

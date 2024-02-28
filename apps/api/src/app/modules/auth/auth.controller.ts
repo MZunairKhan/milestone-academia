@@ -34,6 +34,12 @@ export class AuthController {
       const cookieSettings: CookieOptions =
         this.authService.prepareCookieSettings();
 
+      response.cookie(
+        process.env.JWT_ACCESS_TOKEN_KEY,
+        userData.access_token,
+        cookieSettings
+      );
+
       return userData.tokenData;
     } else {
       throw new BadRequestException('invalid username and/or password');
@@ -43,7 +49,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('test')
   async test(@Req() request): Promise<boolean> {
-    console.log(request.user);
+    console.log('USER',request.user);
     return true;
   }
 
@@ -57,6 +63,7 @@ export class AuthController {
     return this.authService.resetPassword(resetPasswordDto, userName);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('role-set')
   async getRoleSet(@Req() request): Promise<BaseRole[]> {
     const userType = request?.user?.userType;

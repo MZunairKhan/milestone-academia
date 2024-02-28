@@ -9,6 +9,7 @@ import { User } from '../user/entity/user.entity';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
 
 import { Message } from '@milestone-academia/api-interfaces';
+import { UpdateUserDto } from '../user/dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -80,7 +81,12 @@ export class AuthService {
       resetPasswordDto.newPassword,
       10
     );
-    await this.userService.updatePassword(user, hashedNewPassword);
+
+    const newpassword  = {
+     pwrd: hashedNewPassword,
+    
+    }
+    await this.userService.update(user.id, newpassword);
 
     return {
       status: true,
