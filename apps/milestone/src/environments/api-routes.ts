@@ -25,15 +25,15 @@ export const APIS = {
         roleSet: `${extension}/auth/role-set`,
     },
     subject: {
-        create: `${extension}/subject/user`,
-        getAll: `${extension}/subject/user`,
-        getById: (id: string) => `${extension}/subject/user/${id}`,
-        deleteById: (id: string) => `${extension}/subject/user/${id}`
+        create: `${extension}/subject`,
+        getAll: `${extension}/subject`,
+        getById: (id: string) => `${extension}/subject/${id}`,
+        deleteById: (id: string) => `${extension}/subject/${id}`
     },
     course: {
-        create: `${extension}/course/user`,
-        getAll: `${extension}/course/user`,
-        getById: (id: string) => `${extension}/course/user/${id}`,
-        deleteById: (id: string) => `${extension}/course/user/${id}`
+        create: `${extension}/course`,
+        getAll: `${extension}/course`,
+        getById: (id: string) => `${extension}/course/${id}`,
+        deleteById: (id: string) => `${extension}/course/${id}`
     }
 }

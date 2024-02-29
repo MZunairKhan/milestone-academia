@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column, ManyToOne } from 'typeorm';
 
-import { CourseType } from '../enums/courseTypes.enum';
+import { CourseType } from '@milestone-academia/api-interfaces';
 import { Subject } from '../../subject/entity/subject.entity';
 import { TimeBaseEntity } from '../../../common/entities/timeBase.entity';
 import { Instructor } from '../../user/extended-users/instructor/entity/instructor.entity';
@@ -22,6 +22,9 @@ export class Course extends TimeBaseEntity{
     enum: CourseType
   })
   courseType: string;
+  
+  @Column()
+  description: string;
   
   @ManyToOne(() => Subject, (subject) => subject.courses)
   subject: Subject;

@@ -5,7 +5,7 @@ import { AuthService } from '../../auth/services/auth.service';
 import { Router } from '@angular/router';
 import { AuthData } from '../../auth/models/auth.model';
 import { UserRoles } from '@milestone-academia/api-interfaces';
-import { RoleService } from '../../shared/modules/role/role.service';
+import { RoleService } from '../../auth/services/role.service';
 
 @Component({
   selector: 'milestone-academia-navbar',

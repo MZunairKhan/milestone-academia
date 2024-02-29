@@ -1,14 +1,19 @@
 <div class="course-list-row">
     <mat-card class="course-list-header">
         <h1>My Courses</h1>
+        
+        <button *ngIf="displayCreateCourse" mat-raised-button color="primary" (click)="goToRoute('course/create')">
+            <mat-icon>add</mat-icon>
+            Create Course
+        </button>
     </mat-card>
 </div>
 
-<div class="course-list-row">
+<div class="course-list-row" *ngIf="(isStudent$ | async)">
     <h2>Recent Courses</h2>
 </div>
 
-<div class="course-list-row">
+<div class="course-list-row" *ngIf="(isStudent$ | async)">
     <div class="courses-recent">
         <mat-card class="courses-recent-card" *ngFor="let course of recentCourse">
             <div class="course-recent-image" [ngStyle]="{'background-color': course.color}"></div>

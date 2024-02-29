@@ -3,7 +3,7 @@
 
 import { Directive, OnInit, Input, TemplateRef, ViewContainerRef } from "@angular/core";
 import { UserRoles } from "@milestone-academia/api-interfaces";
-import { RoleService } from "./role.service";
+import { RoleService } from "../../../auth/services/role.service";
 
 // @Directive({
 //   selector: '[AllowRole]'
