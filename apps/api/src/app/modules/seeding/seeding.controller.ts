@@ -3,7 +3,7 @@ import { Controller, Post } from '@nestjs/common';
 
 import { UserType } from '../user/enums/userType.enum';
 import { PresenceType } from '../user/enums/presenceType.enum';
-import { CourseType } from '../course/enums/courseTypes.enum';
+import { CourseType } from '@milestone-academia/api-interfaces';
 import { CreateCourseDto } from '../course/dto/create-course.dto';
 import { CreateSubjectDto } from '../subject/dto/create-subject.dto';
 import { SeedingService } from './seeding.service';
@@ -64,6 +64,7 @@ export class SeedingController {
       name: 'Seeder',
       courseType: CourseType.Group,
       subjectId: newSubject.id,
+      description: 'test description'
     };
     const newCourse = await this.seedingService.seedCourse(course);
     
