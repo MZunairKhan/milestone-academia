@@ -12,6 +12,9 @@ import { SeedingModule } from './modules/seeding/seeding.module';
 import { BookingsModule } from './modules/Booking/course-booking/courseBookings.module';
 import { DurationModule } from './modules/Booking/course-duration/courseDuration.module';
 import { TimeSlotModule } from './modules/Booking/timeslot/timeSlot.module';
+import { EmailModule } from './modules/email/email.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+
 // import { StudentsModule } from './modules/student/students.module';
 // import { InstructorsModule } from './modules/instructor/instructor.module';
 
@@ -19,6 +22,16 @@ import { TimeSlotModule } from './modules/Booking/timeslot/timeSlot.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    EventEmitterModule.forRoot({
+      wildcard: false,
+      delimiter: '.',
+      newListener: false,
+      removeListener: false,
+      maxListeners: 10,
+      verboseMemoryLeak: false,
+      ignoreErrors: false,
+    }),
+    
     RouterModule.register([
       {
         path: 'users',
@@ -56,6 +69,10 @@ import { TimeSlotModule } from './modules/Booking/timeslot/timeSlot.module';
         path: 'timeslots',
         module: TimeSlotModule
       },
+      {
+        path: 'email',
+        module: EmailModule
+      },
       
     ]),
     CommonModule,
@@ -67,9 +84,10 @@ import { TimeSlotModule } from './modules/Booking/timeslot/timeSlot.module';
     BookingsModule,
     DurationModule,
     TimeSlotModule,
+    EmailModule
 
     // StudentsModule,
     // InstructorsModule
-  ]
+  ],
 })
 export class AppModule {}

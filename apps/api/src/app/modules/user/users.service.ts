@@ -12,6 +12,7 @@ import { UserType } from './enums/userType.enum';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ReadUserDto } from './dto/read-user.dto';
 import { PresenceType } from './enums/presenceType.enum';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class UsersService {
@@ -20,10 +21,14 @@ export class UsersService {
     private readonly usersRepository: Repository<User>,
     private readonly appConfigService: AppConfigurationService,
     private readonly studentService: StudentsService,
-    private readonly instructorService: InstructorService
+    private readonly instructorService: InstructorService,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
-  async create(createUserDto: CreateUserDto, userType?: UserType): Promise<User> {
+  async create(
+    createUserDto: CreateUserDto,
+    userType?: UserType
+  ): Promise<User> {
     const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
@@ -32,23 +37,28 @@ export class UsersService {
     user.createdDate = new Date();
     user.userType = userType ?? UserType.Student;
 
-    
     if (createUserDto.presenceType) {
       user.presenceType = createUserDto.presenceType;
     }
-    
+
     const pepper = await this.appConfigService.findByKey('pepper');
-    const hash = await bcrypt.hash(createUserDto.password, Number(pepper.value));
+    const hash = await bcrypt.hash(
+      createUserDto.password,
+      Number(pepper.value)
+    );
     user.pwrd = hash;
-    
+
     const createdUser = await this.createUser(user);
-    
+
     if (userType) {
       if (userType === UserType.Student) {
         await this.createAssociatedEntity(createdUser, UserType.Student);
       }
     }
 
+    //user created Event
+    this.eventEmitter.emit('created', { email: createUserDto.email });
+    // userEventEmitter.emit('user.created', { email: createUserDto.email });
     return createdUser;
   }
 
@@ -79,11 +89,11 @@ export class UsersService {
       case UserType.Student:
         associatedEntity = await this.studentService.create(user);
         break;
-    
+
       case UserType.Instructor:
         associatedEntity = await this.instructorService.create(user);
         break;
-        
+
       default:
         break;
     }
@@ -98,16 +108,22 @@ export class UsersService {
       case UserType.Student:
         associatedEntity = await this.studentService.findOneByUPN(user.email);
         break;
-    
+
       case UserType.Instructor:
-        associatedEntity = await this.instructorService.findOneByUPN(user.email);
+        associatedEntity = await this.instructorService.findOneByUPN(
+          user.email
+        );
         break;
-        
+
       default:
         break;
     }
 
     return associatedEntity;
+  }
+
+  async auto() {
+    console.log('OKA');
   }
 
   mapToDto(user: User): ReadUserDto {
@@ -118,7 +134,7 @@ export class UsersService {
       lastName: user.lastName,
       firstName: user.firstName,
       userType: UserType[user.userType],
-      presenceType: PresenceType[user.presenceType]
+      presenceType: PresenceType[user.presenceType],
     };
   }
 }

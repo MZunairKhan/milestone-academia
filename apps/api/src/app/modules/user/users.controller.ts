@@ -25,13 +25,14 @@ export class UsersController {
     private readonly usersService: UsersService,
     private readonly studentsService: StudentsService,
     private readonly instructorsService: InstructorService,
+
   ) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<Partial<User>> {
     const user = await this.usersService.create(createUserDto, UserType.Student);
     if (user) {
-      console.log(`User ${createUserDto.userName} created sucessfully`);
+      console.log(`User ${createUserDto.userName} created sucessfully and email sent to ${createUserDto.email}`);
     } else {
       throw new HttpException(`Had an issue creating user ${createUserDto.userName}`, HttpStatus.BAD_REQUEST);
     }
