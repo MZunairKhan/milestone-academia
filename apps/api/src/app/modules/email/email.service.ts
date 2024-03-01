@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import * as nodemailer from 'nodemailer';
+import { EventMessagesEnum } from '../../common/enums/event-messages.enum';
 
 @Injectable()
 export class EmailService {
@@ -143,7 +144,7 @@ export class EmailService {
     }
   }
 
-  @OnEvent('created')
+  @OnEvent(EventMessagesEnum.UserCreated)
   EmailNewUser(payload: { email: string }) {
     this.sendEmail(payload.email);
   }

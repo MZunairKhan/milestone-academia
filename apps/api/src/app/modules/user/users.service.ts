@@ -13,6 +13,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { ReadUserDto } from './dto/read-user.dto';
 import { PresenceType } from './enums/presenceType.enum';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventMessagesEnum } from '../../common/enums/event-messages.enum';
 
 @Injectable()
 export class UsersService {
@@ -57,8 +58,8 @@ export class UsersService {
     }
 
     //user created Event
-    this.eventEmitter.emit('created', { email: createUserDto.email });
-    // userEventEmitter.emit('user.created', { email: createUserDto.email });
+    this.eventEmitter.emit(EventMessagesEnum.UserCreated, { email: createUserDto.email });
+    
     return createdUser;
   }
 

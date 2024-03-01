@@ -25,11 +25,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     EventEmitterModule.forRoot({
       wildcard: false,
       delimiter: '.',
-      newListener: false,
-      removeListener: false,
-      maxListeners: 10,
-      verboseMemoryLeak: false,
-      ignoreErrors: false,
     }),
     
     RouterModule.register([
@@ -69,11 +64,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
         path: 'timeslots',
         module: TimeSlotModule
       },
-      {
-        path: 'email',
-        module: EmailModule
-      },
-      
     ]),
     CommonModule,
     UsersModule,
