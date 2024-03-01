@@ -11,13 +11,14 @@ export class CoursesController {
   constructor(private readonly coursesService: CourseService) {}
 
   @Post()
-  async create(@Body() createSubjectDto: CreateCourseDto): Promise<string> {
+  async create(@Body() createSubjectDto: CreateCourseDto): Promise<Course> {
     const course = await this.coursesService.create(createSubjectDto);
-    if (course) {
-      return `Course ${course.name} created sucessfully`
-    } else {
-      return `Had an issue creating Course ${course.name}`
-    }
+    return course;
+    // if (course) {
+    //   return `Course ${course.name} created sucessfully`
+    // } else {
+    //   return `Had an issue creating Course ${course.name}`
+    // }
   }
 
   @Get()

@@ -1,11 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { TimeBaseEntity } from '../../../common/entities/timeBase.entity';
-
 import { UserType } from '../enums/userType.enum';
 import { PresenceType } from '../enums/presenceType.enum';
 
 @Entity('User')
-export class User extends TimeBaseEntity{
+export class User extends TimeBaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -26,14 +25,14 @@ export class User extends TimeBaseEntity{
 
   @Column({
     type: 'enum',
-    enum: UserType
+    enum: UserType,
   })
   userType: string;
-  
+
   @Column({
     type: 'enum',
     enum: PresenceType,
-    default: PresenceType.Online
+    default: PresenceType.Online,
   })
   presenceType: string;
 

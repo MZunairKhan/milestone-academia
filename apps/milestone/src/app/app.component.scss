@@ -11,6 +11,9 @@
 .milestone-sidenav-content {
     display: flex;
     height: 100%;
+    width: 100%;
+    max-width: 1480px;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
 }

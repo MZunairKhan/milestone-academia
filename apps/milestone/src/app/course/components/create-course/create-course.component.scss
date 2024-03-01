@@ -1,0 +1,26 @@
+.course-create-row {
+    width: 90%;
+    margin: 10px 0px;
+}
+
+.course-create-header {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+        margin: 0;
+    }
+}
+
+.course-create-form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+}
+
+.course-create-field-label {
+    margin-right: 10px;
+}

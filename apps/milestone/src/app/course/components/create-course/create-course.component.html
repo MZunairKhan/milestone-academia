@@ -1,0 +1,101 @@
+<div class="course-create-row">
+    <mat-card class="course-create-header">
+        <button mat-raised-button color="warn" (click)="goToRoute('course/my-courses')">
+            <mat-icon>chevron_left</mat-icon>
+            Discard
+        </button>
+
+        <h1>Create Course</h1>
+
+        <button mat-raised-button color="primary" [disabled]="!createCourseForm.valid" (click)="createCourse()">
+            <mat-icon>add</mat-icon>
+            Create
+        </button>
+    </mat-card>
+</div>
+
+<div class="course-create-row">
+    <mat-card class="course-create-form">
+        <form [formGroup]="createCourseForm">
+            <h3>General Details</h3>
+
+            <div class="course-create-form-row">
+                <div>
+                    <mat-label class="course-create-field-label">Course Name:</mat-label>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Course Name</mat-label>
+                        <input matInput formControlName="name">
+                    </mat-form-field>
+                </div>
+            
+                <div>
+                    <mat-label class="course-create-field-label">Course Type:</mat-label>
+                    <mat-form-field appearance="fill" class="slot-select">
+                        <mat-label>Course Type</mat-label>
+                        <mat-select formControlName="courseType">
+                          <mat-option *ngFor="let type of courseTypes" value="{{type}}">{{type}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                
+                <div>
+                    <mat-label class="course-create-field-label">Subject:</mat-label>
+                    <mat-form-field appearance="fill" class="slot-select">
+                        <mat-label>Subject</mat-label>
+                        <mat-select formControlName="subjectId">
+                          <mat-option *ngFor="let subject of subjectList" value="{{subject.id}}">{{subject.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="course-create-form-row">
+                <mat-label class="course-create-field-label">Description:</mat-label>
+                <mat-form-field appearance="fill" style="width: calc(100% - 110px);">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <h3>Course Timing</h3>
+            
+            <div class="course-create-form-row">
+                <div>
+                    <mat-label class="course-create-field-label">Course Duration:</mat-label>
+                    <mat-form-field appearance="fill" class="slot-select">
+                        <mat-label class="course-create-field-label">Course Duration</mat-label>
+                        <mat-date-range-input [rangePicker]="datePicker">
+                            <input matStartDate placeholder="Start date" formControlName="startDate">
+                            <input matEndDate placeholder="End date" formControlName="endDate">
+                        </mat-date-range-input>
+                        <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+                        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #datePicker></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-label class="course-create-field-label">Course Days:</mat-label>
+                    <mat-form-field appearance="fill" class="slot-select">
+                        <mat-label>Course Days</mat-label>
+                        <mat-select formControlName="days" multiple>
+                          <mat-option *ngFor="let day of courseDays" value="{{day}}">{{day}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-label class="course-create-field-label">Time Slots:</mat-label>
+                    <mat-form-field appearance="fill" class="slot-select">
+                        <mat-label>Time Slots</mat-label>
+                        <mat-select formControlName="timeSlots" multiple>
+                          <mat-option *ngFor="let timeSlot of timeSlots" value="{{timeSlot}}">{{timeSlot}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+</div>
