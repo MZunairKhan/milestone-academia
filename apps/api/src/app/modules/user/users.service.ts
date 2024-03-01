@@ -12,6 +12,7 @@ import { UserType } from './enums/userType.enum';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ReadUserDto } from './dto/read-user.dto';
 import { PresenceType } from './enums/presenceType.enum';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EventMessagesEnum } from '../../common/enums/event-messages.enum';
 
@@ -69,6 +70,11 @@ export class UsersService {
 
   async findAll(): Promise<User[]> {
     return this.usersRepository.find();
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto) {
+  
+   return await this.usersRepository.update(id, updateUserDto);
   }
 
   findOne(id: string): Promise<User> {

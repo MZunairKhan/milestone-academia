@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, 
-  UseGuards, Req, HttpException, HttpStatus, } from '@nestjs/common';
+  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles/roles.decorator';
 import { RolesGuard } from '../auth/roles/roles.guard';
@@ -17,6 +17,8 @@ import { CreateStudentUserDto, CreateUserDto } from './dto/create-user.dto';
 
 import { User } from './entity/user.entity';
 import { Student } from './extended-users/student/entity/student.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UpdateUserDto } from './dto/update-user.dto';
   
 @ApiTags('Users')
 @Controller()
@@ -57,6 +59,25 @@ export class UsersController {
     }
 
     return this.studentsService.mapToDto(student);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('update-user')
+  async updateUser(
+    @Body() updateUserDto: UpdateUserDto,
+    @Req() request
+  ) {
+    const userName = request.username;
+    const user = await this.usersService.findOneByUsername(userName);
+    if (!user) {
+      throw new BadRequestException('invalid User');
+    }
+    await this.usersService.update(user.id, updateUserDto);
+
+    return {
+      Success: true,
+      Message: "Updated Successfully"
+    }
   }
 
   @Get('userData')

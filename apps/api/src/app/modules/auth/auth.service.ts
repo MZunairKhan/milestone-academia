@@ -1,13 +1,15 @@
 import * as bcrypt from 'bcrypt';
 import { CookieOptions } from 'express';
 import { JwtService } from '@nestjs/jwt';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { UsersService } from '../user/users.service';
 import { LoginDto } from './dto/login.dto';
 import { User } from '../user/entity/user.entity';
+import { ResetPasswordDto } from './dto/resetPassword.dto';
 
 import { Message } from '@milestone-academia/api-interfaces';
+import { UpdateUserDto } from '../user/dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +17,7 @@ export class AuthService {
     private readonly userService: UsersService,
     private jwtService: JwtService
   ) {}
-  
+
   async validateUser(loginDto: LoginDto): Promise<User> {
     const user = await this.userService.findOneByUsername(loginDto.userName);
 
@@ -51,7 +53,44 @@ export class AuthService {
       httpOnly: true,
       expires: expiry,
       secure: true,
-      sameSite: 'none'
+      sameSite: 'none',
+    };
+  }
+  async resetPassword(resetPasswordDto: ResetPasswordDto, userName: string) {
+    const user = await this.userService.findOneByUsername(userName);
+    if (!user) {
+      throw new BadRequestException('invalid User');
     }
+
+    const isOldPasswordValid = await bcrypt.compare(
+      resetPasswordDto.oldPassword,
+      user.pwrd
+    );
+
+    if (!isOldPasswordValid) {
+      throw new BadRequestException('invalid Password');
+    }
+
+    if (resetPasswordDto.newPassword !== resetPasswordDto.confirmPassword) {
+      throw new BadRequestException(
+        'New Password and Confirm password must be same'
+      );
+    }
+
+    const hashedNewPassword = await bcrypt.hash(
+      resetPasswordDto.newPassword,
+      10
+    );
+
+    const newpassword  = {
+     pwrd: hashedNewPassword,
+    
+    }
+    await this.userService.update(user.id, newpassword);
+
+    return {
+      status: true,
+      message: 'Password Updated Successfully',
+    };
   }
 }

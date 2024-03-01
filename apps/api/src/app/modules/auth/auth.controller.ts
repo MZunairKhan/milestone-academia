@@ -1,10 +1,20 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Response, CookieOptions } from 'express';
-import { BadRequestException, Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { ResetPasswordDto } from './dto/resetPassword.dto';
 import { USER_ROLE_SET, BaseRole } from '@milestone-academia/api-interfaces';
   
 @ApiTags('Auth')
@@ -21,21 +31,36 @@ export class AuthController {
 
     if (user) {
       const userData = await this.authService.login(user);
-      const cookieSettings: CookieOptions = this.authService.prepareCookieSettings();
-      
-      response.cookie(process.env.JWT_ACCESS_TOKEN_KEY, userData.access_token, cookieSettings);
+      const cookieSettings: CookieOptions =
+        this.authService.prepareCookieSettings();
+
+      response.cookie(
+        process.env.JWT_ACCESS_TOKEN_KEY,
+        userData.access_token,
+        cookieSettings
+      );
 
       return userData.tokenData;
     } else {
-      throw new BadRequestException("invalid username and/or password");
+      throw new BadRequestException('invalid username and/or password');
     }
   }
-  
+
   @UseGuards(JwtAuthGuard)
   @Get('test')
   async test(@Req() request): Promise<boolean> {
-    console.log(request.user)
-    return true
+    console.log('USER',request.user);
+    return true;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('reset-password')
+  async resetPassword(
+    @Body() resetPasswordDto: ResetPasswordDto,
+    @Req() request
+  ) {
+    const userName = request.username;
+    return this.authService.resetPassword(resetPasswordDto, userName);
   }
 
   @UseGuards(JwtAuthGuard)
