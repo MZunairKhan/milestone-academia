@@ -10,6 +10,8 @@ import { StudentsModule } from '../user/extended-users/student/students.module';
 import { DurationModule } from '../Booking/course-duration/courseDuration.module';
 import { TimeSlotModule } from '../Booking/timeslot/timeSlot.module';
 import { BookingsModule } from '../Booking/course-booking/courseBookings.module';
+import { OnSiteCoureBookingModule } from '../Booking/onsite-course-booking/onSiteCourseBooking.module';
+import { AttendanceModule } from '../attendance/attendance.module';
 
 @Module({
   imports: [
@@ -20,7 +22,9 @@ import { BookingsModule } from '../Booking/course-booking/courseBookings.module'
     StudentsModule,
     DurationModule,
     TimeSlotModule,
-    BookingsModule
+    BookingsModule,
+    OnSiteCoureBookingModule,
+    AttendanceModule
    
   ],
   providers: [SeedingService],

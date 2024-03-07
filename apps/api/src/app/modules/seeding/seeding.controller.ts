@@ -1,14 +1,12 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post } from '@nestjs/common';
 
-import { UserType } from '../user/enums/userType.enum';
 import { PresenceType } from '../user/enums/presenceType.enum';
 import { CourseType } from '@milestone-academia/api-interfaces';
 import { CreateCourseDto } from '../course/dto/create-course.dto';
 import { CreateSubjectDto } from '../subject/dto/create-subject.dto';
 import { SeedingService } from './seeding.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { Student } from '../user/extended-users/student/entity/student.entity';
 
 @ApiTags('Seeding')
 @Controller()
@@ -28,7 +26,7 @@ export class SeedingController {
       firstName: 'new',
       lastName: 'new',
       userName: 'new',
-      email: 'new@gmail.com',
+      email: 'muhammadhaseeb0302@gmail.com',
       password: 'new',
       presenceType: PresenceType.Online,
     };
@@ -52,9 +50,9 @@ export class SeedingController {
       user: newUser,
     };
 
-    const newStudent = await this.seedingService.findStudentById(newUser.id);
+    // const newStudent = await this.seedingService.findStudentById(newUser.id);
 
-    const updatedStudent = await this.seedingService.seedStudent(studentData);
+    // const updatedStudent = await this.seedingService.seedStudent(studentData);
 
     const subject: CreateSubjectDto = {
       name: 'seeding',
@@ -92,6 +90,26 @@ export class SeedingController {
   }
 
   const newCourseBooking = await this.seedingService.seedCoursebooking(courseBookingData)
+
+
+  const onSiteCourseBookingData = {
+    courseId: newCourse.id,
+    userId: newUser.id,
+    courseDurationId: newDuration.id
+  }
+
+  const newOnsiteCourseBooking = await this.seedingService.seedOnsiteCoursebooking(onSiteCourseBookingData)
+
+
+  const attendanceDate = {
+    OnSiteCourseBooking: newOnsiteCourseBooking.id,
+    attendanceStatus: 'Present',
+    date: new Date
+    
+  }
+
+  const newAttendance = await this.seedingService.seedAttendance(attendanceDate)
+
 
     if (newCourseBooking &&createPepper && newUser && newSubject && newCourse) {
       return `Pepper Added . User ${newUser.firstName} created sucessfully. Subject ${newSubject.name}  created Successfully .Course ${newCourse.name}  created Successfully . New Course Booking Added  `;

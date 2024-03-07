@@ -18,6 +18,8 @@ import { UserType } from '../user/enums/userType.enum';
 import { TimeSlotService } from '../Booking/timeslot/timeSlot.service';
 import { CourseDurationService } from '../Booking/course-duration/courseDuration.service';
 import { BookingsService } from '../Booking/course-booking/courseBookings.service';
+import { OnsiteCourseBookingService } from '../Booking/onsite-course-booking/onSiteCourseBooking.service';
+import { AttendanceService } from '../attendance/attendance.service';
 
 @Injectable()
 export class SeedingService {
@@ -29,7 +31,12 @@ export class SeedingService {
     private readonly studentSeedingService: StudentsService,
     private readonly timeSlotService: TimeSlotService,
     private readonly courseDurationService: CourseDurationService,
-    private readonly bookingsService: BookingsService
+    private readonly bookingsService: BookingsService,
+    private readonly onsiteCourseBookingService: OnsiteCourseBookingService,
+    private readonly attendanceService: AttendanceService,
+
+
+
   ) {}
 
   async seedUser(createUserDto: CreateUserDto): Promise<User> {
@@ -68,5 +75,11 @@ export class SeedingService {
 
   async seedCoursebooking(data: any) {
     return await this.bookingsService.create(data);
+  }
+  async seedOnsiteCoursebooking(data: any) {
+    return await this.onsiteCourseBookingService.create(data);
+  }
+  async seedAttendance(data: any) {
+    return await this.attendanceService.create(data);
   }
 }
