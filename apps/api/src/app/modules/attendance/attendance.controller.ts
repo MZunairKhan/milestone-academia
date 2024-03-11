@@ -21,11 +21,20 @@ export class AttendanceController {
     return await this.attendanceService.create(attendanceDto);
   }
 
-  @Get('/student/:studentId/course/:courseId/instructor/:instructorId')
-  getStudentAttendance( @Param('studentId') studentId: string,
+  @Get('/instructor/:instructorId/course/:courseId/student/:studentId')
+  getStudentAttendance( 
+  @Param('instructorId') instructorId: string,
   @Param('courseId') courseId: string,
-  @Param('instructorId') instructorId: string,) {
-    return this.attendanceService.getStudentAttendance(studentId , courseId ,instructorId);
+  @Param('studentId') studentId: string) {
+    return this.attendanceService.getStudentAttendance(instructorId , courseId ,studentId);
+  }
+
+  @Get('/instructor/:instructorId/course/:courseId')
+  getStudentsAttendance( 
+    @Param('instructorId') instructorId: string,
+    @Param('courseId') courseId: string )
+  {
+    return this.attendanceService.getStudentAttendance(instructorId ,courseId );
   }
 
   @Get(':id')

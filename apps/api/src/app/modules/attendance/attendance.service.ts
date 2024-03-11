@@ -14,7 +14,7 @@ export class AttendanceService {
   ) {}
 
   async create(attendanceDto: AttendanceDto) {
-    const { OnSiteCourseBooking, date , attendanceStatus} = attendanceDto;
+    const { OnSiteCourseBooking, date, attendanceStatus } = attendanceDto;
 
     const course = await this.onsiteCourseBookingService.findOne(
       OnSiteCourseBooking
@@ -29,20 +29,19 @@ export class AttendanceService {
     newAttendance.date = date;
     newAttendance.attendanceStatus = attendanceStatus;
 
-
     const savedAttendance = await this.attendanceRepository.save(newAttendance);
 
     return savedAttendance;
   }
 
   async getStudentAttendance(
-    studentId: string,
+    instructorId: string,
     courseId: string,
-    instructorId: string
+    studentId?: string
   ) {
     const attendanceRepository = this.attendanceRepository;
 
-    const result = await attendanceRepository
+    const query = await attendanceRepository
       .createQueryBuilder('attendance')
       .leftJoinAndSelect(
         'attendance.OnSiteCourseBooking',
@@ -61,17 +60,23 @@ export class AttendanceService {
         'course.name',
         'courseDuration.id',
         'instructor.id',
-      ])
-      .where(
-        'student.id = :studentId AND course.id = :courseId AND instructor.id = :instructorId',
-        { studentId, courseId, instructorId }
-      )
-      .getManyAndCount();
+      ]);
 
-
-    // console.log(result[0][0].OnSiteCourseBooking.user.userName);
-
-    return result;
+    if (!studentId) {
+      const res = query.where(
+        'instructor.id = :instructorId AND course.id = :courseId',
+        { instructorId, courseId }
+      );
+      const result = res.getManyAndCount();
+      return result;
+    } else {
+      const res = query.where(
+        'instructor.id = :instructorId AND course.id = :courseId AND student.id = :studentId',
+        { instructorId, courseId, studentId }
+      );
+      const result = res.getManyAndCount();
+      return result;
+    }
   }
 
   async findOne(id: string) {
