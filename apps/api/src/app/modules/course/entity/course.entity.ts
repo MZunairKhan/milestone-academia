@@ -10,7 +10,7 @@ export class Course extends TimeBaseEntity{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Instructor , { eager: true })
+  @OneToOne(() => Instructor)
   @JoinColumn()
   instructor: Instructor;
 

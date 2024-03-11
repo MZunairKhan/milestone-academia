@@ -13,15 +13,15 @@ import { Student } from '../../../user/extended-users/student/entity/student.ent
     @PrimaryGeneratedColumn('uuid')
     id: string;
   
-    @ManyToOne(() => Course ,  { eager: true })
+    @ManyToOne(() => Course )
     @JoinColumn()
     course: Course;
   
-    @ManyToOne(() => Student, { eager: true })
+    @ManyToOne(() => Student)
     @JoinColumn()
     student: Student;
   
-    @ManyToOne(() => CourseDuration , { eager: true })
+    @ManyToOne(() => CourseDuration )
     @JoinColumn()
     courseDuration: CourseDuration;
 

@@ -9,13 +9,12 @@ import { OnSiteCourseBooking } from '../../Booking/onsite-course-booking/entitie
 import { AttendanceStatus } from '@milestone-academia/api-interfaces';
 
 @Entity()
-export class Attendance {
+export class Attendance{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @ManyToOne(
     () => OnSiteCourseBooking,
-    // { eager: true }
   )
   @JoinColumn({ name: 'onSiteCourseBookingId' })
   OnSiteCourseBooking: OnSiteCourseBooking;

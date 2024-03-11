@@ -63,20 +63,21 @@ export class AttendanceService {
       ]);
 
     if (!studentId) {
-      const res = query.where(
+      query.where(
         'instructor.id = :instructorId AND course.id = :courseId',
         { instructorId, courseId }
       );
-      const result = res.getManyAndCount();
-      return result;
+    
     } else {
-      const res = query.where(
+      query.where(
         'instructor.id = :instructorId AND course.id = :courseId AND student.id = :studentId',
         { instructorId, courseId, studentId }
       );
-      const result = res.getManyAndCount();
-      return result;
+    
+      
     }
+    const result = query.getMany();
+    return result;
   }
 
   async findOne(id: string) {
