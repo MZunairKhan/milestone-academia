@@ -61,6 +61,13 @@ export class UsersController {
     return this.studentsService.mapToDto(student);
   }
 
+  @Post('forgot-password')
+  async forgotPassword(@Body() data:any) {
+    const {email} = data;
+   return this.usersService.forgotPassword(email);
+
+  }
+
   @UseGuards(JwtAuthGuard)
   @Patch('update-user')
   async updateUser(

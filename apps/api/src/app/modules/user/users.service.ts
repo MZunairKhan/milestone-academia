@@ -1,12 +1,10 @@
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-
 import { StudentsService } from './extended-users/student/student.service';
 import { AppConfigurationService } from '../../common/appConfiguration.service';
 import { InstructorService } from './extended-users/instructor/instructor.service';
-
 import { User } from './entity/user.entity';
 import { UserType } from './enums/userType.enum';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,6 +13,9 @@ import { PresenceType } from './enums/presenceType.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EventMessagesEnum } from '../../common/enums/event-messages.enum';
+import { getResetPasswordTemplate, randomPasswordString } from '../../common/utils';
+import { WelcomeUserTemplate } from '../../common/utils';
+
 
 @Injectable()
 export class UsersService {
@@ -59,7 +60,7 @@ export class UsersService {
     }
 
     //user created Event
-    this.eventEmitter.emit(EventMessagesEnum.UserCreated, { email: createUserDto.email });
+    this.eventEmitter.emit(EventMessagesEnum.UserCreated, { email: createUserDto.email , htmlTemplate: WelcomeUserTemplate });
     
     return createdUser;
   }
@@ -70,6 +71,38 @@ export class UsersService {
 
   async findAll(): Promise<User[]> {
     return this.usersRepository.find();
+  }
+
+  async forgotPassword(email: string) {
+    const user = await this.usersRepository.findOneBy({email: email});
+
+    if(!user){
+      throw new BadRequestException('invalid User');
+    }
+
+    const systemGeneratedPassword = randomPasswordString(10, '!@#$%&0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  
+    const pepper = await this.appConfigService.findByKey('pepper');
+
+    const hash = await bcrypt.hash(
+      systemGeneratedPassword,
+      Number(pepper.value)
+    ); 
+
+    const newPasswordObj = {
+      pwrd: hash
+    }
+
+    await this.update(user.id , newPasswordObj)
+
+    const getHtmlTemplate = getResetPasswordTemplate(systemGeneratedPassword);
+
+    this.eventEmitter.emit(EventMessagesEnum.ForgotPassword, { email: user.email  , htmlTemplate: getHtmlTemplate });
+
+
+
+    
+    return 'New Password Send to email';
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
