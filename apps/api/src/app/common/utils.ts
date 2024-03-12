@@ -20,13 +20,12 @@ export function getCurrentDateTime() {
     return formattedDate;
 }
 
-const currentDateTime = getCurrentDateTime();
 
 
 
   //Welcome user Template
 
- export  const WelcomeUserTemplate = `
+ export  function getWelcomeUserTemplate(currentDateTime: any){return`
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -114,9 +113,9 @@ const currentDateTime = getCurrentDateTime();
   </body>
   </html>
   
-`;
+`};
 
-export function getResetPasswordTemplate(password: string) {
+export function getResetPasswordTemplate(password: string , currentDateTime: any) {
     return  `
     <!DOCTYPE html>
     <html lang="en">
