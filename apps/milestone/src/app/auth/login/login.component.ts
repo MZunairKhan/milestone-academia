@@ -10,10 +10,15 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
+  showForgotPasswordForm = false;
 
   loginForm = new FormGroup({
     userName: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
+  });
+
+  forgotPasswordForm = new FormGroup({
+    email: new FormControl('', [Validators.required]),
   });
   
   constructor(
@@ -37,6 +42,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService
     .login(userName as string, password as string);
   }
+  onForgotPassword() {
+    const {email} = this.forgotPasswordForm.value;
+    this.authService.forgotPassword(email as string)
+    console.log(email);
+
+  }
+  
+  
 
   moveToDashboard(isLoggedIn: boolean) {
     if (isLoggedIn) {

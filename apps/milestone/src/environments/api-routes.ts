@@ -17,12 +17,15 @@ export const APIS = {
         getUserData: `${extension}/users/userData`,
         createStudent: `${extension}/users/create-student`,
         getById: (id: string) => `${extension}/users/${id}`,
-        deleteById: (id: string) => `${extension}/users/${id}`
+        deleteById: (id: string) => `${extension}/users/${id}`,
+        forgotPassword: `${extension}/users/forgot-password`,
+
     },
     auth: {
         login: `${extension}/auth/login`,
         test: `${extension}/auth/test`,
         roleSet: `${extension}/auth/role-set`,
+
     },
     subject: {
         create: `${extension}/subject`,

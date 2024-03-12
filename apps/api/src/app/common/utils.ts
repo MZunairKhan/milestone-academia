@@ -7,21 +7,21 @@ export function randomPasswordString(length: number, chars : string) {
 
 export function getCurrentDateTime() {
     const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
     };
 
     const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleDateString('en-US', options);
+    const formattedDate = currentDate.toLocaleString('en-US', options);
 
     return formattedDate;
-  }
+}
 
-  const currentDateTime = getCurrentDateTime();
+const currentDateTime = getCurrentDateTime();
+
 
 
   //Welcome user Template
