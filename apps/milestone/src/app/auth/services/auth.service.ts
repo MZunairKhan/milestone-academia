@@ -63,9 +63,8 @@ export class AuthService {
     })
   }
 
-  forgotPassword(email: string) {
-    this.http.post(APIS.users.forgotPassword, {email}).subscribe(value => {
-     alert("Password Sent to Email");})
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(APIS.users.forgotPassword, { email });
   }
 
   logout() {

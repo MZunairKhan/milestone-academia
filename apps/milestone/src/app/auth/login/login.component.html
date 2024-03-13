@@ -11,7 +11,7 @@
       <img class="oversize" src="/assets/Milestone_Academia.jpg" alt="image" />
     </div>
 
-    <mat-card *ngIf="!showForgotPasswordForm" class="milestone-login-form">
+    <mat-card *ngIf="!showForgotPasswordForm && !showEmailSuccess" class="milestone-login-form">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Username</mat-label>
@@ -41,7 +41,7 @@
         </button>
       </form>
     </mat-card>
-    <mat-card *ngIf="showForgotPasswordForm" class="milestone-login-form">
+    <mat-card *ngIf="showForgotPasswordForm && !showEmailSuccess" class="milestone-login-form">
       <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPassword()">
         <button
           class="back-button"
@@ -73,6 +73,11 @@
           Send Mail
         </button>
       </form>
+    </mat-card>
+
+    <mat-card *ngIf="showEmailSuccess" class="milestone-login-form">    
+       <h5>E-mail has been sent to your account.
+        You can use it to reset your account password.</h5>
     </mat-card>
   </mat-card-content>
 

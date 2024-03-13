@@ -106,7 +106,10 @@ export class UsersService {
 
 
     
-    return 'New Password Send to email';
+    return {
+      status: 200,
+      message: `Password Sent to ${email} Successfully`
+    };
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {

@@ -11,6 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   showForgotPasswordForm = false;
+  showEmailSuccess = false
 
   loginForm = new FormGroup({
     userName: new FormControl('', [Validators.required]),
@@ -44,8 +45,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   onForgotPassword() {
     const {email} = this.forgotPasswordForm.value;
-    this.authService.forgotPassword(email as string)
-    console.log(email);
+ this.authService.forgotPassword(email as string).subscribe(value=>{
+  if(value.status === 200){
+    this.showEmailSuccess = true
+  }else{
+    this.showEmailSuccess = false
+
+  }
+  ;})
+  
 
   }
   
