@@ -1,6 +1,7 @@
+import { OnsiteEvaluationDTOBase } from '@milestone-academia/api-interfaces';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class OnSiteEvaluationDto {
+export class OnSiteEvaluationDto implements OnsiteEvaluationDTOBase {
   @ApiProperty()
   courseId: string;
 

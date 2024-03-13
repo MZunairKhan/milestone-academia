@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 import {OnSiteEvaluationService } from './onsiteEvaluation.service';
 import { OnSiteEvaluationDto } from './dto/onsiteEvaluation.dto';
+import { OnSiteEvaluation } from './entities/onsiteEvaluation.entity';
   
 @ApiTags('Evaluation')
 @Controller()
@@ -12,9 +13,9 @@ export class OnSiteEvaluationController {
     ) {}
 
   @Post()
-  async create(@Body() onSiteEvaluationDto: OnSiteEvaluationDto) {
-    const onsiteEvaluation = await this.onSiteEvaluationService.create(onSiteEvaluationDto);
-    return onsiteEvaluation;
+  async create(@Body() onSiteEvaluationDto: OnSiteEvaluationDto): Promise<OnSiteEvaluation> {
+     return await this.onSiteEvaluationService.create(onSiteEvaluationDto);
+    
   }
 
   @Get()
