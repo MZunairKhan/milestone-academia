@@ -7,26 +7,25 @@ export function randomPasswordString(length: number, chars : string) {
 
 export function getCurrentDateTime() {
     const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
     };
 
     const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleDateString('en-US', options);
+    const formattedDate = currentDate.toLocaleString('en-US', options);
 
     return formattedDate;
-  }
+}
 
-  const currentDateTime = getCurrentDateTime();
+
 
 
   //Welcome user Template
 
- export  const WelcomeUserTemplate = `
+ export  function getWelcomeUserTemplate(currentDateTime: any){return`
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -114,9 +113,9 @@ export function getCurrentDateTime() {
   </body>
   </html>
   
-`;
+`};
 
-export function getResetPasswordTemplate(password: string) {
+export function getResetPasswordTemplate(password: string , currentDateTime: any) {
     return  `
     <!DOCTYPE html>
     <html lang="en">

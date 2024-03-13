@@ -13,8 +13,7 @@ import { PresenceType } from './enums/presenceType.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EventMessagesEnum } from '../../common/enums/event-messages.enum';
-import { getResetPasswordTemplate, randomPasswordString } from '../../common/utils';
-import { WelcomeUserTemplate } from '../../common/utils';
+import { getCurrentDateTime, getResetPasswordTemplate, getWelcomeUserTemplate, randomPasswordString } from '../../common/utils';
 
 
 @Injectable()
@@ -59,6 +58,9 @@ export class UsersService {
       }
     }
 
+    const currentDateTime = getCurrentDateTime();
+
+   const WelcomeUserTemplate = getWelcomeUserTemplate(currentDateTime)
     //user created Event
     this.eventEmitter.emit(EventMessagesEnum.UserCreated, { email: createUserDto.email , htmlTemplate: WelcomeUserTemplate });
     
@@ -94,15 +96,20 @@ export class UsersService {
     }
 
     await this.update(user.id , newPasswordObj)
+    const currentDateTime = getCurrentDateTime();
 
-    const getHtmlTemplate = getResetPasswordTemplate(systemGeneratedPassword);
+
+    const getHtmlTemplate = getResetPasswordTemplate(systemGeneratedPassword , currentDateTime);
 
     this.eventEmitter.emit(EventMessagesEnum.ForgotPassword, { email: user.email  , htmlTemplate: getHtmlTemplate });
 
 
 
     
-    return 'New Password Send to email';
+    return {
+      status: 200,
+      message: `Password Sent to ${email} Successfully`
+    };
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {

@@ -1,39 +1,86 @@
 <mat-card class="milestone-login">
+  <mat-card-header>
+    <mat-card-title *ngIf="!showForgotPasswordForm">Login</mat-card-title>
+    <mat-card-title *ngIf="showForgotPasswordForm"
+      >Forgot Password</mat-card-title
+    >
+  </mat-card-header>
 
-    <mat-card-header>
-        <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
-    
-    <mat-card-content>
-        <div class="milestone-login-image">
-            <img class="oversize" src="/assets/Milestone_Academia.jpg" alt="image">
-        </div>
-    
-        <mat-card class="milestone-login-form">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
-                <mat-form-field class="full-width" appearance="fill">
-                  <mat-label>Username</mat-label>
-                  <input matInput formControlName="userName" placeholder="John Smith">
-                  <mat-error *ngIf="loginForm.value.userName === ''">
-                    Username is <strong>required</strong>
-                  </mat-error>
-                </mat-form-field>
+  <mat-card-content>
+    <div class="milestone-login-image">
+      <img class="oversize" src="/assets/Milestone_Academia.jpg" alt="image" />
+    </div>
 
-                
-                <mat-form-field class="full-width" appearance="fill">
-                    <mat-label>Password</mat-label>
-                    <input matInput formControlName="password">
-                    <mat-error *ngIf="loginForm.value.password === ''">
-                      Password is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
+    <mat-card *ngIf="!showForgotPasswordForm && !showEmailSuccess" class="milestone-login-form">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="userName" placeholder="John Smith" />
+          <mat-error *ngIf="loginForm.value.userName === ''">
+            Username is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-                <button mat-raised-button class="full-width" color="primary" type="submit" [disabled]="!loginForm.valid">Log In</button>
-            </form>
-        </mat-card>
-    </mat-card-content>
-    
-    
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" />
+          <mat-error *ngIf="loginForm.value.password === ''">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <p style="color: rgb(146, 89, 24);cursor: pointer; " (click)="showForgotPasswordForm = true">Forgot Password?</p>
+
+        <button
+          mat-raised-button
+          class="full-width"
+          color="primary"
+          type="submit"
+          [disabled]="!loginForm.valid"
+        >
+          Log In
+        </button>
+      </form>
+    </mat-card>
+    <mat-card *ngIf="showForgotPasswordForm && !showEmailSuccess" class="milestone-login-form">
+      <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPassword()">
+        <button
+          class="back-button"
+          mat-raised-button
+          color="primary"
+          (click)="showForgotPasswordForm = false"
+        >
+          <mat-icon>arrow_back</mat-icon>
+          Back
+        </button>
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            placeholder="example@example.com"
+          />
+          <mat-error *ngIf="forgotPasswordForm.value.email === ''">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          class="full-width forgot-password"
+          color="primary"
+          type="submit"
+          [disabled]="!forgotPasswordForm.valid"
+        >
+          Send Mail
+        </button>
+      </form>
+    </mat-card>
+
+    <mat-card *ngIf="showEmailSuccess" class="milestone-login-form">    
+       <h5>E-mail has been sent to your account.
+        You can use it to reset your account password.</h5>
+    </mat-card>
+  </mat-card-content>
+
   <mat-card-actions>
     <a routerLink="/auth/sign-up">Do not have an account? Sign up here!</a>
   </mat-card-actions>

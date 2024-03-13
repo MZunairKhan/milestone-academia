@@ -63,6 +63,10 @@ export class AuthService {
     })
   }
 
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(APIS.users.forgotPassword, { email });
+  }
+
   logout() {
     this.removeUserData();
     this.routeTo('auth/logout');
