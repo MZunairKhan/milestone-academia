@@ -12,6 +12,7 @@ import { TimeSlotModule } from '../Booking/timeslot/timeSlot.module';
 import { BookingsModule } from '../Booking/course-booking/courseBookings.module';
 import { OnSiteCoureBookingModule } from '../Booking/onsite-course-booking/onSiteCourseBooking.module';
 import { AttendanceModule } from '../attendance/attendance.module';
+import { OnSiteEvaluationModule } from '../onsiteEvaluation/onsiteEvaluation.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { AttendanceModule } from '../attendance/attendance.module';
     TimeSlotModule,
     BookingsModule,
     OnSiteCoureBookingModule,
-    AttendanceModule
+    AttendanceModule,
+    OnSiteEvaluationModule
    
   ],
   providers: [SeedingService],

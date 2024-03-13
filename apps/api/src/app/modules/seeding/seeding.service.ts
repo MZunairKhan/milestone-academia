@@ -20,6 +20,7 @@ import { CourseDurationService } from '../Booking/course-duration/courseDuration
 import { BookingsService } from '../Booking/course-booking/courseBookings.service';
 import { OnsiteCourseBookingService } from '../Booking/onsite-course-booking/onSiteCourseBooking.service';
 import { AttendanceService } from '../attendance/attendance.service';
+import { OnSiteEvaluationService } from '../onsiteEvaluation/onsiteEvaluation.service';
 
 @Injectable()
 export class SeedingService {
@@ -34,6 +35,8 @@ export class SeedingService {
     private readonly bookingsService: BookingsService,
     private readonly onsiteCourseBookingService: OnsiteCourseBookingService,
     private readonly attendanceService: AttendanceService,
+    private readonly onSiteEvaluationService: OnSiteEvaluationService,
+
 
 
 
@@ -81,5 +84,9 @@ export class SeedingService {
   }
   async seedAttendance(data: any) {
     return await this.attendanceService.create(data);
+  }
+
+  async seedOnsiteEvaluation(data : any){
+   return await this.onSiteEvaluationService.create(data)
   }
 }

@@ -50,7 +50,8 @@ export class SeedingController {
       user: newUser,
     };
 
-    // const newStudent = await this.seedingService.findStudentById(newUser.id);
+    const newStudent = await this.seedingService.findStudentById(newUser.id);
+
 
     // const updatedStudent = await this.seedingService.seedStudent(studentData);
 
@@ -109,6 +110,17 @@ export class SeedingController {
   }
 
   const newAttendance = await this.seedingService.seedAttendance(attendanceDate)
+
+  const OnsiteEvaluation =
+  {
+    courseId: newCourse.id,
+    studentId: newStudent.id,
+    score: 92,
+    total: 100,
+  date: "2024-03-13T09:17:49.162Z"
+  }
+
+  const newOnsiteEvaluation =  this.seedingService.seedOnsiteEvaluation(OnsiteEvaluation)
 
 
     if (newCourseBooking &&createPepper && newUser && newSubject && newCourse) {
