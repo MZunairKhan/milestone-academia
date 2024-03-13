@@ -17,11 +17,11 @@ export class OnSiteEvaluation{
   student: Student;
 
   @Column()
-  score: string;
+  score: number;
 
   
   @Column()
-  total: string;
+  total: number;
   
   @Column()
   date: Date;

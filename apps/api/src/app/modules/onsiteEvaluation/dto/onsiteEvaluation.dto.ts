@@ -8,10 +8,10 @@ export class OnSiteEvaluationDto {
   studentId: string;
 
   @ApiProperty()
-  score: string;
+  score: number;
 
   @ApiProperty()
-  total: string;
+  total: number;
 
   @ApiProperty()
   date: Date;

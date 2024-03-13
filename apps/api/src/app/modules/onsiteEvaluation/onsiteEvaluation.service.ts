@@ -31,17 +31,25 @@ export class OnSiteEvaluationService {
     throw new Error(`Course with ID ${onSiteEvaluationDto.courseId} not found`);
 }
 
-const onsiteEvaluation = new OnSiteEvaluation
-onsiteEvaluation.course = course;
-onsiteEvaluation.date = onSiteEvaluationDto.date;
-onsiteEvaluation.student = student;
-onsiteEvaluation.score = onSiteEvaluationDto.score;
-onsiteEvaluation.total = onSiteEvaluationDto.total
+if(onSiteEvaluationDto.total >= onSiteEvaluationDto.score){
+  const onsiteEvaluation = new OnSiteEvaluation
+  onsiteEvaluation.course = course;
+  onsiteEvaluation.date = onSiteEvaluationDto.date;
+  onsiteEvaluation.student = student;
+  onsiteEvaluation.score = onSiteEvaluationDto.score;
+  onsiteEvaluation.total = onSiteEvaluationDto.total
+  
+  const newOnSiteEvaluation = await this.onSiteEvaluationRepository.save(onsiteEvaluation)
+  return newOnSiteEvaluation;
+}
+else{
+  throw new Error(`Total Number must be greater than obtained number`);
+}
 
-const newOnSiteEvaluation = await this.onSiteEvaluationRepository.save(onsiteEvaluation)
+
 
     
-    return newOnSiteEvaluation;
+    
   }
 
   async findAll(): Promise<OnSiteEvaluation[]> {
