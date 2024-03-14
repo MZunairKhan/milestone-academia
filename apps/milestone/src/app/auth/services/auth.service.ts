@@ -41,6 +41,7 @@ export class AuthService {
     private router: Router,
     private http: HttpClient,
     private storageService: StorageService,
+
   ) {
     this.checkAndInvalidateUser();
   }
@@ -53,14 +54,16 @@ export class AuthService {
     })
   }
 
+  onSuccessFullLogin(value : any){
+    this.updateAuthData(value);
+    this.storageService.setValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA, value);
+    this.getUserRoles();
+    this.routeTo('user/dashboard');
+  }
+
   login(userName: string, password: string) {  
-    this.http.post<AuthData>(APIS.auth.login, {userName, password})
-    .subscribe(value => {
-      this.updateAuthData(value);
-      this.storageService.setValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA, value);
-      this.getUserRoles();
-      this.routeTo('user/dashboard');
-    })
+   return this.http.post(APIS.auth.login, {userName, password})
+  
   }
 
   forgotPassword(email: string): Observable<any> {

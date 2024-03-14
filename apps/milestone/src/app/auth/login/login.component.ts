@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'milestone-academia-login',
@@ -23,7 +24,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   });
   
   constructor(
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly toastService: ToastService
+
   ) {
   }
 
@@ -41,11 +44,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit(data: any) {
     const {userName, password} = this.loginForm.value;
     this.authService
-    .login(userName as string, password as string);
+    .login(userName as string, password as string).subscribe(value=>{
+     this.authService.onSuccessFullLogin(value)
+      ;},
+      error=>{
+        this.toastService.openSnackBar(error.error.message)
+        this.loginForm.controls['password'].setErrors({ 'incorrect': true });
+        this.loginForm.controls['userName'].setErrors({ 'incorrect': true });
+      });
+
+
   }
   onForgotPassword() {
     const {email} = this.forgotPasswordForm.value;
- this.authService.forgotPassword(email as string).subscribe(value=>{
+    this.authService.forgotPassword(email as string).subscribe(value=>{
   if(value.status === 200){
     this.showEmailSuccess = true
   }else{
