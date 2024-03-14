@@ -11,6 +11,7 @@ import { DialogService } from '../../../shared/modules/dialog/dialog-service.ser
 import { UserData } from '../../models/user.model';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { UserInfoComponent } from '../user-info/user-info.component';
+import { CreatePersonUserDTOBase } from '@milestone-academia/api-interfaces';
 
 @Component({
   selector: 'milestone-academia-manage-users',
@@ -52,6 +53,10 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
+    this.getUserList();
+  }
+
+  getUserList() {
     this.manageUserService.getUserList().subscribe((list: UserData[]) => {
       this.dataSource = new MatTableDataSource(list.filter(u => u.email !== this.userService.currentUser.email));
     });
@@ -88,7 +93,7 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
       dialogOptions: {
         hasBackdrop: true
       },
-      dialogCloseHandler: data => console.log(data),
+      dialogCloseHandler: data => this.createUser(data),
     });
   }
 
@@ -106,5 +111,36 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
       },
       dialogCloseHandler: data => console.log(data),
     });
+  }
+
+  mapToDTO(data: any) {
+    const request: CreatePersonUserDTOBase = {
+      firstName: data.userData.firstName,
+      lastName: data.userData.lastName,
+      userName: data.userData.userName,
+      password: 'abcd1234',
+      email: data.userData.email,
+      presenceType: data.userData.presenceType,
+      userType: data.userData.userType,
+      personalData: {
+        addressLine1: data.addressData.addressLine1,
+        addressLine2: data.addressData.addressLine2,
+        postalCode: data.addressData.postalCode,
+        city: data.addressData.city,
+        country: data.addressData.country,
+        personalIdentification: data.personalData.personalIdentification,
+        guardianName: data.personalData.guardianName,
+        guardianIdentification: data.personalData.guardianIdentification,
+        guardianEmail: data.personalData.guardianEmail,
+        phoneNumber: data.personalData.phoneNumber,
+      }
+    };
+
+    return request;
+  }
+
+  createUser(userInput: any) {
+    const dto = this.mapToDTO(userInput.data);
+    this.manageUserService.addUser(dto).subscribe(value => this.getUserList());
   }
 }

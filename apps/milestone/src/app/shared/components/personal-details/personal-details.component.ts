@@ -35,6 +35,7 @@ export class PersonalDetailsComponent implements OnInit, OnChanges {
     // this.updateValue('city', this.personalData?.city ?? '');
     // this.updateValue('country', this.personalData?.country ?? '');
     this.updateValue('guardianName', this.personalData?.guardianName ?? '');
+    this.updateValue('guardianEmail', this.personalData?.guardianEmail ?? '');
     this.updateValue('guardianIdentification', this.personalData?.guardianIdentification ?? '');
     this.updateValue('phoneNumber', this.personalData?.phoneNumber ?? '');
   }

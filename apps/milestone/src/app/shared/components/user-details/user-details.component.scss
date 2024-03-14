@@ -3,9 +3,13 @@
 }
 
 .user-info-row {
-    width: 70%;
+    width: 80%;
     display: flex;
     margin: 10px auto;
     align-items: center;
     justify-content: space-between;
+}
+
+.user-info-divider {
+    margin: 5px 0px 20px;
 }

@@ -19,6 +19,7 @@ export interface Person {
     country: string;
     guardianName: string;
     guardianIdentification: string;
+    guardianEmail: string;
     phoneNumber: string;
 }
 
