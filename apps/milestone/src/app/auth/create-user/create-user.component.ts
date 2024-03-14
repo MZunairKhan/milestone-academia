@@ -7,6 +7,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./create-user.component.scss'],
 })
 export class CreateUserComponent implements OnInit {
+  hide = true;
+  hideConfirmPassword = true;
+
 
   signUpForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
