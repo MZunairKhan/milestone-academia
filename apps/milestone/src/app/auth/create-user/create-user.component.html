@@ -46,7 +46,10 @@
             <div class="milestone-sign-up-form-row">
                 <mat-form-field class="full-width" appearance="fill">
                     <mat-label>Password</mat-label>
-                    <input matInput formControlName="password">
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <div mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </div>
                     <mat-error *ngIf="signUpForm.value.password === ''">
                         Password is <strong>required</strong>
                     </mat-error>
@@ -54,7 +57,10 @@
                 
                 <mat-form-field class="full-width" appearance="fill">
                     <mat-label>Confirm Password</mat-label>
-                    <input matInput formControlName="confirmPassword">
+                    <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+                    <div mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                        <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </div>
                     <mat-error *ngIf="signUpForm.value.confirmPassword === ''">
                         Confirm Password is <strong>required</strong>
                     </mat-error>

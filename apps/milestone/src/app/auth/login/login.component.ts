@@ -12,7 +12,9 @@ import { ToastService } from '../../shared/services/toast.service';
 export class LoginComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   showForgotPasswordForm = false;
-  showEmailSuccess = false
+  showEmailSuccess = false;
+  hide = true;
+
 
   loginForm = new FormGroup({
     userName: new FormControl('', [Validators.required]),
