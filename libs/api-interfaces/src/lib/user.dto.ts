@@ -1,16 +1,20 @@
-export interface UserData {
-    userId: string;
+import { PresenceType, UserType } from "../enums";
+
+export interface CreateUserDTOBase {
     firstName: string;
     lastName: string;
     userName: string;
+    password: string;
     email: string;
-    userType: string;
-    presenceType: string;
-    studentData?: any;
-    instructorData?: any;
+    presenceType: PresenceType;
+    userType: UserType;
 }
 
-export interface Person {
+export interface CreatePersonUserDTOBase extends CreateUserDTOBase {
+    personalData: PersonDTOBase
+}
+
+export interface PersonDTOBase {
     personalIdentification: string;
     addressLine1: string;
     addressLine2: string;
@@ -21,12 +25,4 @@ export interface Person {
     guardianIdentification: string;
     guardianEmail: string;
     phoneNumber: string;
-}
-
-export interface StudentData extends Person {
-    id: string;
-}
-
-export interface InstructorData extends Person {
-    id: string;
 }

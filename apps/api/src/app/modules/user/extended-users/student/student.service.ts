@@ -4,11 +4,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from '../../entity/user.entity';
 import { Student } from './entity/student.entity';
-import { ReadStudentDto } from './dto/read-student.dto';
-import { CreateStudentDto } from './dto/create-student.dto';
+import { ReadStudentDTO } from './dto/read-student.dto';
+import { CreateStudentDTO } from './dto/create-student.dto';
+import { extendedPersonService } from '../extended-user.service';
 
 @Injectable()
-export class StudentsService {
+export class StudentsService implements extendedPersonService<Student> {
   constructor(
     @InjectRepository(Student)
     private readonly studentsRepository: Repository<Student>
@@ -97,7 +98,7 @@ export class StudentsService {
     await this.studentsRepository.delete(id);
   }
 
-  mapToDto(student: Student): ReadStudentDto {
+  mapToDto(student: Student): ReadStudentDTO {
     const {
       id,
       personalIdentification,
@@ -122,10 +123,10 @@ export class StudentsService {
       guardianName,
       guardianIdentification,
       phoneNumber,
-    } as ReadStudentDto;
+    } as ReadStudentDTO;
   }
 
-  mapToObject(dto: CreateStudentDto): Student {
+  mapToObject(dto: CreateStudentDTO): Student {
     const student = new Student();
 
     student.personalIdentification = dto.personalIdentification;
@@ -136,6 +137,7 @@ export class StudentsService {
     student.country = dto.country;
     student.guardianName = dto.guardianName;
     student.guardianIdentification = dto.guardianIdentification;
+    student.guardianEmail = dto.guardianEmail;
     student.phoneNumber = dto.phoneNumber;
 
     return student;

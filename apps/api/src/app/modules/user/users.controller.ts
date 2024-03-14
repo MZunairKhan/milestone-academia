@@ -13,7 +13,7 @@ import { UserType } from './enums/userType.enum';
 import { PresenceType } from './enums/presenceType.enum';
 
 import { ReadUserDto } from './dto/read-user.dto';
-import { CreateStudentUserDto, CreateUserDto } from './dto/create-user.dto';
+import { CreatePersonUserDTO, CreateStudentUserDTO, CreateUserDTO } from './dto/create-user.dto';
 
 import { User } from './entity/user.entity';
 import { Student } from './extended-users/student/entity/student.entity';
@@ -31,7 +31,7 @@ export class UsersController {
   ) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto): Promise<Partial<User>> {
+  async create(@Body() createUserDto: CreateUserDTO): Promise<Partial<User>> {
     const user = await this.usersService.create(createUserDto, UserType.Student);
     if (user) {
       console.log(`User ${createUserDto.userName} created sucessfully and email sent to ${createUserDto.email}`);
@@ -42,8 +42,47 @@ export class UsersController {
     return this.usersService.mapToDto(user);
   }
 
+  @Post('create-user')
+  async createUser(@Body() dto: CreatePersonUserDTO): Promise<any> {
+    const user = await this.usersService.create(dto);
+    let response = {};
+    
+    if (!user) {
+      throw new HttpException(`Had an issue creating user ${dto.userName}`, HttpStatus.BAD_REQUEST);
+    }
+
+    if (user.userType === UserType.Student) {
+      const student = this.studentsService.mapToObject(dto.personalData);
+      student.associateToUser(user);
+      await this.studentsService.createViaObject(student);
+      const savedStudent = await this.instructorsService.createViaObject(student);
+
+      if (!savedStudent) {
+        throw new HttpException(`Had an issue creating student ${dto.firstName} ${dto.lastName}`, HttpStatus.BAD_REQUEST);
+      }
+
+      response = this.studentsService.mapToDto(student);
+    } else if (user.userType === UserType.Instructor) {
+      const instructor = this.instructorsService.mapToObject(dto.personalData);
+      instructor.associateToUser(user);
+      const savedInstructor = await this.instructorsService.createViaObject(instructor);
+
+      if (!savedInstructor) {
+        throw new HttpException(`Had an issue creating instructor ${dto.firstName} ${dto.lastName}`, HttpStatus.BAD_REQUEST);
+      }
+
+      response = this.instructorsService.mapToDto(instructor);
+    } else if (user.userType === UserType.Staff) {
+
+    } else if (user.userType === UserType.Master) {
+
+    }
+
+    return response;
+  }
+
   @Post('create-student')
-  async createStudent(@Body() dto: CreateStudentUserDto): Promise<Partial<Student>> {
+  async createStudent(@Body() dto: CreateStudentUserDTO): Promise<Partial<Student>> {
     const user = await this.usersService.create(dto);
     
     if (!user) {

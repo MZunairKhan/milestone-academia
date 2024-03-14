@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserData } from '../../../user/models/user.model';
+import { PresenceType, UserType } from '@milestone-academia/api-interfaces';
 
 @Component({
   selector: 'milestone-academia-user-details',
@@ -11,6 +12,9 @@ export class UserDetailsComponent implements OnInit, OnChanges {
 
   @Input() parentForm: FormGroup;
   @Input() userData: UserData | null = null;
+
+  userTypes = [UserType.Student, UserType.Instructor, UserType.Staff];
+  presenceTypes = Object.values(PresenceType);
 
   constructor() {}
 

@@ -37,22 +37,24 @@
             </mat-error> -->
         </mat-form-field>
     </div>
+
+    <mat-divider class="user-info-divider"></mat-divider>
     
     <div class="user-info-row">
+        
         <mat-form-field appearance="fill" style="width: 45%;">
             <mat-label>User Type</mat-label>
-            <input matInput formControlName="userType">
-            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
-            Fist name is <strong>required</strong>
-            </mat-error> -->
+            <mat-select formControlName="userType">
+              <mat-option *ngFor="let type of userTypes" value="{{type}}">{{type}}</mat-option>
+            </mat-select>
         </mat-form-field>
         
         <mat-form-field appearance="fill" style="width: 45%;">
-            <mat-label>Presence</mat-label>
-            <input matInput formControlName="presenceType">
-            <!-- <mat-error *ngIf="signUpForm.value.firstName === ''">
-            Fist name is <strong>required</strong>
-            </mat-error> -->
+            <mat-label>User Type</mat-label>
+            <mat-select formControlName="presenceType">
+              <mat-option *ngFor="let type of presenceTypes" value="{{type}}">{{type}}</mat-option>
+            </mat-select>
         </mat-form-field>
+
     </div>
 </form>

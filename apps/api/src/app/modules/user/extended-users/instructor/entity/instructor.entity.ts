@@ -11,4 +11,9 @@ export class Instructor extends PersonEntity{
   @OneToOne(() => User)
   @JoinColumn()
   user: User;
+
+  associateToUser(user: User): Instructor {
+    this.user = user;
+    return this;
+  }
 }

@@ -7,7 +7,7 @@ import { AppConfigurationService } from '../../common/appConfiguration.service';
 import { InstructorService } from './extended-users/instructor/instructor.service';
 import { User } from './entity/user.entity';
 import { UserType } from './enums/userType.enum';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDTO } from './dto/create-user.dto';
 import { ReadUserDto } from './dto/read-user.dto';
 import { PresenceType } from './enums/presenceType.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -28,7 +28,7 @@ export class UsersService {
   ) {}
 
   async create(
-    createUserDto: CreateUserDto,
+    createUserDto: CreateUserDTO,
     userType?: UserType
   ): Promise<User> {
     const user = new User();

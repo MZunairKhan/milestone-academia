@@ -1,6 +1,7 @@
+import { PersonDTOBase } from "@milestone-academia/api-interfaces";
 import { ApiProperty } from "@nestjs/swagger";
 
-export class PersonDto {
+export class PersonDTO implements PersonDTOBase {
     
     @ApiProperty()
     personalIdentification: string;
@@ -25,15 +26,18 @@ export class PersonDto {
 
     @ApiProperty()
     guardianIdentification: string;
+    
+    @ApiProperty()
+    guardianEmail: string;
 
     @ApiProperty()
     phoneNumber: string;
 }
 
-export class CreatePersonDto extends PersonDto {
+export class CreatePersonDTO extends PersonDTO {
 
 }
 
-export class ReadPersonDto extends PersonDto {
+export class ReadPersonDTO extends PersonDTO {
 
 }

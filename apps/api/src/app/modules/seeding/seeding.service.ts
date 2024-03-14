@@ -4,7 +4,7 @@ import { UsersService } from '../user/users.service';
 import { User } from '../user/entity/user.entity';
 import { CourseService } from '../course/course.service';
 import { SubjectService } from '../subject/subject.service';
-import { CreateUserDto } from '../user/dto/create-user.dto';
+import { CreateUserDTO } from '../user/dto/create-user.dto';
 import { CreateSubjectDto } from '../subject/dto/create-subject.dto';
 import { Subject } from '../subject/entity/subject.entity';
 import { CreateCourseDto } from '../course/dto/create-course.dto';
@@ -42,7 +42,7 @@ export class SeedingService {
 
   ) {}
 
-  async seedUser(createUserDto: CreateUserDto): Promise<User> {
+  async seedUser(createUserDto: CreateUserDTO): Promise<User> {
     return this.userSeedingService.create(createUserDto, UserType.Student);
   }
 
