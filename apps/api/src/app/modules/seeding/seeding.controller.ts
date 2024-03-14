@@ -6,7 +6,7 @@ import { CourseType } from '@milestone-academia/api-interfaces';
 import { CreateCourseDto } from '../course/dto/create-course.dto';
 import { CreateSubjectDto } from '../subject/dto/create-subject.dto';
 import { SeedingService } from './seeding.service';
-import { CreateUserDto } from '../user/dto/create-user.dto';
+import { CreateUserDTO } from '../user/dto/create-user.dto';
 
 @ApiTags('Seeding')
 @Controller()
@@ -22,7 +22,7 @@ export class SeedingController {
 
     const createPepper = await this.seedingService.seedPepper(pepper);
 
-    const user: CreateUserDto = {
+    const user: CreateUserDTO = {
       firstName: 'new',
       lastName: 'new',
       userName: 'new',

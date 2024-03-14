@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { ReadPersonDto } from "../../../../../common/dto/person.dto";
+import { ReadPersonDTO } from "../../../../../common/dto/person.dto";
 
-export class ReadInstructorDto extends ReadPersonDto {
+export class ReadInstructorDTO extends ReadPersonDTO {
     @ApiProperty()
     id: string;
 }

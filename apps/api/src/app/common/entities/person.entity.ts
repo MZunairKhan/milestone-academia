@@ -28,5 +28,8 @@ export class PersonEntity extends TimeBaseEntity  {
     guardianIdentification: string;
 
     @Column({nullable: true})
+    guardianEmail: string;
+
+    @Column({nullable: true})
     phoneNumber: string;
 }
