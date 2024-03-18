@@ -71,6 +71,33 @@ export class UsersService {
     return await this.usersRepository.save(user);
   }
 
+  async findAllWithFiltersAndPagination(
+    userType: string,
+    presenceType: string,
+    userName: string,
+    page: number,
+    limit: number,
+  ) {
+    const queryBuilder = this.usersRepository.createQueryBuilder('user');
+
+    if (userType) {
+      queryBuilder.where('user.userType = :userType', { userType });
+    }
+
+    if (presenceType) {
+      queryBuilder.andWhere('user.presenceType = :presenceType', { presenceType });
+    }
+
+    if (userName) {
+      queryBuilder.andWhere('user.userName = :userName', { userName });
+    }
+    queryBuilder.skip((page - 1) * limit).take(limit);
+
+
+    return await queryBuilder.getManyAndCount();
+  }
+
+
   async findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }
