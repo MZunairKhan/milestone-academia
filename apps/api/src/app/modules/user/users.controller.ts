@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, 
-  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, ParseIntPipe, Query, } from '@nestjs/common';
+import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles/roles.decorator';
 import { RolesGuard } from '../auth/roles/roles.guard';
 import { UserRoles } from '@milestone-academia/api-interfaces';
@@ -41,6 +41,35 @@ export class UsersController {
 
     return this.usersService.mapToDto(user);
   }
+
+  @Get('paginated-user')
+  @ApiQuery({ name: 'userType', required: false })
+  @ApiQuery({ name: 'presenceType', required: false })
+  @ApiQuery({ name: 'username', required: false })
+  @ApiQuery({ name: 'page', required: false})
+  @ApiQuery({ name: 'limit', required: false })
+  async findPaginatedUser(
+    @Query('userType') userType: string,
+    @Query('presenceType') presenceType: string,
+    @Query('username') username: string,
+    @Query('page') page: number,
+    @Query('limit',) limit: number,
+  ) {
+
+    const [users] = await this.usersService.findAllWithFiltersAndPagination(
+      userType,
+      presenceType,
+      username,
+      page || 1,
+      limit || 10,
+    );
+
+    return {
+      users,
+      page,
+    };
+  }
+
 
   @Post('create-user')
   async createUser(@Body() dto: CreatePersonUserDTO): Promise<any> {
