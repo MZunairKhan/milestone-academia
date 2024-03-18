@@ -1,7 +1,8 @@
 import { CourseType, CreateCourseDTOBase } from "@milestone-academia/api-interfaces";
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { nestedCourseContentDTO, nestedCourseFeatureDTO } from "./nested-entities.dto";
 
-export class CreateCourseDto implements CreateCourseDTOBase {
+export class CreateCourseDTO implements CreateCourseDTOBase {
     @ApiProperty()
     name: string;
 
@@ -17,4 +18,25 @@ export class CreateCourseDto implements CreateCourseDTOBase {
 
     @ApiProperty()
     description: string;
+
+    @ApiProperty()
+    subText: string;
+    
+    @ApiProperty()
+    details: string;
+    
+    @ApiProperty()
+    price: number;
+
+    @ApiPropertyOptional({
+        isArray: true,
+        type: nestedCourseContentDTO
+    })
+    content?: nestedCourseContentDTO[];
+
+    @ApiPropertyOptional({
+        isArray: true,
+        type: nestedCourseFeatureDTO
+    })
+    features?: nestedCourseFeatureDTO[];
 }

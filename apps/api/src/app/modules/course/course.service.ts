@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Course } from './entity/course.entity';
-import { CreateCourseDto } from './dto/create-course.dto';
+import { CreateCourseDTO } from './dto/create-course.dto';
 import { SubjectService } from '../subject/subject.service';
 
 @Injectable()
@@ -14,18 +14,26 @@ export class CourseService {
     private readonly subjectsService: SubjectService,
   ) {}
 
-  async create(createSubjectDto: CreateCourseDto): Promise<Course> {
-    const subject = await this.subjectsService.findOne(createSubjectDto.subjectId);
+  async create(createCourseDto: CreateCourseDTO): Promise<Course> {
+    const subject = await this.subjectsService.findOne(createCourseDto.subjectId);
     if (subject) {
-      const course = new Course();
-      course.name = createSubjectDto.name;
-      course.courseType = createSubjectDto.courseType;
-      course.description = createSubjectDto.description;
-      course.subject = subject;
-      return this.coursesRepository.save(course);
+      throw new BadRequestException(`Course cannot be created: subject with id ${createCourseDto.subjectId} not found`);
     }
 
-    return null;
+    const content = createCourseDto.content.map(content => ({points: content.points, heading: content.heading}));
+    const features = createCourseDto.features.map(feature => ({name: feature.name, value: feature.value, icon: feature.icon}));
+
+    return this.coursesRepository.save({
+      subject: subject,
+      name: createCourseDto.name,
+      courseType: createCourseDto.courseType,
+      description: createCourseDto.description,
+      subText: createCourseDto.subText,
+      details: createCourseDto.details,
+      price: createCourseDto.price,
+      content: content,
+      features: features
+    });
   }
 
   async findAll(): Promise<Course[]> {

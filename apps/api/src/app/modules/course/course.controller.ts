@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { CourseService } from './course.service';
 import { Course } from './entity/course.entity';
-import { CreateCourseDto } from './dto/create-course.dto';
+import { CreateCourseDTO } from './dto/create-course.dto';
   
 @ApiTags('Course')
 @Controller()
@@ -11,7 +11,7 @@ export class CoursesController {
   constructor(private readonly coursesService: CourseService) {}
 
   @Post()
-  async create(@Body() createSubjectDto: CreateCourseDto): Promise<Course> {
+  async create(@Body() createSubjectDto: CreateCourseDTO): Promise<Course> {
     const course = await this.coursesService.create(createSubjectDto);
     return course;
     // if (course) {

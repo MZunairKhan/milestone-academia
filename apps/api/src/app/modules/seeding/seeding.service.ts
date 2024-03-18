@@ -7,7 +7,7 @@ import { SubjectService } from '../subject/subject.service';
 import { CreateUserDTO } from '../user/dto/create-user.dto';
 import { CreateSubjectDto } from '../subject/dto/create-subject.dto';
 import { Subject } from '../subject/entity/subject.entity';
-import { CreateCourseDto } from '../course/dto/create-course.dto';
+import { CreateCourseDTO } from '../course/dto/create-course.dto';
 import { Course } from '../course/entity/course.entity';
 import { CreateAppConfigurationDto } from '../../common/dto/appConfiguration.dto';
 import { AppConfiguration } from '../../common/entities/appConfiguration.entity';
@@ -50,7 +50,7 @@ export class SeedingService {
     return this.subjectSeedingService.create(createSubjectDto);
   }
 
-  async seedCourse(createCourseDto: CreateCourseDto): Promise<Course> {
+  async seedCourse(createCourseDto: CreateCourseDTO): Promise<Course> {
     return this.courseSeedingService.create(createCourseDto);
   }
 

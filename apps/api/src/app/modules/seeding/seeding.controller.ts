@@ -3,10 +3,12 @@ import { Controller, Post } from '@nestjs/common';
 
 import { PresenceType } from '../user/enums/presenceType.enum';
 import { CourseType } from '@milestone-academia/api-interfaces';
-import { CreateCourseDto } from '../course/dto/create-course.dto';
+import { CreateCourseDTO } from '../course/dto/create-course.dto';
 import { CreateSubjectDto } from '../subject/dto/create-subject.dto';
 import { SeedingService } from './seeding.service';
 import { CreateUserDTO } from '../user/dto/create-user.dto';
+import { UserType } from '../user/enums/userType.enum';
+import { Subject } from '../subject/entity/subject.entity';
 
 @ApiTags('Seeding')
 @Controller()
@@ -22,6 +24,17 @@ export class SeedingController {
 
     const createPepper = await this.seedingService.seedPepper(pepper);
 
+    // add master user
+    await this.seedingService.seedUser({
+      firstName: 'Master',
+      lastName: 'User',
+      userName: 'master',
+      email: 'info@milestoneacademia.com',
+      password: 'maser',
+      presenceType: PresenceType.Online,
+      userType: UserType.Master
+    });
+
     const user: CreateUserDTO = {
       firstName: 'new',
       lastName: 'new',
@@ -29,6 +42,7 @@ export class SeedingController {
       email: 'muhammadhaseeb0302@gmail.com',
       password: 'new',
       presenceType: PresenceType.Online,
+      userType: UserType.Student
     };
 
     const newUser = await this.seedingService.seedUser(user);
@@ -54,71 +68,79 @@ export class SeedingController {
 
 
     // const updatedStudent = await this.seedingService.seedStudent(studentData);
+    const subjectMap = new Map<string, Subject>();
+    const subjectArray = ['physics', 'chemistry', 'math', 'english', 'pakistan studies', 'urdu', 'islamiyat'];
 
-    const subject: CreateSubjectDto = {
-      name: 'seeding',
-    };
-    const newSubject = await this.seedingService.seedSubject(subject);
-    const course: CreateCourseDto = {
+    for (let i = 0; i < subjectArray.length; i++) {
+      const newSubject = await this.seedingService.seedSubject({name: subjectArray[i]});
+      subjectMap.set(subjectArray[i], newSubject)
+    }
+
+    const newSubject = subjectMap.get(subjectArray[0]);
+
+    const course: CreateCourseDTO = {
       name: 'Seeder',
       courseType: CourseType.Group,
       subjectId: newSubject.id,
-      description: 'test description'
+      description: 'test description',
+      subText: 'test sub text',
+      details: 'test details',
+      price: 100
     };
     const newCourse = await this.seedingService.seedCourse(course);
     
-  const durationData = {
-    startDate: "2024-02-27T10:54:03.833Z",
-    endDate: "2024-02-27T10:54:03.833Z",
-    days: "Monday"
-  }
+    const durationData = {
+      startDate: "2024-02-27T10:54:03.833Z",
+      endDate: "2024-02-27T10:54:03.833Z",
+      days: "Monday"
+    }
 
-  const newDuration = await this.seedingService.seedDuration(durationData);
+    const newDuration = await this.seedingService.seedDuration(durationData);
 
-  const timeSlotData = {
-    startTime: "string",
-    endTime: "string"
-  }
-   
-  const newTimeSlot =await this.seedingService.seedTimeSlot(timeSlotData);
-
-
-  const courseBookingData = {
-    courseId: newCourse.id,
-    userId: newUser.id,
-    courseDurationId: newDuration.id,
-    timeSlotId: newTimeSlot.id
-  }
-
-  const newCourseBooking = await this.seedingService.seedCoursebooking(courseBookingData)
-
-
-  const onSiteCourseBookingData = {
-    courseId: newCourse.id,
-    userId: newUser.id,
-    courseDurationId: newDuration.id
-  }
-
-  const newOnsiteCourseBooking = await this.seedingService.seedOnsiteCoursebooking(onSiteCourseBookingData)
-
-
-  const attendanceDate = {
-    OnSiteCourseBooking: newOnsiteCourseBooking.id,
-    attendanceStatus: 'Present',
-    date: new Date
+    const timeSlotData = {
+      startTime: "string",
+      endTime: "string"
+    }
     
-  }
+    const newTimeSlot =await this.seedingService.seedTimeSlot(timeSlotData);
 
-  const newAttendance = await this.seedingService.seedAttendance(attendanceDate)
 
-  const OnsiteEvaluation =
-  {
-    courseId: newCourse.id,
-    studentId: newStudent.id,
-    score: 92,
-    total: 100,
-  date: "2024-03-13T09:17:49.162Z"
-  }
+    const courseBookingData = {
+      courseId: newCourse.id,
+      userId: newUser.id,
+      courseDurationId: newDuration.id,
+      timeSlotId: newTimeSlot.id
+    }
+
+    const newCourseBooking = await this.seedingService.seedCoursebooking(courseBookingData)
+
+
+    const onSiteCourseBookingData = {
+      courseId: newCourse.id,
+      userId: newUser.id,
+      courseDurationId: newDuration.id
+    }
+
+    const newOnsiteCourseBooking = await this.seedingService.seedOnsiteCoursebooking(onSiteCourseBookingData)
+
+
+    const attendanceDate = {
+      OnSiteCourseBooking: newOnsiteCourseBooking.id,
+      attendanceStatus: 'Present',
+      date: new Date
+      
+    }
+
+    const newAttendance = await this.seedingService.seedAttendance(attendanceDate)
+
+    const OnsiteEvaluation =
+    {
+      courseId: newCourse.id,
+      studentId: newStudent.id,
+      score: 92,
+      total: 100,
+      date: "2024-03-13T09:17:49.162Z"
+    }
 
   const newOnsiteEvaluation =  this.seedingService.seedOnsiteEvaluation(OnsiteEvaluation)
 
