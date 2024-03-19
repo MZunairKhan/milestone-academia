@@ -79,7 +79,10 @@ export class CreateCourseComponent implements OnInit {
       name: this.formValue.name as string,
       subjectId: this.formValue.subjectId as string,
       courseType: CourseType[selectedCourseType as keyof typeof CourseType],
-      description: ''
+      description: '',
+      subText: '',
+      details: '',
+      price: 0
     }).subscribe(value => {
       this.goToRoute('course/my-courses');
     });

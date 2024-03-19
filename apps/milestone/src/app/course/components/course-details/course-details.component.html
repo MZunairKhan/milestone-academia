@@ -1,4 +1,12 @@
-<div class="course-detail-panel">
+<div *ngIf="!dataLoaded" class="course-detail-panel">
+    <mat-progress-spinner
+        class="example-margin"
+        color="warn"
+        mode="indeterminate"
+    ></mat-progress-spinner>
+</div>
+
+<div *ngIf="dataLoaded" class="course-detail-panel">
     
     <div class="course-detail-background" [ngStyle]="{'background-color': courseData?.color}"></div>
     
@@ -13,7 +21,7 @@
             
             <div class="hide-on-mobile">
                 <mat-card class="course-detail-section">
-                    <h2>{{courseData?.title}}</h2>
+                    <h2>{{courseData?.name}}</h2>
                     <p>
                        {{courseData?.subText}}
                     </p>
@@ -59,7 +67,7 @@
             
             <div class="show-on-mobile">
                 <mat-card class="course-detail-section">
-                    <h2>{{courseData?.title}}</h2>
+                    <h2>{{courseData?.name}}</h2>
                     <p>
                     {{courseData?.subText}}
                     </p>

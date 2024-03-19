@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { sampleCourses } from '../../models/courses.sample';
+import { CourseService } from '../../services/course.service';
 
 interface SubjectFilters {
   title: string;
@@ -28,15 +29,25 @@ export class CoursesComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private courseService: CourseService
   ) {
-    this.courses = sampleCourses;
-    this.displayedCourses = sampleCourses;
-    this.subjectFilters = sampleCourses.map(s => s.subject).filter((v, i, a) => a.indexOf(v) === i);
+    this.setCourses(sampleCourses);
+  }
+
+  ngOnInit(): void {
+    this.courseService.getAllCourse().subscribe(value => {
+      console.log(value[0], sampleCourses[0]);
+      this.setCourses(value.map((v: any) => ({...v, cols: 1, rows: 1, color: "lightblue"})));
+    })
+  }
+
+  setCourses(data: Course[]) {
+    this.courses = data;
+    this.displayedCourses = data;
+    this.subjectFilters = data.map(s => s.subject).filter((v, i, a) => a.indexOf(v) === i);
     this.unselectedFilters = this.subjectFilters;
     console.log(this.subjectFilters)
   }
-
-  ngOnInit(): void {}
 
   buttonToggled = (value: any) => this.columns = value
 

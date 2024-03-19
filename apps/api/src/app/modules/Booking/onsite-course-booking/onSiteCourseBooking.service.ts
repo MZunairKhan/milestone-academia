@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { OnSiteCourseBooking } from './entities/onSiteCourseBooking.entity';
 import { CreateOnSiteBookingDto } from './dto/createOnSiteBooking.dto';
 import { UsersService } from '../../user/users.service';
-import { CourseService } from '../../course/course.service';
+import { CourseService } from '../../course/services/course.service';
 import { CourseDurationService } from '../course-duration/courseDuration.service';
 import { StudentsService } from '../../user/extended-users/student/student.service';
 
