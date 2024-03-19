@@ -28,7 +28,7 @@ export class SeedingController {
       lastName: 'User',
       userName: 'master',
       email: 'info@milestoneacademia.com',
-      password: 'maser',
+      password: 'master',
       presenceType: PresenceType.Online,
       userType: UserType.Master
     });
