@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
@@ -35,9 +35,13 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  
-  userFilter = new FormControl('');
+  total = 15;
+  pageSize = 10;
+  userType = new FormControl('');
+  userName = new FormControl('');
+  presenceType = new FormControl('');
   userFilterOptions = ['Student', 'Instructor', 'Master', 'Staff'];
+  presenceFilterOptions = ['Online', 'InPerson'];
 
   constructor(
     private userService: UserService,
@@ -47,18 +51,51 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { 
+    this.userType.valueChanges.subscribe(() => {
+
+    this.getUserList();
+  });
+  this.userName.valueChanges.subscribe(() => {
+
+    this.getUserList();
+  });
+  this.presenceType.valueChanges.subscribe(() => {
+
+    this.getUserList();
+  });
+
+}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
+    this.paginator.page.subscribe(() => {
+      this.getUserList(); 
+    });
+  
+    
     this.getUserList();
   }
+  onUserTypeSelectionChange(event: any) {
+    const selectedValues = event.value;
+    this.userType.setValue(selectedValues);
+    console.log(this.userType.value);
+  }
+  
+  onPresenceTypeSelectionChange(event: any) {
+    const selectedValues = event.value;
+    this.presenceType.setValue(selectedValues);
+  }
+  
+  
 
   getUserList() {
-    this.manageUserService.getUserList().subscribe((list: UserData[]) => {
-      this.dataSource = new MatTableDataSource(list.filter(u => u.email !== this.userService.currentUser.email));
+
+    this.manageUserService.getUserList(this.userType.value || '', this.presenceType.value || '',this.userName.value || '' , 1, this.paginator.pageSize).subscribe((list: any) => {
+       console.log(list.users);
+      this.dataSource = new MatTableDataSource(list.users);
     });
   }
 

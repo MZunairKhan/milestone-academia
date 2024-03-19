@@ -13,7 +13,7 @@ export const APIS = {
     },
     users: {
         create: `${extension}/users`,
-        getAll: `${extension}/users`,
+        getAll: `${extension}/users/paginated-user`,
         getUserData: `${extension}/users/userData`,
         createUser: `${extension}/users/create-user`,
         createStudent: `${extension}/users/create-student`,
