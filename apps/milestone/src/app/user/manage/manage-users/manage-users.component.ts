@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
@@ -35,9 +35,14 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  
-  userFilter = new FormControl('');
+  userType = new FormControl('');
+  userName = new FormControl('');
+  presenceType = new FormControl('');
   userFilterOptions = ['Student', 'Instructor', 'Master', 'Staff'];
+  presenceFilterOptions = ['Online', 'InPerson'];
+  totalUsers = 0;
+  page =1;
+  pageSize= 5;
 
   constructor(
     private userService: UserService,
@@ -47,18 +52,38 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { 
+    this.userType.valueChanges.subscribe(() => this.getUserList());
+    this.userName.valueChanges.subscribe(() => this.getUserList());
+    this.presenceType.valueChanges.subscribe(() => this.getUserList());
+  }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
+    
     this.getUserList();
   }
 
+  onUserTypeSelectionChange(event: any) {
+    const selectedValues = event.value;
+    this.userType.setValue(selectedValues);
+    console.log(this.userType.value);
+  }
+  
+  onPresenceTypeSelectionChange(event: any) {
+    const selectedValues = event.value;
+    this.presenceType.setValue(selectedValues);
+  }
+  
   getUserList() {
-    this.manageUserService.getUserList().subscribe((list: UserData[]) => {
-      this.dataSource = new MatTableDataSource(list.filter(u => u.email !== this.userService.currentUser.email));
+    this.manageUserService.getUserList(this.userType.value || '', this.presenceType.value || '',this.userName.value || '' ,   this.page,
+    this.pageSize).subscribe((list: any) => {
+      this.dataSource = new MatTableDataSource(list.users);
+      this.totalUsers = list.total;
+      this.page = +list.page; 
+      this.pageSize = +list.limit;
     });
   }
 
@@ -113,7 +138,7 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     });
   }
 
-  mapToDTO(data: any) {
+  mapToCreateDTO(data: any) {
     const request: CreatePersonUserDTOBase = {
       firstName: data.userData.firstName,
       lastName: data.userData.lastName,
@@ -140,7 +165,13 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   }
 
   createUser(userInput: any) {
-    const dto = this.mapToDTO(userInput.data);
+    const dto = this.mapToCreateDTO(userInput.data);
     this.manageUserService.addUser(dto).subscribe(value => this.getUserList());
+  }
+
+  onPageChange(event: PageEvent) {
+    this.page = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.getUserList();
   }
 }

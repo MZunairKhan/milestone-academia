@@ -56,18 +56,26 @@ export class UsersController {
     @Query('limit',) limit: number,
   ) {
 
-    const [users] = await this.usersService.findAllWithFiltersAndPagination(
+    const [users , total] = await this.usersService.findAllWithFiltersAndPagination(
       userType,
       presenceType,
       username,
       page || 1,
-      limit || 10,
+      limit || 15,
     );
+
+    const totalPages = Math.ceil(total / limit);
 
     return {
       users,
+      total,
       page,
+      limit,
+      totalPages,
     };
+      
+    
+    
   }
 
 
