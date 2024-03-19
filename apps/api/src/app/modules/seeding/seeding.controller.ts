@@ -4,9 +4,7 @@ import { Controller, Post } from '@nestjs/common';
 import { PresenceType } from '../user/enums/presenceType.enum';
 import { CourseType } from '@milestone-academia/api-interfaces';
 import { CreateCourseDTO } from '../course/dto/create-course.dto';
-import { CreateSubjectDto } from '../subject/dto/create-subject.dto';
 import { SeedingService } from './seeding.service';
-import { CreateUserDTO } from '../user/dto/create-user.dto';
 import { UserType } from '../user/enums/userType.enum';
 import { Subject } from '../subject/entity/subject.entity';
 
@@ -35,17 +33,15 @@ export class SeedingController {
       userType: UserType.Master
     });
 
-    const user: CreateUserDTO = {
+    const newUser = await this.seedingService.seedUser({
       firstName: 'new',
       lastName: 'new',
       userName: 'new',
-      email: 'muhammadhaseeb0302@gmail.com',
+      email: 'info@milestoneacademia.com',
       password: 'new',
       presenceType: PresenceType.Online,
       userType: UserType.Student
-    };
-
-    const newUser = await this.seedingService.seedUser(user);
+    });
 
     const studentData = {
       createdDate: null,
@@ -78,6 +74,82 @@ export class SeedingController {
 
     const newSubject = subjectMap.get(subjectArray[0]);
 
+    for (let i = 0; i < subjectArray.length; i++) {
+      const subject = subjectArray[i];
+      const subjectId = subjectMap.get(subject).id;
+      
+      const course: CreateCourseDTO = {
+        "name": `${subject} course`,
+        "courseType": CourseType.Group,
+        "subjectId": subjectId,
+        "description": "test description of a course",
+        "subText": "test subText of a course",
+        "details": "test description of a course test description of a course test description of a course",
+        "price": 100,
+        "content": [
+          {
+            "heading": "First Heading",
+            "points": [
+              "First point of First Heading",
+              "Second point of First Heading",
+              "Third point of First Heading",
+              "Fourthpoint of First Heading"
+            ]
+          },
+          {
+            "heading": "Second Heading",
+            "points": [
+              "First point of Second Heading",
+              "Second point of Second Heading",
+              "Third point of Second Heading",
+              "Fourthpoint of Second Heading"
+            ]
+          },
+          {
+            "heading": "Third Heading",
+            "points": [
+              "First point of Third Heading",
+              "Second point of Third Heading",
+              "Third point of Third Heading",
+              "Fourthpoint of Third Heading"
+            ]
+          },
+          {
+            "heading": "Fourth Heading",
+            "points": [
+              "First point of Fourth Heading",
+              "Second point of Fourth Heading",
+              "Third point of Fourth Heading",
+              "Fourthpoint of Fourth Heading"
+            ]
+          }
+        ],
+        "features": [
+          {
+            "name": "Lectures",
+            "value": 26,
+            "icon": "group"
+          },
+          {
+            "name": "Assesments",
+            "value": 12,
+            "icon": "description"
+          },
+          {
+            "name": "Quizzes",
+            "value": 12,
+            "icon": "info_outline"
+          },
+          {
+            "name": "Notes",
+            "value": 30,
+            "icon": "format_list_numbered"
+          }
+        ]
+      };
+      await this.seedingService.seedCourse(course);
+    }
+
     const course: CreateCourseDTO = {
       name: 'Seeder',
       courseType: CourseType.Group,
@@ -85,7 +157,9 @@ export class SeedingController {
       description: 'test description',
       subText: 'test sub text',
       details: 'test details',
-      price: 100
+      price: 100,
+      content: [],
+      features: []
     };
     const newCourse = await this.seedingService.seedCourse(course);
     
