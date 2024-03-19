@@ -10,7 +10,7 @@ export class CourseContent extends TimeBaseEntity{
   @Column()
   heading: string;
 
-  @Column('simple-array', { nullable: true, array: true })
+  @Column('text', { nullable: true, array: true })
   points: string[];
 
   @ManyToOne(() => Course, (course) => course.content)

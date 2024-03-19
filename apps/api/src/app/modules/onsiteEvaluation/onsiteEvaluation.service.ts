@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { CourseService } from '../course/course.service';
+import { CourseService } from '../course/services/course.service';
 import { StudentsService } from '../user/extended-users/student/student.service';
 import { OnSiteEvaluation } from './entities/onsiteEvaluation.entity';
 import { OnSiteEvaluationDto } from './dto/onsiteEvaluation.dto';

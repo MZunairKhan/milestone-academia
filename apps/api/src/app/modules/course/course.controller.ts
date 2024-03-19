@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { CourseService } from './course.service';
+import { CourseService } from './services/course.service';
 import { Course } from './entity/course.entity';
 import { CreateCourseDTO } from './dto/create-course.dto';
   
