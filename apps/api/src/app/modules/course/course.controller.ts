@@ -4,6 +4,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CourseService } from './services/course.service';
 import { Course } from './entity/course.entity';
 import { CreateCourseDTO } from './dto/create-course.dto';
+import { readCourseDTO } from './dto/read-course.dto';
   
 @ApiTags('Course')
 @Controller()
@@ -22,12 +23,13 @@ export class CoursesController {
   }
 
   @Get()
-  findAll(): Promise<Course[]> {
-    return this.coursesService.findAll();
+  async findAll(): Promise<readCourseDTO[]> {
+    const courses = await this.coursesService.findAll();
+    return courses.map(c => ({...c, subject: c.subject.name}))
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: string): Promise<Course> {
+  findOne(@Param('id') id: string): Promise<Course> {
     return this.coursesService.findOne(id);
   }
 

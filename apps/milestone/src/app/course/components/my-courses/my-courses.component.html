@@ -17,7 +17,7 @@
     <div class="courses-recent">
         <mat-card class="courses-recent-card" *ngFor="let course of recentCourse">
             <div class="course-recent-image" [ngStyle]="{'background-color': course.color}"></div>
-            <h3>{{course.title}}</h3>
+            <h3>{{course.name}}</h3>
         </mat-card>
     </div>
 </div>
@@ -35,7 +35,7 @@
 
             <div class="courses-list-element">
                 <mat-card class="course-tile">
-                    <div class="course-tile-header"><h3>{{course.title}}</h3></div>
+                    <div class="course-tile-header"><h3>{{course.name}}</h3></div>
                     <div class="course-tile-section">
                         <div class="course-tile-image" [ngStyle]="{'background-color': course.color}"></div>
                         <div class="course-tile-details">{{course.subText}}</div>

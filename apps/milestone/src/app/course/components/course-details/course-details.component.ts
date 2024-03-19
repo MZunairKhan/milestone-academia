@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Course, CourseFeatures } from '../../models/course.model';
-import { sampleCourses } from '../../models/courses.sample';
+import { Course } from '../../models/course.model';
+import { CourseService } from '../../services/course.service';
 
 
 @Component({
@@ -15,16 +15,27 @@ import { sampleCourses } from '../../models/courses.sample';
 export class CourseDetailsComponent implements OnInit {
 
   courseData?: Course;
+  courseId: string;
+  dataLoaded = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private courseService: CourseService
   ) {
-    const id = route.snapshot.paramMap.get('id');
-    this.courseData = sampleCourses.find(c => c.id === id);
+    this.courseId = route.snapshot.paramMap.get('id') as string;
+    // this.courseData = sampleCourses.find(c => c.id === this.courseId);
+    this.courseService.getCourseById(this.courseId).subscribe(data => {
+      data.rows = 1;
+      data.cols = 1;
+      data.color = 'lightblue';
+      this.courseData = data;
+      this.dataLoaded = true;
+    })
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   goToCourses = () => this.router.navigate([`course/list`])
   

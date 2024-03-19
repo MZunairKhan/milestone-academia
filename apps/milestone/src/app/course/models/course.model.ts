@@ -6,7 +6,7 @@ export interface Course {
     color: string;
     cols: number;
     rows: number;
-    title: string;
+    name: string;
     subText: string;
     details: string;
     price: number;

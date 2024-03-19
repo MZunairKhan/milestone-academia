@@ -41,11 +41,11 @@ export class CourseService {
   }
 
   async findAll(): Promise<Course[]> {
-    return this.coursesRepository.find({relations: ['content', 'features']});
+    return this.coursesRepository.find({relations: ['content', 'features', 'subject']});
   }
 
   findOne(id: string): Promise<Course> {
-    return this.coursesRepository.findOneBy({ id: id });
+    return this.coursesRepository.findOne({relations: ['content', 'features', 'subject'], where: {id: id}});
   }
 
   async remove(id: string): Promise<void> {
