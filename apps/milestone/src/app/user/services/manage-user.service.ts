@@ -32,16 +32,16 @@ export class ManageUserService {
     }
     if (userName) {
       params = params.set('username', userName);
-  }
-  if (page) {
-    params = params.set('page', page);
-  }
-  if (limit) {
-    params = params.set('limit', limit);
-  }
-  return this.http.get<any>(APIS.users.getAll, {params})
-      .pipe(
-        
+    }
+    if (page) {
+      params = params.set('page', page);
+    }
+    if (limit) {
+      params = params.set('limit', limit);
+    }
+
+    return this.http.get<any>(APIS.users.getAll, {params})
+      .pipe(        
         tap((value: any) => this.updateUserList(value.users))
       )
   }

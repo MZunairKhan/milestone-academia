@@ -52,32 +52,20 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void { 
-    this.userType.valueChanges.subscribe(() => {
-
-    this.getUserList();
-  });
-  this.userName.valueChanges.subscribe(() => {
-
-    this.getUserList();
-  });
-  this.presenceType.valueChanges.subscribe(() => {
-
-    this.getUserList();
-  });
-
-}
+    this.userType.valueChanges.subscribe(() => this.getUserList());
+    this.userName.valueChanges.subscribe(() => this.getUserList());
+    this.presenceType.valueChanges.subscribe(() => this.getUserList());
+  }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-    this.paginator.page.subscribe(() => {
-      this.getUserList(); 
-    });
-  
+    this.paginator.page.subscribe(() => this.getUserList());
     
     this.getUserList();
   }
+
   onUserTypeSelectionChange(event: any) {
     const selectedValues = event.value;
     this.userType.setValue(selectedValues);
@@ -89,10 +77,7 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     this.presenceType.setValue(selectedValues);
   }
   
-  
-
   getUserList() {
-
     this.manageUserService.getUserList(this.userType.value || '', this.presenceType.value || '',this.userName.value || '' , 1, this.paginator.pageSize).subscribe((list: any) => {
        console.log(list.users);
       this.dataSource = new MatTableDataSource(list.users);
@@ -150,7 +135,7 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     });
   }
 
-  mapToDTO(data: any) {
+  mapToCreateDTO(data: any) {
     const request: CreatePersonUserDTOBase = {
       firstName: data.userData.firstName,
       lastName: data.userData.lastName,
@@ -177,7 +162,7 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   }
 
   createUser(userInput: any) {
-    const dto = this.mapToDTO(userInput.data);
+    const dto = this.mapToCreateDTO(userInput.data);
     this.manageUserService.addUser(dto).subscribe(value => this.getUserList());
   }
 }
