@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
@@ -35,13 +35,14 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  total = 15;
-  pageSize = 10;
   userType = new FormControl('');
   userName = new FormControl('');
   presenceType = new FormControl('');
   userFilterOptions = ['Student', 'Instructor', 'Master', 'Staff'];
   presenceFilterOptions = ['Online', 'InPerson'];
+  totalUsers = 0;
+  page =1;
+  pageSize= 5;
 
   constructor(
     private userService: UserService,
@@ -61,7 +62,6 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     // this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-    this.paginator.page.subscribe(() => this.getUserList());
     
     this.getUserList();
   }
@@ -78,9 +78,12 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   }
   
   getUserList() {
-    this.manageUserService.getUserList(this.userType.value || '', this.presenceType.value || '',this.userName.value || '' , 1, this.paginator.pageSize).subscribe((list: any) => {
-       console.log(list.users);
+    this.manageUserService.getUserList(this.userType.value || '', this.presenceType.value || '',this.userName.value || '' ,   this.page,
+    this.pageSize).subscribe((list: any) => {
       this.dataSource = new MatTableDataSource(list.users);
+      this.totalUsers = list.total;
+      this.page = +list.page; 
+      this.pageSize = +list.limit;
     });
   }
 
@@ -164,5 +167,11 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   createUser(userInput: any) {
     const dto = this.mapToCreateDTO(userInput.data);
     this.manageUserService.addUser(dto).subscribe(value => this.getUserList());
+  }
+
+  onPageChange(event: PageEvent) {
+    this.page = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.getUserList();
   }
 }
