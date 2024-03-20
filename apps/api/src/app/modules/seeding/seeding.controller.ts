@@ -2,7 +2,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post } from '@nestjs/common';
 
 import { PresenceType } from '../user/enums/presenceType.enum';
-import { CourseType } from '@milestone-academia/api-interfaces';
+import { CourseType, Days } from '@milestone-academia/api-interfaces';
 import { CreateCourseDTO } from '../course/dto/create-course.dto';
 import { SeedingService } from './seeding.service';
 import { UserType } from '../user/enums/userType.enum';
@@ -166,7 +166,7 @@ export class SeedingController {
     const durationData = {
       startDate: "2024-02-27T10:54:03.833Z",
       endDate: "2024-02-27T10:54:03.833Z",
-      days: "Monday"
+      days: [Days.Monday, Days.Tuesday, Days.Wednesday, Days.Thursday, Days.Friday]
     }
 
     const newDuration = await this.seedingService.seedDuration(durationData);
