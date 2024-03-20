@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, 
-  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, ParseIntPipe, Query, } from '@nestjs/common';
+  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, ParseIntPipe, Query, NotFoundException, } from '@nestjs/common';
 import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles/roles.decorator';
 import { RolesGuard } from '../auth/roles/roles.guard';
@@ -204,19 +204,13 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<void> {
+  async remove(@Param('id') id: string): Promise<any> {
     const user = await this.usersService.findOne(id);
     if (user) {
-      const associatedEntity = await this.usersService.getAssociatedEntity(user);
-      if (associatedEntity) {
-        if (user.userType = UserType.Student) {
-          this.studentsService.remove(associatedEntity.id);
-        }
-        if (user.userType = UserType.Instructor) {
-          this.instructorsService.remove(associatedEntity.id);
-        }
-      }
-      return this.usersService.remove(id);
+    const res =  this.usersService.remove(id);
+    return res
+    }else{
+      throw new NotFoundException('User not found');
     }
   }
 

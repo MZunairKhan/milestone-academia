@@ -69,7 +69,6 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   onUserTypeSelectionChange(event: any) {
     const selectedValues = event.value;
     this.userType.setValue(selectedValues);
-    console.log(this.userType.value);
   }
   
   onPresenceTypeSelectionChange(event: any) {
@@ -104,9 +103,12 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
   }
 
   deleteUser(id: string) {
-    // this.userService.deleteUserById(id)
-    // .subscribe(value => {
-    // });
+    this.userService.deleteUserById(id)
+    .subscribe(value => {
+      console.log('deleted');
+      this.getUserList();
+
+    });
   }
 
   openAddUserDialog() {

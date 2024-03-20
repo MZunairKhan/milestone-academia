@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
-import { Repository } from 'typeorm';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { IsNull, Not, Repository } from 'typeorm';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StudentsService } from './extended-users/student/student.service';
 import { AppConfigurationService } from '../../common/appConfiguration.service';
@@ -91,6 +91,8 @@ export class UsersService {
     if (userName) {
       queryBuilder.andWhere('user.userName = :userName', { userName });
     }
+
+    queryBuilder.andWhere('user.deletedDate IS NULL')
     queryBuilder.skip((page - 1) * limit).take(limit);
 
 
@@ -144,16 +146,27 @@ export class UsersService {
    return await this.usersRepository.update(id, updateUserDto);
   }
 
-  findOne(id: string): Promise<User> {
-    return this.usersRepository.findOneBy({ id: id });
+ async findOne(id: string): Promise<User> {
+  const user = await this.usersRepository.findOneBy({ id: id });
+  if (!user) {
+    throw new NotFoundException('User not found');
+  }
+  return user;
+  }
+  
+
+ async findOneByUsername(userName: string): Promise<User> {
+    const user = await this.usersRepository
+    .findOneBy({ userName: userName });
+
+  if (!user) {
+    throw new NotFoundException('User not found');
   }
 
-  findOneByUsername(userName: string): Promise<User> {
-    return this.usersRepository.findOneBy({ userName: userName });
-  }
+  return user;  }
 
-  async remove(id: string): Promise<void> {
-    await this.usersRepository.delete(id);
+  async remove(id: string): Promise<any> {
+  return  await this.usersRepository.softDelete({id});
   }
 
   async createAssociatedEntity(user: User, associatedEntityType: UserType) {
