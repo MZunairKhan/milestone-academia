@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, 
-  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, ParseIntPipe, Query, } from '@nestjs/common';
+  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, ParseIntPipe, Query, NotFoundException, } from '@nestjs/common';
 import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles/roles.decorator';
 import { RolesGuard } from '../auth/roles/roles.guard';
@@ -210,7 +210,7 @@ export class UsersController {
     const res =  this.usersService.remove(id);
     return res
     }else{
-      return 'User Not Found'
+      throw new NotFoundException('User not found');
     }
   }
 

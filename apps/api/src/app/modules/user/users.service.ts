@@ -78,7 +78,6 @@ export class UsersService {
     page: number,
     limit: number,
   ) {
-    const deletedDate = null;
     const queryBuilder = this.usersRepository.createQueryBuilder('user');
 
     if (userType) {
@@ -102,7 +101,7 @@ export class UsersService {
 
 
   async findAll(): Promise<User[]> {
-    return this.usersRepository.find({ where: { deletedDate:  IsNull() } });
+    return this.usersRepository.find();
   }
 
   async forgotPassword(email: string) {
@@ -158,10 +157,7 @@ export class UsersService {
 
  async findOneByUsername(userName: string): Promise<User> {
     const user = await this.usersRepository
-    .createQueryBuilder('user')
-    .where('user.userName = :userName', { userName })
-    .andWhere('user.deletedDate IS NULL')
-    .getOne();
+    .findOneBy({ userName: userName });
 
   if (!user) {
     throw new NotFoundException('User not found');
