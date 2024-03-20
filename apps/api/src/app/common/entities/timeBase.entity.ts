@@ -1,4 +1,4 @@
-import { Column } from "typeorm";
+import { Column, DeleteDateColumn } from "typeorm";
 
 export class TimeBaseEntity {
 
@@ -11,6 +11,6 @@ export class TimeBaseEntity {
     @Column({nullable: true})
     updatedDate: Date;
     
-    @Column({nullable: true})
+    @DeleteDateColumn({ nullable: true })
     deletedDate: Date;
 }

@@ -204,19 +204,13 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<void> {
+  async remove(@Param('id') id: string): Promise<any> {
     const user = await this.usersService.findOne(id);
     if (user) {
-      const associatedEntity = await this.usersService.getAssociatedEntity(user);
-      if (associatedEntity) {
-        if (user.userType = UserType.Student) {
-          this.studentsService.remove(associatedEntity.id);
-        }
-        if (user.userType = UserType.Instructor) {
-          this.instructorsService.remove(associatedEntity.id);
-        }
-      }
-      return this.usersService.remove(id);
+    const res =  this.usersService.remove(id);
+    return res
+    }else{
+      return 'User Not Found'
     }
   }
 
