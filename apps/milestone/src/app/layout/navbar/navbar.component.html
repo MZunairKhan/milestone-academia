@@ -26,6 +26,10 @@
     <mat-icon>people_outline</mat-icon>
     <span>Manage Users</span>
   </button>
+  <button *ngIf="displayManageUsers" (click)="goToRoute('metadata')" mat-menu-item>
+    <mat-icon>perm_data_setting</mat-icon>
+    <span>Metadata</span>
+  </button>
   <button (click)="logout()" mat-menu-item>
     <mat-icon>logout</mat-icon>
     <span>Logout</span>

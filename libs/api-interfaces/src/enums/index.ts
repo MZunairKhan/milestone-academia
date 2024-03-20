@@ -4,4 +4,5 @@ export * from './userType.enum';
 export * from './userRoles';
 export * from './courseTypes.enum';
 export * from './days.enums';
-export * from './attendanceStatus.enum'
+export * from './attendanceStatus.enum';
+export * from './days.enums';

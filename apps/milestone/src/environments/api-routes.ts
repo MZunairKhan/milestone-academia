@@ -39,5 +39,19 @@ export const APIS = {
         getAll: `${extension}/course`,
         getById: (id: string) => `${extension}/course/${id}`,
         deleteById: (id: string) => `${extension}/course/${id}`
+    },
+    booking: {
+        create: `${extension}/bookings`,
+        getAll: `${extension}/bookings`,
+        getById: (id: string) => `${extension}/bookings/${id}`,
+        updateById: (id: string) => `${extension}/bookings/${id}`,
+        deleteById: (id: string) => `${extension}/bookings/${id}`
+    },
+    durations: {
+        create: `${extension}/durations`,
+        getAll: `${extension}/durations`,
+        getById: (id: string) => `${extension}/durations/${id}`,
+        updateById: (id: string) => `${extension}/durations/${id}`,
+        deleteById: (id: string) => `${extension}/durations/${id}`
     }
 }

@@ -1,0 +1,55 @@
+<mat-card class="metadata-card">
+    <mat-tab-group mat-align-tabs="start" color="warn">
+        <mat-tab label="Course Duration">
+
+            <h2>Create Course Duration</h2>
+
+            <form [formGroup]="createCourseDurationForm" class="course-duration-form margin-vertical-10">
+                
+                <mat-form-field appearance="fill" class="slot-select">
+                    <mat-label>Course Duration</mat-label>
+                    <mat-date-range-input [rangePicker]="datePicker">
+                        <input matStartDate placeholder="Start date" formControlName="startDate">
+                        <input matEndDate placeholder="End date" formControlName="endDate">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #datePicker></mat-date-range-picker>
+                </mat-form-field>
+                
+                <mat-form-field appearance="fill" class="slot-select">
+                    <mat-label>Course Days</mat-label>
+                    <mat-select formControlName="days" multiple>
+                      <mat-option *ngFor="let day of courseDays" value="{{day}}">{{day}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div style="display: flex; align-items: center;">
+                    <button mat-raised-button color="warn" [disabled]="!createCourseDurationForm.valid" (click)="createCourseDuration()">
+                        <mat-icon>add</mat-icon>
+                        Create
+                    </button>
+                </div>
+            </form>
+
+            <h2>Existing Course Durations</h2>
+
+            <div class="flex-between margin-vertical-10" style="background-color: lightgray; padding: 10px 0;">
+                <div class="duration-date"><b>Start Date</b></div>
+                <div class="duration-date"><b>End Date</b></div>
+                <div class="duration-days"><b>Days</b></div>
+            </div>
+
+            <div>
+                <div *ngFor="let cd of courseDurations" class="flex-between margin-vertical-10" style="padding: 10px 0;">
+                    <div class="duration-date">{{cd.startDate | date}}</div>
+                    <div class="duration-date">{{cd.endDate | date}}</div>
+                    <div class="duration-days">{{cd.days}}</div>
+                </div>
+            </div>
+        </mat-tab>
+        
+        <mat-tab label="Second">Content 2</mat-tab>
+        
+        <mat-tab label="Third">Content 3</mat-tab>
+    </mat-tab-group>
+</mat-card>

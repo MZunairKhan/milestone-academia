@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { MetadataComponent } from './shared/components/metadata/metadata.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+  },
+  {
+    path: 'metadata',
+    component: MetadataComponent
   },
   {
     path: '**',

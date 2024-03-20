@@ -27,6 +27,20 @@ $milestone-color-secondary-dark: #e61005;
     color: $milestone-color-secondary-dark;
 }
 
+///////////////////////////////////////////////////////
+
+.margin-vertical-10 {
+    margin: 10px 0;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-around;
+}
+
+///////////////////////////////////////////////////////
+ 
+
 /* width */
 ::-webkit-scrollbar {
     width: 8px;
@@ -82,10 +96,9 @@ $milestone-color-secondary-dark: #e61005;
     }
 }
 .mat-snack-bar-container{
-background-color: #e61005;
-color: white; 
-
+    background-color: #e61005;
+    color: white; 
 }
 .mat-simple-snackbar-action {
-color: white; 
-  }
+    color: white; 
+}

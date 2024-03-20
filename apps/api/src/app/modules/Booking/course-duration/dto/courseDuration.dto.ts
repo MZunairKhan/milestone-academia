@@ -1,3 +1,4 @@
+import { Days } from "@milestone-academia/api-interfaces";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CourseDurationDto {
@@ -7,8 +8,10 @@ export class CourseDurationDto {
     @ApiProperty()
     endDate: Date;
 
-    @ApiProperty()
-    days: string;
-    
- 
+    @ApiProperty({
+        enum: Days,
+        isArray: true,
+        example: [...Object.values(Days)],
+    })
+    days: Days[];
 }

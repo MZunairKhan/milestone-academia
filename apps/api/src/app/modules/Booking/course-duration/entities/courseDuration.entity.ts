@@ -1,5 +1,5 @@
+import { Days } from '@milestone-academia/api-interfaces';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Days } from '../enums/days.enums';
 
 @Entity()
 export class CourseDuration {
@@ -12,9 +12,12 @@ export class CourseDuration {
   @Column()
   endDate: Date;
 
-  @Column({
-    type: 'enum',
-    enum: Days,
-  })
-  days: string;
+  // @Column('text', 
+  // {
+  //   type: 'enum',
+  //   enum: Days,
+  // })
+  // @Column({ type: 'enum', enum: Days, array: true })
+  @Column('text', { name: 'days', array: true })
+  days: Days[];
 }

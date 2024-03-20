@@ -9,14 +9,16 @@ import { PersonalDetailsComponent } from './components/personal-details/personal
 import { AddressDetailsComponent } from './components/address-details/address-details.component';
 import { DynamicDialogModule } from './modules/dialog/dialog.module';
 import { RoleModule } from './modules/role/role.module';
+import { MetadataComponent } from './components/metadata/metadata.component';
 
 
 @NgModule({
   declarations: [
     NotFoundComponent,
+    MetadataComponent,
     UserDetailsComponent,
     AddressDetailsComponent,
-    PersonalDetailsComponent
+    PersonalDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { RoleModule } from './modules/role/role.module';
     DynamicDialogModule,
     RoleModule,
     NotFoundComponent,
+    MetadataComponent,
     UserDetailsComponent,
     AddressDetailsComponent,
     PersonalDetailsComponent
