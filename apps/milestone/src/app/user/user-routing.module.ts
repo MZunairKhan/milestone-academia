@@ -9,7 +9,7 @@ import { UserRoles } from '@milestone-academia/api-interfaces';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: {roles: [UserRoles.RetrieveUser]} },
   { path: 'manage', component: ManageUsersComponent, canActivate: [AuthGuard], data: {roles: [...Object.values(UserRoles)]} },
 ];
