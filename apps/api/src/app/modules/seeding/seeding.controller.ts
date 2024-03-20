@@ -31,14 +31,54 @@ export class SeedingController {
       password: 'master',
       presenceType: PresenceType.Online,
       userType: UserType.Master
-    });
+    }, UserType.Master);
 
     const newUser = await this.seedingService.seedUser({
-      firstName: 'new',
-      lastName: 'new',
-      userName: 'new',
-      email: 'info@milestoneacademia.com',
-      password: 'new',
+      firstName: 'test',
+      lastName: 'student 1',
+      userName: 'student1',
+      email: 'info@test.com',
+      password: 'student1',
+      presenceType: PresenceType.Online,
+      userType: UserType.Student
+    });
+
+    await this.seedingService.seedUser({
+      firstName: 'test',
+      lastName: 'student 2',
+      userName: 'student2',
+      email: 'info@test.com',
+      password: 'student2',
+      presenceType: PresenceType.Online,
+      userType: UserType.Student
+    });
+
+    await this.seedingService.seedUser({
+      firstName: 'test',
+      lastName: 'student 3',
+      userName: 'student3',
+      email: 'info@test.com',
+      password: 'student3',
+      presenceType: PresenceType.Online,
+      userType: UserType.Student
+    });
+
+    await this.seedingService.seedUser({
+      firstName: 'test',
+      lastName: 'student 4',
+      userName: 'student4',
+      email: 'info@test.com',
+      password: 'student4',
+      presenceType: PresenceType.Online,
+      userType: UserType.Student
+    });
+
+    await this.seedingService.seedUser({
+      firstName: 'test',
+      lastName: 'student 5',
+      userName: 'student5',
+      email: 'info@test.com',
+      password: 'student5',
       presenceType: PresenceType.Online,
       userType: UserType.Student
     });

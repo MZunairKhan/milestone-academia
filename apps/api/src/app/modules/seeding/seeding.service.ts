@@ -42,8 +42,8 @@ export class SeedingService {
 
   ) {}
 
-  async seedUser(createUserDto: CreateUserDTO): Promise<User> {
-    return this.userSeedingService.create(createUserDto, UserType.Student);
+  async seedUser(createUserDto: CreateUserDTO, userType: UserType = UserType.Student): Promise<User> {
+    return this.userSeedingService.create(createUserDto, userType);
   }
 
   async seedSubject(createSubjectDto: CreateSubjectDto): Promise<Subject> {
