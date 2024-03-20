@@ -89,7 +89,8 @@ export class UsersService {
     }
 
     if (userName) {
-      queryBuilder.andWhere('user.userName = :userName', { userName });
+      const searchTerm = `%${userName}%`;
+      queryBuilder.andWhere('user.userName LIKE :userName', { userName: searchTerm });
     }
 
     queryBuilder.andWhere('user.deletedDate IS NULL')
