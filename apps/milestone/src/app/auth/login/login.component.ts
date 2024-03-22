@@ -46,15 +46,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit(data: any) {
     const {userName, password} = this.loginForm.value;
     this.authService
-    .login(userName as string, password as string).subscribe(value=>{
-     this.authService.onSuccessFullLogin(value)
+    .login(userName as string, password as string).subscribe((value: any)=>{
+     this.authService.onSuccessFullLogin(value.userData)
+     setInterval(()=>{
+      this.authService.refreshToken(value.refresh_token).subscribe((value: any)=>{
+        this.authService.onSuccessFullLogin(value.userData)
+      })
+     },1740000)
+     
       ;},
       error=>{
         this.toastService.openSnackBar(error.error.message)
         this.loginForm.controls['password'].setErrors({ 'incorrect': true });
         this.loginForm.controls['userName'].setErrors({ 'incorrect': true });
       });
-
+     
 
   }
   onForgotPassword() {

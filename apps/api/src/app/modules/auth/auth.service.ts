@@ -37,11 +37,40 @@ export class AuthService {
       userType: user.userType,
       username: user.userName,
     });
+    const refresh_token = this.jwtService.sign({ 
+      sub: user.id,
+      upn: user.email,
+      userType: user.userType,
+      username: user.userName,
+    });
+    const tokenData = this.jwtService.decode(refresh_token);
+
+    return {
+      access_token,
+      refresh_token,
+      tokenData,
+    };
+  }
+
+  async refreshJwt(user) {
+    const access_token = this.jwtService.sign({ 
+      sub: user.userId,
+      upn: user.upn,
+      userType: user.userType,
+      username: user.username,
+    });
+    const refresh_token = this.jwtService.sign({ 
+      sub: user.userId,
+      upn: user.upn,
+      userType: user.userType,
+      username: user.username,
+    });
     const tokenData = this.jwtService.decode(access_token);
 
     return {
       access_token,
-      tokenData
+      refresh_token,
+      tokenData,
     };
   }
 
