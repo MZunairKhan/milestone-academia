@@ -60,7 +60,7 @@ export class UsersService {
 
     const currentDateTime = getCurrentDateTime();
 
-   const WelcomeUserTemplate = getWelcomeUserTemplate(currentDateTime)
+    const WelcomeUserTemplate = getWelcomeUserTemplate(currentDateTime)
     //user created Event
     this.eventEmitter.emit(EventMessagesEnum.UserCreated, { email: createUserDto.email , htmlTemplate: WelcomeUserTemplate });
     

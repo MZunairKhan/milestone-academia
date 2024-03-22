@@ -1,0 +1,15 @@
+<div *ngFor="let course of courseData">
+    <div class="assign-course">
+        <div class="assign-course-details">
+            <div><h3>{{course.name}} - {{course.courseLevel}}</h3></div>
+            <div>{{course.description}}</div>
+        </div>
+        <div class="assign-course-actions">
+            <button mat-raised-button color="warn">
+                <mat-icon>assignment_turned_in</mat-icon>
+                Assign
+            </button>
+        </div>
+    </div>
+    <mat-divider style="margin-top: 10px;"></mat-divider>
+</div>

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { SubjectService } from '../../services/subject.service';
-import { CourseType, CourseTypeDisplay, Days } from '@milestone-academia/api-interfaces';
+import { CourseLevel, CourseType, CourseTypeDisplay, Days } from '@milestone-academia/api-interfaces';
 import { CourseService } from '../../services/course.service';
 
 const today = new Date();
@@ -78,11 +78,15 @@ export class CreateCourseComponent implements OnInit {
     this.courseService.createCourse({
       name: this.formValue.name as string,
       subjectId: this.formValue.subjectId as string,
+      courseDurationId: '',
       courseType: CourseType[selectedCourseType as keyof typeof CourseType],
+      courseLevel: CourseLevel.Alevel,
       description: '',
       subText: '',
       details: '',
-      price: 0
+      price: 0,
+      content: [],
+      features: []
     }).subscribe(value => {
       this.goToRoute('course/my-courses');
     });

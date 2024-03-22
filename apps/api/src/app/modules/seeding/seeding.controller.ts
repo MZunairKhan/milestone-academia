@@ -2,7 +2,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Controller, Post } from '@nestjs/common';
 
 import { PresenceType } from '../user/enums/presenceType.enum';
-import { CourseType, Days } from '@milestone-academia/api-interfaces';
+import { CourseLevel, CourseType, Days } from '@milestone-academia/api-interfaces';
 import { CreateCourseDTO } from '../course/dto/create-course.dto';
 import { SeedingService } from './seeding.service';
 import { UserType } from '../user/enums/userType.enum';
@@ -31,7 +31,7 @@ export class SeedingController {
       password: 'master',
       presenceType: PresenceType.Online,
       userType: UserType.Master
-    });
+    }, UserType.Master);
 
     const newUser = await this.seedingService.seedUser({
       firstName: 'new',
@@ -63,6 +63,12 @@ export class SeedingController {
     const newStudent = await this.seedingService.findStudentById(newUser.id);
 
 
+    const seedCourseDuration = await this.seedingService.seedDuration({
+      startDate: "2024-02-12T10:54:03.833Z",
+      endDate: "2024-05-27T10:54:03.833Z",
+      days: [Days.Monday, Days.Tuesday, Days.Wednesday, Days.Thursday, Days.Friday]
+    });
+
     // const updatedStudent = await this.seedingService.seedStudent(studentData);
     const subjectMap = new Map<string, Subject>();
     const subjectArray = ['physics', 'chemistry', 'math', 'english', 'pakistan studies', 'urdu', 'islamiyat'];
@@ -81,7 +87,9 @@ export class SeedingController {
       const course: CreateCourseDTO = {
         "name": `${subject} course`,
         "courseType": CourseType.Group,
+        "courseLevel": CourseLevel.Alevel,
         "subjectId": subjectId,
+        "courseDurationId": seedCourseDuration.id,
         "description": "test description of a course",
         "subText": "test subText of a course",
         "details": "test description of a course test description of a course test description of a course",
@@ -149,35 +157,31 @@ export class SeedingController {
       };
       await this.seedingService.seedCourse(course);
     }
+    
+    const newDuration = await this.seedingService.seedDuration({
+      startDate: "2024-02-27T10:54:03.833Z",
+      endDate: "2024-02-27T10:54:03.833Z",
+      days: [Days.Monday, Days.Tuesday, Days.Wednesday, Days.Thursday, Days.Friday]
+    });
 
-    const course: CreateCourseDTO = {
+    const newCourse = await this.seedingService.seedCourse({
       name: 'Seeder',
       courseType: CourseType.Group,
+      courseLevel: CourseLevel.Alevel,
       subjectId: newSubject.id,
       description: 'test description',
       subText: 'test sub text',
       details: 'test details',
       price: 100,
       content: [],
-      features: []
-    };
-    const newCourse = await this.seedingService.seedCourse(course);
+      features: [],
+      courseDurationId: newDuration.id
+    });
     
-    const durationData = {
-      startDate: "2024-02-27T10:54:03.833Z",
-      endDate: "2024-02-27T10:54:03.833Z",
-      days: [Days.Monday, Days.Tuesday, Days.Wednesday, Days.Thursday, Days.Friday]
-    }
-
-    const newDuration = await this.seedingService.seedDuration(durationData);
-
-    const timeSlotData = {
+    const newTimeSlot =await this.seedingService.seedTimeSlot({
       startTime: "string",
       endTime: "string"
-    }
-    
-    const newTimeSlot =await this.seedingService.seedTimeSlot(timeSlotData);
-
+    });
 
     const courseBookingData = {
       courseId: newCourse.id,

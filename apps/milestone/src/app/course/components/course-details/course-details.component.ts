@@ -14,7 +14,7 @@ import { CourseService } from '../../services/course.service';
 })
 export class CourseDetailsComponent implements OnInit {
 
-  courseData?: Course;
+  courseData?: any;
   courseId: string;
   dataLoaded = false;
 
@@ -32,6 +32,10 @@ export class CourseDetailsComponent implements OnInit {
       this.courseData = data;
       this.dataLoaded = true;
     })
+  }
+
+  get courseDays() {
+    return this.courseData?.courseDuration?.days.join(", ")
   }
 
   ngOnInit(): void {

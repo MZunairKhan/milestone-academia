@@ -45,7 +45,7 @@ export class CourseService {
     private http: HttpClient,
   ) { }
 
-  getAllCourse() {
+  getAllCourses() {
     return this.http.get<any>(APIS.course.getAll)
   }
 

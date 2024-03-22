@@ -35,7 +35,7 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.courseService.getAllCourse().subscribe(value => {
+    this.courseService.getAllCourses().subscribe(value => {
       console.log(value[0], sampleCourses[0]);
       this.setCourses(value.map((v: any) => ({...v, cols: 1, rows: 1, color: "lightblue"})));
     })

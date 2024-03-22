@@ -1,9 +1,12 @@
+import { CourseLevel } from "../enums";
 import { CourseType } from "../enums/courseTypes.enum";
 
 export interface CreateCourseDTOBase {
   name: string;
   subjectId: string;
+  courseDurationId: string;
   courseType: CourseType;
+  courseLevel: CourseLevel;
   description: string;
   subText: string;
   details: string;

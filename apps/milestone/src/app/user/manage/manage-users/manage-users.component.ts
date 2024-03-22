@@ -12,6 +12,7 @@ import { UserData } from '../../models/user.model';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { UserInfoComponent } from '../user-info/user-info.component';
 import { CreatePersonUserDTOBase } from '@milestone-academia/api-interfaces';
+import { AssignCourseComponent } from '../assign-course/assign-course.component';
 
 @Component({
   selector: 'milestone-academia-manage-users',
@@ -102,6 +103,10 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     });
   }
 
+  assignCourse(data: any) {
+    this.openAssignCourseDialog(data)
+  }
+
   deleteUser(id: string) {
     this.userService.deleteUserById(id)
     .subscribe(value => {
@@ -129,6 +134,22 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
       componentData: {
         title: 'User Info',
         component: UserInfoComponent,
+        componentData: {userData: data}
+      },
+      dialogOptions: {
+        hasBackdrop: true,
+        width: '60vw',
+        height: '85vh'
+      },
+      dialogCloseHandler: data => console.log(data),
+    });
+  }
+
+  private openAssignCourseDialog(data: UserData) {
+    this.dialogService.createComponentDialog({
+      componentData: {
+        title: `Assign Course to ${data.userName}`,
+        component: AssignCourseComponent,
         componentData: {userData: data}
       },
       dialogOptions: {

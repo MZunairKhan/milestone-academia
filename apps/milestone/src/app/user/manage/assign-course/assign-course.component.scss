@@ -1,0 +1,14 @@
+.assign-course{
+    display: flex;
+    justify-content: space-between;
+
+    .assign-course-details{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .assign-course-actions{
+        display: flex;
+        align-items: center;
+    }
+}

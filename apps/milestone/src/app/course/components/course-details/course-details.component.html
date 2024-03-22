@@ -84,18 +84,32 @@
                 <h4>Course Duration</h4>
                 
                 <div class="course-detail-duration">
-                    <h2>{{courseData?.availableBookings?.startDate | date }}</h2>
+                    <h2>{{courseData?.courseDuration?.startDate | date }}</h2>
                     <h2> - </h2>
-                    <h2>{{courseData?.availableBookings?.endDate | date }}</h2>
+                    <h2>{{courseData?.courseDuration?.endDate | date }}</h2>
                 </div>
 
+                <h4>Course Days</h4>
+                
+                <div style="margin: 10px 0;">{{courseDays}}</div>
+
+                <h4>Select Time Slot</h4>
+                
                 <div class="slot-select-div">
-                    <mat-form-field appearance="fill" class="slot-select">
+                    <!-- <mat-form-field appearance="fill" class="slot-select">
                         <mat-label>Select Day</mat-label>
                         <mat-select>
                           <mat-option *ngFor="let day of courseData?.availableBookings?.days" value="day">{{day}}</mat-option>
                         </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
+                    <!-- <ul>
+                        <li *ngFor="let day of courseData?.courseDuration?.days">
+                            {{day}}
+                        </li>
+                    </ul> -->
+                    <!-- <mat-list role="list">
+                        <mat-list-item *ngFor="let day of courseData?.courseDuration?.days" role="listitem">{{day}}</mat-list-item>
+                    </mat-list> -->
                     
                     <mat-form-field appearance="fill" class="slot-select">
                         <mat-label>Select Time Slot</mat-label>
