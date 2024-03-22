@@ -17,18 +17,23 @@ import { CreateOnSiteBookingDto } from './dto/createOnSiteBooking.dto';
     constructor(private readonly onsiteCourseBookingService: OnsiteCourseBookingService) {}
   
     @Post()
-   async create(@Body() createOnSiteBookingDto: CreateOnSiteBookingDto) {
+    async create(@Body() createOnSiteBookingDto: CreateOnSiteBookingDto) {
       return await this.onsiteCourseBookingService.create(createOnSiteBookingDto);
     }
   
     @Get()
-   async findAll() {
+    async findAll() {
       return await this.onsiteCourseBookingService.findAll();
     }
   
     @Get(':id')
     findOne(@Param('id') id: string) {
       return this.onsiteCourseBookingService.findOne(id);
+    }
+  
+    @Get('student/:studentId')
+    findByStudentId(@Param('studentId') studentId: string) {
+      return this.onsiteCourseBookingService.findByStudentId(studentId);
     }
   
    

@@ -16,6 +16,10 @@ export class DurationService {
   }
 
   getAllCourseDuration() {
-    return this.http.get<any>(APIS.durations.create);
+    return this.http.get<any>(APIS.durations.getAll);
+  }
+
+  getAllTimeslots() {
+    return this.http.get<any>(APIS.timeslots.getAll);
   }
 }

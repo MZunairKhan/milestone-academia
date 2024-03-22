@@ -11,7 +11,10 @@ import { Subject } from '../subject/entity/subject.entity';
 @ApiTags('Seeding')
 @Controller()
 export class SeedingController {
-  constructor(private readonly seedingService: SeedingService) {}
+  
+  constructor(
+    private readonly seedingService: SeedingService
+  ) {}
 
   @Post()
   async seedUser(): Promise<string> {
@@ -27,7 +30,7 @@ export class SeedingController {
       firstName: 'Master',
       lastName: 'User',
       userName: 'master',
-      email: 'info@milestoneacademia.com',
+      email: 'info@test.com',
       password: 'master',
       presenceType: PresenceType.Online,
       userType: UserType.Master
@@ -37,9 +40,9 @@ export class SeedingController {
       firstName: 'new',
       lastName: 'new',
       userName: 'new',
-      email: 'info@milestoneacademia.com',
+      email: 'info@test.com',
       password: 'new',
-      presenceType: PresenceType.Online,
+      presenceType: PresenceType.InPerson,
       userType: UserType.Student
     });
 
@@ -157,6 +160,26 @@ export class SeedingController {
       };
       await this.seedingService.seedCourse(course);
     }
+
+    let timeSlotId = '';
+    const timeSlotsArray = [
+      { startTime: '03:00 PM', endTime: '3:45 PM'},
+      { startTime: '04:00 PM', endTime: '4:45 PM'},
+      { startTime: '05:00 PM', endTime: '5:45 PM'},
+      { startTime: '06:00 PM', endTime: '6:45 PM'},
+      { startTime: '07:00 PM', endTime: '7:45 PM'},
+      { startTime: '08:00 PM', endTime: '8:45 PM'},
+      { startTime: '09:00 PM', endTime: '9:45 PM'},
+      { startTime: '10:00 PM', endTime: '10:45 PM'},
+    ]
+    
+    for (let i = 0; i < timeSlotsArray.length; i++) {
+      const slot = await this.seedingService.seedTimeSlot({
+        startTime: timeSlotsArray[i].startTime,
+        endTime: timeSlotsArray[i].endTime
+      });
+      timeSlotId = slot.id;
+    }
     
     const newDuration = await this.seedingService.seedDuration({
       startDate: "2024-02-27T10:54:03.833Z",
@@ -177,17 +200,12 @@ export class SeedingController {
       features: [],
       courseDurationId: newDuration.id
     });
-    
-    const newTimeSlot =await this.seedingService.seedTimeSlot({
-      startTime: "string",
-      endTime: "string"
-    });
 
     const courseBookingData = {
       courseId: newCourse.id,
       userId: newUser.id,
       courseDurationId: newDuration.id,
-      timeSlotId: newTimeSlot.id
+      timeSlotId: timeSlotId
     }
 
     const newCourseBooking = await this.seedingService.seedCoursebooking(courseBookingData)
@@ -220,7 +238,7 @@ export class SeedingController {
       date: "2024-03-13T09:17:49.162Z"
     }
 
-  const newOnsiteEvaluation =  this.seedingService.seedOnsiteEvaluation(OnsiteEvaluation)
+    const newOnsiteEvaluation =  this.seedingService.seedOnsiteEvaluation(OnsiteEvaluation)
 
 
     if (newCourseBooking &&createPepper && newUser && newSubject && newCourse) {

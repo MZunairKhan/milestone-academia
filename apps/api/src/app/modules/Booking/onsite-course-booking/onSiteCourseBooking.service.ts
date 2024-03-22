@@ -14,30 +14,29 @@ export class OnsiteCourseBookingService {
   constructor(
     @InjectRepository(OnSiteCourseBooking)
     private readonly onSiteCourseBookingRepository: Repository<OnSiteCourseBooking>,
-    private readonly courseService: CourseService,
     private readonly usersService: UsersService,
-    private readonly courseDurationService: CourseDurationService,
+    private readonly courseService: CourseService,
     private readonly studentsService: StudentsService,
-
+    private readonly courseDurationService: CourseDurationService,
   ) {}
 
   async create(createOnSiteBookingDto: CreateOnSiteBookingDto) {
     const { courseId, studentId, courseDurationId } = createOnSiteBookingDto;
 
-    const student = await this.studentsService.findOne(studentId);
+    const student = await this.getStudent(studentId);
+    const course = await this.courseService.findOne(courseId);
 
     if (!student) {
-      throw new NotFoundException(`User with ID ${studentId} not found`);
+      throw new NotFoundException(`Student with ID ${studentId} not found`);
     }
 
-    const course = await this.courseService.findOne(courseId);
     if (!course) {
-      throw new NotFoundException(`User with ID ${courseId} not found`);
+      throw new NotFoundException(`Course with ID ${courseId} not found`);
     }
 
     const courseDuration = await this.courseDurationService.findOne(courseDurationId);
     if (!courseDuration) {
-      throw new NotFoundException(`User with ID ${courseDurationId} not found`);
+      throw new NotFoundException(`Course Duration with ID ${courseDurationId} not found`);
     }
 
     const courseBooking = new OnSiteCourseBooking();
@@ -51,17 +50,27 @@ export class OnsiteCourseBookingService {
   }
 
   async findAll() {
-    return await this.onSiteCourseBookingRepository.find();
+    return await this.onSiteCourseBookingRepository.find({ relations: ['student', 'courseDuration'] });
   }
 
   async findOne(id: string): Promise<OnSiteCourseBooking> {
-
-    return  await this.onSiteCourseBookingRepository.findOneBy({id:id});
-    
+    return await this.onSiteCourseBookingRepository.findOne({ where: { id : id}, relations: ['student', 'courseDuration'] });
   }
 
+  async findByStudentId(studentId: string): Promise<OnSiteCourseBooking[]> {
+    const student = await this.getStudent(studentId);
+    return !student ? [] : await this.onSiteCourseBookingRepository.find({  where: { student }, relations: ['student', 'courseDuration'] });
+  }
+  
 
+  private async getStudent(studentId: string) {
+    let student = await this.studentsService.findOne(studentId);
 
- 
+    if (!student) {
+      const user = await this.usersService.findOne(studentId);
+      student = await this.studentsService.findOneByUser(user);
+    }
 
+    return student;
+  }
 }

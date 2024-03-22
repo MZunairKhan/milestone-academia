@@ -154,8 +154,8 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
       },
       dialogOptions: {
         hasBackdrop: true,
-        width: '60vw',
-        height: '85vh'
+        width: '40vw',
+        height: '75vh'
       },
       dialogCloseHandler: data => console.log(data),
     });

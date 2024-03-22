@@ -65,13 +65,13 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
         <td mat-cell *matCellDef="let row"> 
-          <button mat-icon-button color="warn" (click)="userInfo(row.id)">
+          <button mat-icon-button color="warn" (click)="userInfo(row.userId)">
             <mat-icon>info</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="assignCourse(row)">
+          <button *ngIf="row.userType !== 'Master'" mat-icon-button color="warn" (click)="assignCourse(row)">
             <mat-icon>assignment_returned</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="deleteUser(row.id)">
+          <button *ngIf="row.userType !== 'Master'" mat-icon-button color="warn" (click)="deleteUser(row.userId)">
             <mat-icon>close</mat-icon>
           </button>
         </td>

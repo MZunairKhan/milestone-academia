@@ -36,10 +36,6 @@ export class SeedingService {
     private readonly onsiteCourseBookingService: OnsiteCourseBookingService,
     private readonly attendanceService: AttendanceService,
     private readonly onSiteEvaluationService: OnSiteEvaluationService,
-
-
-
-
   ) {}
 
   async seedUser(createUserDto: CreateUserDTO, userType: UserType = UserType.Student): Promise<User> {
