@@ -5,13 +5,10 @@ import { InternalAuthData } from './models/internalAuthData.model';
 import { AUTH_UTILS } from './auth.utils';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy,'jwt') {
+export class RefreshJwtStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromExtractors([
-        AUTH_UTILS.extractJWT,
-        ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ]),
+      jwtFromRequest: ExtractJwt.fromBodyField('refresh'),
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET,
     });

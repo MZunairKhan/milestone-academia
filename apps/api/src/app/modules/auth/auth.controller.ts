@@ -16,6 +16,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
 import { USER_ROLE_SET, BaseRole } from '@milestone-academia/api-interfaces';
+import { RefreshJwtAuthGuard } from './refresh-jwt-auth.guard';
   
 @ApiTags('Auth')
 @Controller()
@@ -39,11 +40,38 @@ export class AuthController {
         userData.access_token,
         cookieSettings
       );
-
-      return userData.tokenData;
+       
+      return {
+        userData: userData.tokenData,
+        refresh_token: userData.refresh_token
+      }
+      
     } else {
       throw new BadRequestException('invalid username and/or password');
     }
+  }
+
+  @UseGuards(RefreshJwtAuthGuard)
+  @Post('refresh-token')
+  async refreshToken(@Body() refresh:string ,
+  @Res({ passthrough: true }) response: Response,
+  @Req() request) {
+  
+      const userData = await this.authService.refreshJwt(request.user)
+      const cookieSettings: CookieOptions =
+        this.authService.prepareCookieSettings();
+
+      response.cookie(
+        process.env.JWT_ACCESS_TOKEN_KEY,
+        userData.access_token,
+        cookieSettings
+      );
+
+      return {
+        userData: userData.tokenData,
+        refresh_token: userData.refresh_token
+      }
+    
   }
 
   @UseGuards(JwtAuthGuard)
