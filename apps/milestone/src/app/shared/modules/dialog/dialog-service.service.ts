@@ -38,7 +38,7 @@ export class DialogService {
     this.dialog_ref = this.dialog.open(DynamicDialogComponent, {
       autoFocus: true,
       closeOnNavigation: true,
-      disableClose: false,
+      disableClose: options?.disableClose ?? false,
       hasBackdrop: options?.hasBackdrop ?? undefined,
       height: options?.height ?? undefined,
       width: options?.width ?? undefined,

@@ -6,3 +6,4 @@ export * from './courseTypes.enum';
 export * from './days.enums';
 export * from './attendanceStatus.enum';
 export * from './days.enums';
+export * from './courseLevels.enum';

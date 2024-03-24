@@ -11,13 +11,13 @@ export class EmailService {
       port: 465,
       secure: true,
       auth: {
-        user: 'mhsharif@bytecloudsolutions.com',
-        pass: 'Mhs@2024',
+        user: 'info@milestoneacademia.com',
+        pass: 'msaKAZK@24',
       },
     });
 
     const mailOptions = {
-      from: 'mhsharif@bytecloudsolutions.com',
+      from: 'info@milestoneacademia.com',
       to: email,
       subject: 'Welcome',
       text: 'Hi Welcome to MileStone Academia',

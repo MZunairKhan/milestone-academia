@@ -4,6 +4,7 @@ export interface OpenDialogOptions {
     height?: string;
     width?: string;
     hasBackdrop?: boolean;
+    disableClose?: boolean;
 }
 
 export interface CreateDialogData {

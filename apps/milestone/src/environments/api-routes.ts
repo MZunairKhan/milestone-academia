@@ -48,11 +48,24 @@ export const APIS = {
         updateById: (id: string) => `${extension}/bookings/${id}`,
         deleteById: (id: string) => `${extension}/bookings/${id}`
     },
+    onsiteCourseBooking: {
+        create: `${extension}/onsite-course-booking`,
+        getAll: `${extension}/onsite-course-booking`,
+        getById: (id: string) => `${extension}/onsite-course-booking/${id}`,
+        getByStudentId: (id: string) => `${extension}/onsite-course-booking/student/${id}`
+    },
     durations: {
         create: `${extension}/durations`,
         getAll: `${extension}/durations`,
         getById: (id: string) => `${extension}/durations/${id}`,
         updateById: (id: string) => `${extension}/durations/${id}`,
         deleteById: (id: string) => `${extension}/durations/${id}`
+    },
+    timeslots: {
+        create: `${extension}/timeslots`,
+        getAll: `${extension}/timeslots`,
+        getById: (id: string) => `${extension}/timeslots/${id}`,
+        updateById: (id: string) => `${extension}/timeslots/${id}`,
+        deleteById: (id: string) => `${extension}/timeslots/${id}`
     }
 }

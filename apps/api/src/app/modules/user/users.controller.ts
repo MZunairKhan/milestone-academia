@@ -67,15 +67,12 @@ export class UsersController {
     const totalPages = Math.ceil(total / limit);
 
     return {
-      users,
+      users: users.map(u => this.usersService.mapToDto(u)),
       total,
       page,
       limit,
       totalPages,
     };
-      
-    
-    
   }
 
 

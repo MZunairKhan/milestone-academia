@@ -1,8 +1,8 @@
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { UserService } from '../../services/user.service';
 import { ManageUserService } from '../../services/manage-user.service';
@@ -12,6 +12,7 @@ import { UserData } from '../../models/user.model';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { UserInfoComponent } from '../user-info/user-info.component';
 import { CreatePersonUserDTOBase } from '@milestone-academia/api-interfaces';
+import { AssignCourseComponent } from '../assign-course/assign-course.component';
 
 @Component({
   selector: 'milestone-academia-manage-users',
@@ -102,6 +103,10 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
     });
   }
 
+  assignCourse(data: any) {
+    this.openAssignCourseDialog(data)
+  }
+
   deleteUser(id: string) {
     this.userService.deleteUserById(id)
     .subscribe(value => {
@@ -118,6 +123,7 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
         component: AddUserComponent
       },
       dialogOptions: {
+        disableClose: true,
         hasBackdrop: true
       },
       dialogCloseHandler: data => this.createUser(data),
@@ -135,6 +141,23 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
         hasBackdrop: true,
         width: '60vw',
         height: '85vh'
+      },
+      dialogCloseHandler: data => console.log(data),
+    });
+  }
+
+  private openAssignCourseDialog(data: UserData) {
+    this.dialogService.createComponentDialog({
+      componentData: {
+        title: `Assign Course to ${data.userName}`,
+        component: AssignCourseComponent,
+        componentData: {userData: data}
+      },
+      dialogOptions: {
+        disableClose: true,
+        hasBackdrop: true,
+        width: '40vw',
+        height: '75vh'
       },
       dialogCloseHandler: data => console.log(data),
     });

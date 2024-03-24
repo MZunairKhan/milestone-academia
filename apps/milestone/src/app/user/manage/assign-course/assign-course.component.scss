@@ -1,0 +1,26 @@
+.assign-course{
+    display: flex;
+    justify-content: space-between;
+
+    .assign-course-details{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .assign-course-section{
+        display: flex;
+        align-items: center;
+    }
+}
+
+.selected-course {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .selected-course-details{
+        display: flex;
+        margin: 10px 0;
+        flex-direction: column;
+    }
+}

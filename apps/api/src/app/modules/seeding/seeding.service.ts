@@ -36,14 +36,10 @@ export class SeedingService {
     private readonly onsiteCourseBookingService: OnsiteCourseBookingService,
     private readonly attendanceService: AttendanceService,
     private readonly onSiteEvaluationService: OnSiteEvaluationService,
-
-
-
-
   ) {}
 
-  async seedUser(createUserDto: CreateUserDTO): Promise<User> {
-    return this.userSeedingService.create(createUserDto, UserType.Student);
+  async seedUser(createUserDto: CreateUserDTO, userType: UserType = UserType.Student): Promise<User> {
+    return this.userSeedingService.create(createUserDto, userType);
   }
 
   async seedSubject(createSubjectDto: CreateSubjectDto): Promise<Subject> {

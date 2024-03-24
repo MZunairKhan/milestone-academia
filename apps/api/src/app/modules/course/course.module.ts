@@ -10,11 +10,13 @@ import { CourseContent } from './entity/course-content.entity';
 import { CourseFeature } from './entity/course-feature.entity';
 import { CourseContentService } from './services/courseContent.service';
 import { CourseFeatureService } from './services/courseFeature.service';
+import { DurationModule } from '../Booking/course-duration/courseDuration.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Course, CourseContent, CourseFeature]),
-    SubjectsModule
+    SubjectsModule,
+    DurationModule
   ],
   providers: [CourseService, CourseContentService, CourseFeatureService],
   controllers: [CoursesController],
