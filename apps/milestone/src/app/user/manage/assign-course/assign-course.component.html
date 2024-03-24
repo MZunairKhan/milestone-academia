@@ -8,9 +8,11 @@
                     <div>{{course.description}}</div>
                 </div>
                 <div class="assign-course-section">
-                    <button mat-fab color="warn"  (click)="selectCourse(course)">
+                    <button *ngIf="!course.isAssigned" mat-fab color="warn"  (click)="selectCourse(course)">
                         <mat-icon>chevron_right</mat-icon>
                     </button>
+                    
+                    <mat-icon *ngIf="course.isAssigned" color="warn" style="font-size: 64px; width: inherit; height: inherit;">check</mat-icon>
                 </div>
             </div>
             <mat-divider style="margin-top: 10px;"></mat-divider>
@@ -36,6 +38,11 @@
             <div class="selected-course-details" style="align-items: center;">
                 <mat-icon color="warn" style="font-size: 72px; width: inherit; height: inherit;">warning</mat-icon>
             </div>
+            
+            <div class="selected-course-details" style="align-items: center;">
+                You are about to assign a course to a user.
+            </div>
+
             <div class="selected-course-details">
                 <button mat-raised-button color="warn" (click)="assignCourse()">
                     <mat-icon>assignment_turned_in</mat-icon>

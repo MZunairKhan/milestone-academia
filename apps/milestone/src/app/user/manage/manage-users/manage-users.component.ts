@@ -1,8 +1,8 @@
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { UserService } from '../../services/user.service';
 import { ManageUserService } from '../../services/manage-user.service';
@@ -123,6 +123,7 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
         component: AddUserComponent
       },
       dialogOptions: {
+        disableClose: true,
         hasBackdrop: true
       },
       dialogCloseHandler: data => this.createUser(data),
@@ -153,6 +154,7 @@ export class ManageUsersComponent implements OnInit, AfterViewInit {
         componentData: {userData: data}
       },
       dialogOptions: {
+        disableClose: true,
         hasBackdrop: true,
         width: '40vw',
         height: '75vh'

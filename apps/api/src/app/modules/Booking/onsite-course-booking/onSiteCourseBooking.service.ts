@@ -20,6 +20,8 @@ export class OnsiteCourseBookingService {
     private readonly courseDurationService: CourseDurationService,
   ) {}
 
+  relations = ['student', 'course', 'courseDuration']
+
   async create(createOnSiteBookingDto: CreateOnSiteBookingDto) {
     const { courseId, studentId, courseDurationId } = createOnSiteBookingDto;
 
@@ -50,16 +52,16 @@ export class OnsiteCourseBookingService {
   }
 
   async findAll() {
-    return await this.onSiteCourseBookingRepository.find({ relations: ['student', 'courseDuration'] });
+    return await this.onSiteCourseBookingRepository.find({ relations: this.relations });
   }
 
   async findOne(id: string): Promise<OnSiteCourseBooking> {
-    return await this.onSiteCourseBookingRepository.findOne({ where: { id : id}, relations: ['student', 'courseDuration'] });
+    return await this.onSiteCourseBookingRepository.findOne({ where: { id: id }, relations: this.relations });
   }
 
   async findByStudentId(studentId: string): Promise<OnSiteCourseBooking[]> {
     const student = await this.getStudent(studentId);
-    return !student ? [] : await this.onSiteCourseBookingRepository.find({  where: { student }, relations: ['student', 'courseDuration'] });
+    return !student ? [] : await this.onSiteCourseBookingRepository.find({  where: { student: {id : student.id} }, relations: this.relations });
   }
   
 

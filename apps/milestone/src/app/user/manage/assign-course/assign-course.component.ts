@@ -41,27 +41,13 @@ export class AssignCourseComponent implements OnInit, DynamicDialogComponent {
       this.drationService.getAllTimeslots(),
       this.bookingService.getOnSiteBookingsByStudentId(this.data.userData.userId)
     ]).subscribe(values => {
-      this.courseData = values[0];
-      console.log(this.courseData)
-      
+      const courseData = values[0];
+      const assignedCourses: string[] = values[2].map((v: any) => v.course.id);
+
       this.timeSlots = values[1];
-      console.log(this.timeSlots)
-      
       this.studentsCourses = values[2];
-      console.log(this.studentsCourses)
+      this.courseData = courseData.map((c: any) => ({...c, isAssigned: assignedCourses.includes(c.id)}));
     })
-
-    // this.courseService.getAllCourses().subscribe(data => {
-    //   this.courseData = data;
-    //   console.log(this.courseData)
-    // });
-
-    // this.drationService.getAllTimeslots().subscribe(data => {
-    //   this.timeSlots = data;
-    //   console.log(this.timeSlots)
-    // });
-
-    // this.bookingService.getOnSiteBookingsByStudentId(this.data.userData.userId)
   }
 
   selectCourse(course: any) {
@@ -75,7 +61,8 @@ export class AssignCourseComponent implements OnInit, DynamicDialogComponent {
       studentId: this.data.userData.userId,
       courseDurationId: this.selectedCourse.courseDuration.id
     }).subscribe(value => {
-      console.log(value)
+      const index = this.courseData.findIndex(c => c.id === this.selectedCourse.id);
+      this.courseData[index].isAssigned = true;
       this.selectedCourse = null;
     })
   }
