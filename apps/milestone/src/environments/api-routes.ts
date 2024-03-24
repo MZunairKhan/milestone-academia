@@ -24,6 +24,7 @@ export const APIS = {
     },
     auth: {
         login: `${extension}/auth/login`,
+        refreshToken: `${extension}/auth/refresh-token`,
         test: `${extension}/auth/test`,
         roleSet: `${extension}/auth/role-set`,
 

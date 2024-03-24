@@ -62,8 +62,10 @@ export class AuthService {
   }
 
   login(userName: string, password: string) {  
-   return this.http.post(APIS.auth.login, {userName, password})
-  
+    return this.http.post(APIS.auth.login, {userName, password})
+  }
+  refreshToken(refresh:string) {  
+    return this.http.post(APIS.auth.refreshToken, {refresh})
   }
 
   forgotPassword(email: string): Observable<any> {
