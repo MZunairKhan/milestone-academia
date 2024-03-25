@@ -57,7 +57,10 @@ export class CourseService {
   async findCoursesWithFilterAndPagination(
     searchCourseDTO : SearchCourseDTO
   ) {
-    const {name , courseType , courseLevel , subject , page , limit} = searchCourseDTO
+    const {name , courseType , courseLevel , subject , page , limit} = searchCourseDTO ;
+
+    const pages = page ? page : 1
+    const limits = limit ? limit : 1
 
     const queryBuilder = this.coursesRepository.createQueryBuilder('course');
 
@@ -79,7 +82,7 @@ export class CourseService {
     }
 
     queryBuilder.andWhere('course.deletedDate IS NULL')
-    queryBuilder.skip((page - 1) * limit).take(limit);
+    queryBuilder.skip((pages - 1) * limits).take(limit);
 
 
     return await queryBuilder.getManyAndCount();
