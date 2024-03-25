@@ -30,25 +30,14 @@ export class CoursesController {
   }
 
   @Post('paginated-courses')
-  // @ApiQuery({ name: 'name', required: false })
-  // @ApiQuery({ name: 'courseType', required: false })
-  // @ApiQuery({ name: 'courseLevel', required: false })
-  // @ApiQuery({ name: 'subject', required: false})
-  // @ApiQuery({ name: 'page', required: false})
-  // @ApiQuery({ name: 'limit', required: false })
   async findPaginatedCourses(
     @Body() searchCourseDTO: SearchCourseDTO,
-    // @Query('name') name: string,
-    // @Query('courseType') courseType: string,
-    // @Query('courseLevel') courseLevel: string,
-    // @Query('subject') subject: string,
-    // @Query('page') page: number,
-    // @Query('limit',) limit: number,
   ) {
 
-    const {name , courseType , courseLevel , subject , page , limit} = searchCourseDTO
-
+    
     const [courses , total] = await this.coursesService.findCoursesWithFilterAndPagination( searchCourseDTO);
+    
+    const {limit , page} = searchCourseDTO ;
 
     const totalPages = Math.ceil(total / searchCourseDTO.limit);
 
