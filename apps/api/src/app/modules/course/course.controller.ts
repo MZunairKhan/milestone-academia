@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Query, } from '@nestjs/common';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
 import { CourseService } from './services/course.service';
 import { Course } from './entity/course.entity';
 import { CreateCourseDTO } from './dto/create-course.dto';
 import { readCourseDTO } from './dto/read-course.dto';
+import { SearchCourseDTO } from './dto/search-course.dto';
+import { returnPaginatedCourseDTOBase } from '@milestone-academia/api-interfaces';
   
 @ApiTags('Course')
 @Controller()
@@ -26,6 +28,28 @@ export class CoursesController {
   async findAll(): Promise<readCourseDTO[]> {
     const courses = await this.coursesService.findAll();
     return courses.map(c => ({...c, subject: c.subject.name}))
+  }
+
+  @Post('paginated-courses')
+  async findPaginatedCourses(
+    @Body() searchCourseDTO: SearchCourseDTO,
+  ):  Promise<returnPaginatedCourseDTOBase> {
+
+    
+    const [courses , total] = await this.coursesService.findCoursesWithFilterAndPagination( searchCourseDTO);
+    
+    const {limit , page} = searchCourseDTO ;
+
+    const totalPages = Math.ceil(total / searchCourseDTO.limit);
+
+
+    return {
+      courses,
+      total,
+      page,
+      limit,
+      totalPages,
+    };
   }
 
   @Get(':id')

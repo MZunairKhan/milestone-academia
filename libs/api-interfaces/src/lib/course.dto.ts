@@ -25,3 +25,11 @@ export interface nestedCourseContentDTOBase{
   heading: string;
   points: string[];
 }
+
+export interface returnPaginatedCourseDTOBase {
+  total: number;
+  page: number;
+  limit: number;
+  courses: any;
+  totalPages:number
+}
