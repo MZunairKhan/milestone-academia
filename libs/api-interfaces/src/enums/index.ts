@@ -7,3 +7,4 @@ export * from './days.enums';
 export * from './attendanceStatus.enum';
 export * from './days.enums';
 export * from './courseLevels.enum';
+export * from './levels.enum';
