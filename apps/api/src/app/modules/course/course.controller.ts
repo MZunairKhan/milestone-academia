@@ -6,6 +6,7 @@ import { Course } from './entity/course.entity';
 import { CreateCourseDTO } from './dto/create-course.dto';
 import { readCourseDTO } from './dto/read-course.dto';
 import { SearchCourseDTO } from './dto/search-course.dto';
+import { returnPaginatedCourseDTOBase } from '@milestone-academia/api-interfaces';
   
 @ApiTags('Course')
 @Controller()
@@ -32,7 +33,7 @@ export class CoursesController {
   @Post('paginated-courses')
   async findPaginatedCourses(
     @Body() searchCourseDTO: SearchCourseDTO,
-  ) {
+  ):  Promise<returnPaginatedCourseDTOBase> {
 
     
     const [courses , total] = await this.coursesService.findCoursesWithFilterAndPagination( searchCourseDTO);
