@@ -53,9 +53,7 @@ export class UsersService {
     const createdUser = await this.createUser(user);
 
     if (userType) {
-      if (userType === UserType.Student) {
-        await this.createAssociatedEntity(createdUser, UserType.Student);
-      }
+      await this.createAssociatedEntity(createdUser, userType);
     }
 
     const currentDateTime = getCurrentDateTime();

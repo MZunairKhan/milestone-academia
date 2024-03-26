@@ -13,10 +13,6 @@ export class Course extends TimeBaseEntity{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToMany(() => Instructor, {nullable: true})
-  @JoinTable()
-  categories: Instructor[]
-
   @Column()
   name: string;
 

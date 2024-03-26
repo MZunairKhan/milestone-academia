@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, 
-  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, ParseIntPipe, Query, NotFoundException, } from '@nestjs/common';
+  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, ParseIntPipe, Query, NotFoundException, Put, } from '@nestjs/common';
 import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles/roles.decorator';
 import { RolesGuard } from '../auth/roles/roles.guard';
@@ -89,7 +89,7 @@ export class UsersController {
       const student = this.studentsService.mapToObject(dto.personalData);
       student.associateToUser(user);
       await this.studentsService.createViaObject(student);
-      const savedStudent = await this.instructorsService.createViaObject(student);
+      const savedStudent = await this.studentsService.createViaObject(student);
 
       if (!savedStudent) {
         throw new HttpException(`Had an issue creating student ${dto.firstName} ${dto.lastName}`, HttpStatus.BAD_REQUEST);
@@ -138,7 +138,15 @@ export class UsersController {
   async forgotPassword(@Body() data:any) {
     const {email} = data;
    return this.usersService.forgotPassword(email);
+  }
 
+  @Put('instructor/:instructorId/course/:courseId')
+  async assignCourseToInstructor(
+    @Param('instructorId') instructorId: string,
+    @Param('courseId') courseId: string
+  ): Promise<void> {
+    console.log(instructorId, courseId)
+    await this.instructorsService.assignCourse(instructorId, courseId);
   }
 
   @UseGuards(JwtAuthGuard)
