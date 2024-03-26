@@ -68,10 +68,10 @@
           <button mat-icon-button color="warn" (click)="userInfo(row.userId)">
             <mat-icon>info</mat-icon>
           </button>
-          <button *ngIf="row.userType !== 'Master'" mat-icon-button color="warn" (click)="assignCourse(row)">
+          <button *ngIf="row.userType !== 'Master' && row.userType !== 'Staff'" mat-icon-button color="warn" (click)="assignCourse(row)">
             <mat-icon>assignment_returned</mat-icon>
           </button>
-          <button *ngIf="row.userType !== 'Master'" mat-icon-button color="warn" (click)="deleteUser(row.userId)">
+          <button *ngIf="row.userType !== 'Master' && row.userType !== 'Staff'" mat-icon-button color="warn" (click)="deleteUser(row.userId)">
             <mat-icon>close</mat-icon>
           </button>
         </td>
