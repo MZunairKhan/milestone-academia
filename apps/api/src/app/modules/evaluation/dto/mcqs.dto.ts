@@ -1,7 +1,7 @@
-import { Levels } from "@milestone-academia/api-interfaces";
+import { CreateMcqsDTOBase, Levels } from "@milestone-academia/api-interfaces";
 import { ApiProperty } from "@nestjs/swagger";
 
-export class CreateMcqsDTO  {
+export class CreateMcqsDTO implements CreateMcqsDTOBase {
     @ApiProperty()
     question: string;
 

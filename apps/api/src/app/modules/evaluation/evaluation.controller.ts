@@ -47,7 +47,7 @@ export class EvaluationController {
 
 
     return {
-        mcqs,
+      mcqs,
       total,
       page,
       limit,
