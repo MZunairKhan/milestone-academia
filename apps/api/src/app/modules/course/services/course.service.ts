@@ -8,6 +8,7 @@ import { SubjectService } from '../../subject/subject.service';
 import { CourseContentService } from './courseContent.service';
 import { CourseFeatureService } from './courseFeature.service';
 import { CourseDurationService } from '../../Booking/course-duration/courseDuration.service';
+import { SearchCourseDTO } from '../dto/search-course.dto';
 
 @Injectable()
 export class CourseService {
@@ -51,6 +52,40 @@ export class CourseService {
 
   async findAll(): Promise<Course[]> {
     return this.coursesRepository.find({relations: ['courseDuration', 'content', 'features', 'subject']});
+  }
+
+  async findCoursesWithFilterAndPagination(
+    searchCourseDTO : SearchCourseDTO
+  ) {
+    const {name , courseType , courseLevel , subject , page , limit} = searchCourseDTO ;
+
+    const pages = page ? page : 1
+    const limits = limit ? limit : 1
+
+    const queryBuilder = this.coursesRepository.createQueryBuilder('course');
+
+    if (courseLevel && courseLevel.length > 0) {
+      queryBuilder.where('course.courseLevel IN (:...courseLevels)', { courseLevels: courseLevel });
+    }
+
+    if (courseType && courseType.length > 0) {
+      queryBuilder.andWhere('course.courseType IN (:...courseTypes)', { courseTypes: courseType });
+    }
+
+    if (subject) {
+      queryBuilder.andWhere('course.subject = :subject', { subject });
+    }
+
+    if (name) {
+      const searchTerm = `%${name}%`;
+      queryBuilder.andWhere('course.name LIKE :name', { name: searchTerm });
+    }
+
+    queryBuilder.andWhere('course.deletedDate IS NULL')
+    queryBuilder.skip((pages - 1) * limits).take(limit);
+
+
+    return await queryBuilder.getManyAndCount();
   }
 
   findOne(id: string): Promise<Course> {
