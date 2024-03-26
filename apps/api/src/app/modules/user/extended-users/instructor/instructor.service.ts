@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from '../../entity/user.entity';
@@ -7,6 +7,7 @@ import { Instructor } from './entity/instructor.entity';
 import { ReadInstructorDTO } from './dto/read-instructor.dto';
 import { CreateInstructorDTO } from './dto/create-instructor.dto';
 import { extendedPersonService } from '../extended-user.service';
+import { Course } from '../../../course/entity/course.entity';
 
 @Injectable()
 export class InstructorService implements extendedPersonService<Instructor> {
@@ -26,6 +27,18 @@ export class InstructorService implements extendedPersonService<Instructor> {
     return this.instructorsRepository.save(instructor);
   }
 
+  async assignCourse(instructorId: string, courseId: string) {
+    const instructor = await this.instructorsRepository.findOne({ where: {id: instructorId}, relations: ['courses'] });
+
+    if (!instructor) {
+      throw new BadRequestException('invalid instructor');
+    }
+
+    instructor.courses.push({id : courseId} as Course);
+
+    await this.instructorsRepository.save(instructor);
+  }
+
   async findAll(): Promise<Instructor[]> {
     return this.instructorsRepository.find();
   }
@@ -39,7 +52,7 @@ export class InstructorService implements extendedPersonService<Instructor> {
   }
 
   findOneByUserId(id: string): Promise<Instructor> {
-    return this.instructorsRepository.findOne({ where: {user: { id : id}}, relations: ['user']})
+    return this.instructorsRepository.findOne({ where: {user: { id : id }}, relations: ['user', 'courses']})
   }
 
   findOneByUsername(userName: string): Promise<Instructor> {
@@ -54,13 +67,13 @@ export class InstructorService implements extendedPersonService<Instructor> {
     await this.instructorsRepository.delete(id);
   }
 
-  mapToDto(student: Instructor): ReadInstructorDTO {
+  mapToDto(instructor: Instructor): ReadInstructorDTO {
     const { id, personalIdentification, addressLine1, addressLine2, postalCode, city,
-      country, guardianName, guardianIdentification, phoneNumber
-    } = student;
+      country, guardianName, guardianIdentification, phoneNumber, courses
+    } = instructor;
 
     return { id, personalIdentification, addressLine1, addressLine2, postalCode, city,
-      country, guardianName, guardianIdentification, phoneNumber
+      country, guardianName, guardianIdentification, phoneNumber, courses
     } as ReadInstructorDTO;
   }
 

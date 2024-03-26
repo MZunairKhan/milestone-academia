@@ -53,6 +53,13 @@ export class ManageUserService {
       )
   }
 
+  assignCourseToInstructor(instructorId: string, courseId: string) {
+    return this.http.put<any>(APIS.users.assignCourseToInstructor(instructorId, courseId), {})
+      .pipe(
+        tap((value: any) => console.log('manage user : assignCourseToInstructor', {instructorId, courseId}))
+      )
+  }
+
   updateUserList(userList: UserData[]) {
     this.userListSource$.next(userList)
   }

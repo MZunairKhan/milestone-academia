@@ -17,6 +17,7 @@ export const APIS = {
         getUserData: `${extension}/users/userData`,
         createUser: `${extension}/users/create-user`,
         createStudent: `${extension}/users/create-student`,
+        assignCourseToInstructor: (instructorId: string, courseId: string) => `${extension}/users/instructor/${instructorId}/course/${courseId}`,
         getById: (id: string) => `${extension}/users/${id}`,
         deleteById: (id: string) => `${extension}/users/${id}`,
         forgotPassword: `${extension}/users/forgot-password`,
