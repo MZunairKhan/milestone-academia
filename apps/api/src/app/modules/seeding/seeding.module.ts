@@ -13,6 +13,7 @@ import { BookingsModule } from '../Booking/course-booking/courseBookings.module'
 import { OnSiteCoureBookingModule } from '../Booking/onsite-course-booking/onSiteCourseBooking.module';
 import { AttendanceModule } from '../attendance/attendance.module';
 import { OnSiteEvaluationModule } from '../onsiteEvaluation/onsiteEvaluation.module';
+import { EvaluationModule } from '../evaluation/evaluation.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { OnSiteEvaluationModule } from '../onsiteEvaluation/onsiteEvaluation.mod
     BookingsModule,
     OnSiteCoureBookingModule,
     AttendanceModule,
-    OnSiteEvaluationModule
+    OnSiteEvaluationModule,
+    EvaluationModule
    
   ],
   providers: [SeedingService],

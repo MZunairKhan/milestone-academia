@@ -240,6 +240,19 @@ export class SeedingController {
 
     const newOnsiteEvaluation =  this.seedingService.seedOnsiteEvaluation(OnsiteEvaluation)
 
+    const mcq = {
+      question: "What is 2+2?",
+      choices: [
+        1,
+        3,4,7
+      ],
+      subject: newSubject,
+      page: 1,
+      limit: 1
+    }
+
+    const newMcq = this.seedingService.seedMcqs(mcq)
+
 
     if (newCourseBooking &&createPepper && newUser && newSubject && newCourse) {
       return `Pepper Added . User ${newUser.firstName} created sucessfully. Subject ${newSubject.name}  created Successfully .Course ${newCourse.name}  created Successfully . New Course Booking Added  `;
