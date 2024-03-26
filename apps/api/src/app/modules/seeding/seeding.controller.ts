@@ -238,20 +238,20 @@ export class SeedingController {
       date: "2024-03-13T09:17:49.162Z"
     }
 
-    const newOnsiteEvaluation =  this.seedingService.seedOnsiteEvaluation(OnsiteEvaluation)
+    const newOnsiteEvaluation = await this.seedingService.seedOnsiteEvaluation(OnsiteEvaluation)
 
     const mcq = {
       question: "What is 2+2?",
+      level: 1,
       choices: [
         1,
         3,4,7
       ],
       subject: newSubject,
-      page: 1,
-      limit: 1
+      correctOption:2
     }
 
-    const newMcq = this.seedingService.seedMcqs(mcq)
+    const newMcq = await this.seedingService.seedMcqs(mcq)
 
 
     if (newCourseBooking &&createPepper && newUser && newSubject && newCourse) {
