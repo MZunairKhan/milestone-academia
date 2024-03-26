@@ -4,11 +4,13 @@ import { MCQS } from './entities/mcqs.entity';
 import { EvaluationService } from './evaluation.service';
 import { EvaluationController } from './evaluation.controller';
 import { SubjectsModule } from '../subject/subject.module';
+import { UsersModule } from '../user/users.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([MCQS]),
-    SubjectsModule
+    SubjectsModule,
+    UsersModule
   ],
   providers: [EvaluationService],
   controllers: [EvaluationController],

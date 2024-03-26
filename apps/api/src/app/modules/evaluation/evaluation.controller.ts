@@ -1,16 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Query, } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Query, Patch, BadRequestException, } from '@nestjs/common';
 import {ApiTags } from '@nestjs/swagger';
 
 import { CreateMcqsDTO } from './dto/mcqs.dto';
 import { MCQS } from './entities/mcqs.entity';
 import { EvaluationService } from './evaluation.service';
 import { SearchMcqsDTO } from './dto/seach-mcqs.dto';
+import { UpdateMcqsDto } from './dto/update-mcqs.dto';
+import { UsersService } from '../user/users.service';
 
   
 @ApiTags('Evaluation')
 @Controller()
 export class EvaluationController {
-  constructor(private readonly evaluationService: EvaluationService) {}
+  constructor(private readonly evaluationService: EvaluationService,
+    private readonly usersService: UsersService) {}
 
   @Post('create-mcqs')
   async createMcqs(@Body() mcqsDto: CreateMcqsDTO): Promise<MCQS> {
@@ -53,5 +56,22 @@ export class EvaluationController {
       limit,
       totalPages,
     };
+  }
+
+  @Patch('update-mcqs/:id')
+  async updateMcqs(
+    @Body() updateMcqDto: UpdateMcqsDto,
+    @Param('id') id: string
+  ) {
+    const mcq = await this.evaluationService.findOneMcq(id);
+    if (!mcq) {
+      throw new BadRequestException('invalid User');
+    }
+    await this.evaluationService.updateMcqs(mcq.id, updateMcqDto);
+
+    return {
+      Success: true,
+      Message: "Updated Successfully"
+    }
   }
 }

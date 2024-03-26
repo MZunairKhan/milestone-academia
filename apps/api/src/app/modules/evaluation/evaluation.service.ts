@@ -5,6 +5,7 @@ import { MCQS } from './entities/mcqs.entity';
 import { CreateMcqsDTO } from './dto/mcqs.dto';
 import { SubjectService } from '../subject/subject.service';
 import { SearchMcqsDTO } from './dto/seach-mcqs.dto';
+import { UpdateMcqsDto } from './dto/update-mcqs.dto';
 
 @Injectable()
 export class EvaluationService {
@@ -40,6 +41,11 @@ export class EvaluationService {
 
   async removeMcq(id: string): Promise<void> {
     await this.mcqsRepository.softDelete(id);
+  }
+
+  async updateMcqs(id: string , updateMcqDto: UpdateMcqsDto){
+
+return await this.mcqsRepository.update(id,updateMcqDto)
   }
 
   async findMcqsWithFilterAndPagination(
