@@ -1,0 +1,40 @@
+<div class="course-list-row">
+  <mat-card class="course-list-header">
+    <h1>Evaluations</h1>
+
+    <button mat-raised-button color="warn" (click)="handleRoute()">
+      Attempt New
+    </button>
+  </mat-card>
+</div>
+
+<div class="course-list-row">
+  <h2>All Evaluations</h2>
+</div>
+
+<div class="course-list-row scrollable">
+  <mat-grid-list [cols]="columns" gutterSize="12px" rowHeight="200px">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <div class="courses-list-element">
+        <mat-card class="course-tile">
+          <div class="course-tile-section">
+            <div
+              class="course-tile-image"
+              [ngStyle]="{ 'background-color': 'lightgreen' }"
+            ></div>
+            <div class="course-tile-details">
+              <div class="course-tile-header">
+                <h3>Dummy</h3>
+              </div>
+              <p>Dummy</p>
+            </div>
+
+            <div class="evaluations-detail">
+              <button mat-raised-button color="warn">Assestment Details</button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

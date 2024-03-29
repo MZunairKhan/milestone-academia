@@ -1,0 +1,30 @@
+<div class="question">
+  <h2>{{ selectedQuestion?.question }}</h2>
+</div>
+<div class="container">
+  <div
+    class="option"
+    (click)="selectedOptionIndex = i"
+    *ngFor="let option of options; let i = index"
+    [class.selected-option]="selectedOptionIndex === i"
+  >
+    <label for="{{ option }}">{{ option }}</label>
+  </div>
+</div>
+
+<button
+  mat-raised-button
+  color="warn"
+  *ngIf="isLastQuestion === false"
+  (click)="handleNext(selectedQuestion.id)"
+>
+  Next
+</button>
+<button
+  mat-raised-button
+  color="warn"
+  *ngIf="isLastQuestion === true"
+  (click)="handleNext(selectedQuestion.id)"
+>
+  Submit
+</button>

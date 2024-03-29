@@ -7,6 +7,8 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
+import { EvaluationComponent } from './components/evaluation/evaluation.component';
+import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { CreateCourseComponent } from './components/create-course/create-course.
     CourseDetailsComponent,
     MyCoursesComponent,
     CreateCourseComponent,
+    EvaluationComponent,
+    QuizViewComponent
   ],
   imports: [CommonModule, SharedModule, CourseRoutingModule],
 })
