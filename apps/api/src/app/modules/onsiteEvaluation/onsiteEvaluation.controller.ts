@@ -5,7 +5,7 @@ import {OnSiteEvaluationService } from './onsiteEvaluation.service';
 import { OnSiteEvaluationDto } from './dto/onsiteEvaluation.dto';
 import { OnSiteEvaluation } from './entities/onsiteEvaluation.entity';
   
-@ApiTags('Evaluation')
+@ApiTags('Onsite-Evaluation')
 @Controller()
 export class OnSiteEvaluationController {
   constructor(

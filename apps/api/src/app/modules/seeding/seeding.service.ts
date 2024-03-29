@@ -21,6 +21,7 @@ import { BookingsService } from '../Booking/course-booking/courseBookings.servic
 import { OnsiteCourseBookingService } from '../Booking/onsite-course-booking/onSiteCourseBooking.service';
 import { AttendanceService } from '../attendance/attendance.service';
 import { OnSiteEvaluationService } from '../onsiteEvaluation/onsiteEvaluation.service';
+import { EvaluationService } from '../evaluation/evaluation.service';
 
 @Injectable()
 export class SeedingService {
@@ -36,6 +37,7 @@ export class SeedingService {
     private readonly onsiteCourseBookingService: OnsiteCourseBookingService,
     private readonly attendanceService: AttendanceService,
     private readonly onSiteEvaluationService: OnSiteEvaluationService,
+    private readonly mcqService: EvaluationService,
   ) {}
 
   async seedUser(createUserDto: CreateUserDTO, userType: UserType = UserType.Student): Promise<User> {
@@ -84,5 +86,8 @@ export class SeedingService {
 
   async seedOnsiteEvaluation(data : any){
    return await this.onSiteEvaluationService.create(data)
+  }
+  async seedMcqs(data : any){
+   return await this.mcqService.createMcqs(data)
   }
 }

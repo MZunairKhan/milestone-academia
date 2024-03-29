@@ -17,6 +17,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { OnSiteCoureBookingModule } from './modules/Booking/onsite-course-booking/onSiteCourseBooking.module';
 import { AttendanceModule } from './modules/attendance/attendance.module';
 import { OnSiteEvaluationModule } from './modules/onsiteEvaluation/onsiteEvaluation.module';
+import { EvaluationModule } from './modules/evaluation/evaluation.module';
 
 // import { StudentsModule } from './modules/student/students.module';
 // import { InstructorsModule } from './modules/instructor/instructor.module';
@@ -76,8 +77,12 @@ import { OnSiteEvaluationModule } from './modules/onsiteEvaluation/onsiteEvaluat
         module: AttendanceModule
       },
       {
-        path: 'evaluation',
+        path: 'onsite-evaluation',
         module: OnSiteEvaluationModule
+      },
+      {
+        path: 'evaluation',
+        module: EvaluationModule
       },
     ]),
     CommonModule,
@@ -92,7 +97,8 @@ import { OnSiteEvaluationModule } from './modules/onsiteEvaluation/onsiteEvaluat
     EmailModule,
     OnSiteCoureBookingModule,
     AttendanceModule,
-    OnSiteEvaluationModule
+    OnSiteEvaluationModule,
+    EvaluationModule
 
     // StudentsModule,
     // InstructorsModule
