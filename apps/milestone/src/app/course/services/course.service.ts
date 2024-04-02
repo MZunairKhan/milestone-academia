@@ -61,6 +61,14 @@ export class CourseService {
     return this.http.post<any>(APIS.course.create, data)
   }
 
+  getCoursesByUserId(id: string) {
+    return  this.http.get<any>(APIS.onsiteCourseBooking.getByUserId(id))
+  }
+
+  getAllMcqs() {
+    return  this.http.get<any>(APIS.evaluation.getAllMcqs)
+  }
+
   private updateUserData(value: any) {
     this.userSource$.next(value);
   }

@@ -7,12 +7,16 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
+import { EvaluationComponent } from './components/evaluation/evaluation.component';
+import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
   { path: 'list', component: CoursesComponent, canActivate: [AuthGuard], data: {roles: [CourseRoles.RetrieveCourse]} },
   { path: 'create', component: CreateCourseComponent, canActivate: [AuthGuard], data: {roles: [CourseRoles.CreateCourse]}  },
   { path: 'my-courses', component: MyCoursesComponent, canActivate: [AuthGuard], data: {roles: [CourseRoles.RetrieveCourse]}  },
+  { path: 'my-courses/evaluation', component: EvaluationComponent, canActivate: [AuthGuard], data: {roles: [CourseRoles.RetrieveCourse]}  },
+  { path: 'my-courses/evaluation/new/assestment', component: QuizViewComponent, canActivate: [AuthGuard], data: {roles: [CourseRoles.RetrieveCourse]}  },
   { path: 'details/:id', component: CourseDetailsComponent, canActivate: [AuthGuard], data: {roles: [CourseRoles.RetrieveCourse]}  },
 ];
 

@@ -173,7 +173,7 @@ export class UsersController {
   @UseGuards(RolesGuard)
   @Roles([UserRoles.RetrieveUser])
   async findOne(@Req() request): Promise<ReadUserDto> {
-    const user = await this.usersService.findOne(request.user['userId']);
+    const user = await this.usersService.findOne(request.user['sub']);
 
     const dto: ReadUserDto = {
       userId: user.id,
