@@ -35,6 +35,12 @@ import { CreateOnSiteBookingDto } from './dto/createOnSiteBooking.dto';
     findByStudentId(@Param('studentId') studentId: string) {
       return this.onsiteCourseBookingService.findByStudentId(studentId);
     }
+
+    @Get('user/:userId')
+   async findByEmail(@Param('userId') userId: string) {
+      const bookings  = await this.onsiteCourseBookingService.findByUserId(userId)
+      return bookings
+    }
   
    
   

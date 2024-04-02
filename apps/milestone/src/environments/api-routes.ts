@@ -53,7 +53,13 @@ export const APIS = {
         create: `${extension}/onsite-course-booking`,
         getAll: `${extension}/onsite-course-booking`,
         getById: (id: string) => `${extension}/onsite-course-booking/${id}`,
-        getByStudentId: (id: string) => `${extension}/onsite-course-booking/student/${id}`
+        getByStudentId: (id: string) => `${extension}/onsite-course-booking/student/${id}`,
+        getByUserId: (id: string) => `${extension}/onsite-course-booking/user/${id}`,
+    },
+    evaluation: {
+        
+        getAllMcqs:  `${extension}/evaluation/getAll-mcqs`
+
     },
     durations: {
         create: `${extension}/durations`,
