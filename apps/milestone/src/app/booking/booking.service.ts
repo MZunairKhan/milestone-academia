@@ -22,4 +22,8 @@ export class BookingService {
   getOnSiteBookingsByStudentId(id: string) {
     return this.http.get<any>(APIS.onsiteCourseBooking.getByStudentId(id));
   }
+
+  getOnSiteBookingsByCourseId(id: string) {
+    return this.http.get<any>(APIS.onsiteCourseBooking.getByCourseId(id));
+  }
 }

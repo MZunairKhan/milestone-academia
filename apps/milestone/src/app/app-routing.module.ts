@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   },
   {
+    path: 'attendance',
+    loadChildren: () => import('./attendance/attendance.module').then(m => m.AttendanceModule)
+  },
+  {
     path: 'metadata',
     component: MetadataComponent
   },

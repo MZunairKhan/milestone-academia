@@ -53,7 +53,8 @@ export const APIS = {
         create: `${extension}/onsite-course-booking`,
         getAll: `${extension}/onsite-course-booking`,
         getById: (id: string) => `${extension}/onsite-course-booking/${id}`,
-        getByStudentId: (id: string) => `${extension}/onsite-course-booking/student/${id}`
+        getByStudentId: (id: string) => `${extension}/onsite-course-booking/student/${id}`,
+        getByCourseId: (id: string) => `${extension}/onsite-course-booking/course/${id}`
     },
     durations: {
         create: `${extension}/durations`,
@@ -68,5 +69,18 @@ export const APIS = {
         getById: (id: string) => `${extension}/timeslots/${id}`,
         updateById: (id: string) => `${extension}/timeslots/${id}`,
         deleteById: (id: string) => `${extension}/timeslots/${id}`
+    },
+    attendance: {
+        create: `${extension}/attendance`,
+        getByInstructorCourseStudent: (
+            instructorId: string,
+            courseId: string,
+            studentId: string
+        ) => `${extension}/attendance/instructor/${instructorId}/course/${courseId}/student/${studentId}`,
+        getByInstructorCourse: (
+            instructorId: string,
+            courseId: string
+        ) => `${extension}/attendance/instructor/${instructorId}/course/${courseId}`,
+        getById: (id: string) => `${extension}/attendance/${id}`,
     }
 }
