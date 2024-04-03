@@ -1,0 +1,37 @@
+.add-attendance-row {
+    width: 95%;
+    margin: 10px 0px;
+}
+
+.add-attendance-header {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+        margin-bottom: 0;
+    }
+}
+
+.scrollable {
+    max-height: calc(100% - 80px);
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.student-tile {
+    margin: 10px 0;
+    
+    .student-tile-section{
+        display: flex;
+        justify-content: space-between;
+
+        .student-tile-details{
+
+            .student-tile-header{
+                
+            }
+        }
+    }
+}

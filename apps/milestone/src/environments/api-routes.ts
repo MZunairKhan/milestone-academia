@@ -18,6 +18,7 @@ export const APIS = {
         createUser: `${extension}/users/create-user`,
         createStudent: `${extension}/users/create-student`,
         assignCourseToInstructor: (instructorId: string, courseId: string) => `${extension}/users/instructor/${instructorId}/course/${courseId}`,
+        getInstructorById: (instructorId: string) => `${extension}/users/getInstructorById/${instructorId}`, 
         getById: (id: string) => `${extension}/users/${id}`,
         deleteById: (id: string) => `${extension}/users/${id}`,
         forgotPassword: `${extension}/users/forgot-password`,
@@ -54,6 +55,7 @@ export const APIS = {
         getAll: `${extension}/onsite-course-booking`,
         getById: (id: string) => `${extension}/onsite-course-booking/${id}`,
         getByStudentId: (id: string) => `${extension}/onsite-course-booking/student/${id}`,
+        getByCourseId: (id: string) => `${extension}/onsite-course-booking/course/${id}`,
         getByUserId: (id: string) => `${extension}/onsite-course-booking/user/${id}`,
     },
     evaluation: {
@@ -78,5 +80,18 @@ export const APIS = {
         getById: (id: string) => `${extension}/timeslots/${id}`,
         updateById: (id: string) => `${extension}/timeslots/${id}`,
         deleteById: (id: string) => `${extension}/timeslots/${id}`
+    },
+    attendance: {
+        create: `${extension}/attendance`,
+        getByInstructorCourseStudent: (
+            instructorId: string,
+            courseId: string,
+            studentId: string
+        ) => `${extension}/attendance/instructor/${instructorId}/course/${courseId}/student/${studentId}`,
+        getByInstructorCourse: (
+            instructorId: string,
+            courseId: string
+        ) => `${extension}/attendance/instructor/${instructorId}/course/${courseId}`,
+        getById: (id: string) => `${extension}/attendance/${id}`,
     }
 }

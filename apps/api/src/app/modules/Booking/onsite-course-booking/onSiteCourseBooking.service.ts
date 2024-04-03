@@ -64,6 +64,10 @@ export class OnsiteCourseBookingService {
     return !student ? [] : await this.onSiteCourseBookingRepository.find({  where: { student: {id : student.id} }, relations: this.relations });
   }
 
+  async findByCourseId(courseId: string): Promise<any[]> {
+    return await this.getStudentsByCourse(courseId);
+  }
+  
   async findByUserId(id: string): Promise<OnSiteCourseBooking[]> {
     const student = await this.studentsService.findOneByUserId(id);
     return !student ? [] : await this.onSiteCourseBookingRepository.find({  where: { student: {id : student.id} }, relations: this.relations });
@@ -79,5 +83,16 @@ export class OnsiteCourseBookingService {
     }
 
     return student;
+  }
+
+  private async getStudentsByCourse(courseId: string) {
+    return await this.onSiteCourseBookingRepository
+    .createQueryBuilder('on-site-course-booking')
+    .leftJoin('on-site-course-booking.course', 'course')
+    .leftJoin('on-site-course-booking.student','student')
+    .leftJoin('student.user','user')
+    .select(['on-site-course-booking.id','course.id','student.id','user.id','user.firstName','user.lastName','user.userName'])
+    .where('course.id = :courseId', { courseId })
+    .getMany()
   }
 }
