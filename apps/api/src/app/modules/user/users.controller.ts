@@ -149,6 +149,11 @@ export class UsersController {
     await this.instructorsService.assignCourse(instructorId, courseId);
   }
 
+  @Get('getInstructorById/:instructorId')
+  async findOneByInstructorId(@Param('instructorId') instructorId: string): Promise<any> {
+    return await this.instructorsService.findOneWithRelations(instructorId);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Patch('update-user')
   async updateUser(

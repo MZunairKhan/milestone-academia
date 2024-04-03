@@ -4,6 +4,8 @@ import { AttendanceStatus } from '@milestone-academia/api-interfaces';
 
 import { BookingService } from '../../booking/booking.service';
 import { AttendanceService } from '../services/attendance.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'milestone-academia-add-attendance',
@@ -14,6 +16,8 @@ import { AttendanceService } from '../services/attendance.service';
   }
 })
 export class AddAttendanceComponent implements OnInit {
+  private routeSub: Subscription;
+
   today = new Date();
   bookingData: any[] = []
   attendanceValues = [AttendanceStatus.Present, AttendanceStatus.Absent, AttendanceStatus.Leave]
@@ -22,6 +26,7 @@ export class AddAttendanceComponent implements OnInit {
   attendanceForm = this.formBuilder.group({});
 
   constructor(
+    private route: ActivatedRoute,
     private readonly formBuilder: FormBuilder,
     private readonly bookingService: BookingService,
     private readonly attendanceService: AttendanceService
@@ -29,15 +34,17 @@ export class AddAttendanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.routeSub = this.route.params.subscribe(params => {
+      console.log(params['id']) //log the value of id
+      this.getCourseBookings(params['id']);
+    });
     this.attendanceDateForm.valueChanges.subscribe(v => console.log(v));
-    this.getCourseBookings();
   }
 
-  getCourseBookings() {
-    this.bookingService.getOnSiteBookingsByCourseId('fe4c77ba-d2a2-47ef-ac22-fd8707dedd1a').subscribe((v: any) => {
+  getCourseBookings(courseId: string) {
+    this.bookingService.getOnSiteBookingsByCourseId(courseId).subscribe((v: any) => {
       this.attendanceDateForm = this.formBuilder.group({});
-      console.log(v);
-      this.bookingData = [...v, ...v];
+      this.bookingData = v;
       this.bookingData.map(b => {
         this.attendanceDateForm.addControl(b.id, new FormControl(new Date(), Validators.required));
         this.attendanceForm.addControl(b.id, new FormControl(AttendanceStatus.Present, Validators.required));

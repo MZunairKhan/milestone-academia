@@ -57,13 +57,15 @@
 
             <div class="evaluations-detail">
               <button
+                *ngIf="isStudent$ | async"
                 mat-raised-button
                 color="warn"
-                (click)="openEvaluations()"
+                (click)="goToRoute('course/my-courses/evaluation')"
               >
                 Evaluations
               </button>
               <button
+                *ngIf="isStudent$ | async"
                 class="evaluations-detail-btn"
                 mat-raised-button
                 color="warn"
@@ -71,7 +73,17 @@
               >
                 Details
               </button>
+              <button
+                *ngIf="isInstructor$ | async"
+                class="evaluations-detail-btn"
+                mat-raised-button
+                color="warn"
+                (click)="openCourseAttendance(course)"
+              >
+                Attendance
+              </button>
             </div>
+
           </div>
         </mat-card>
       </div>

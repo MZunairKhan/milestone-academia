@@ -80,6 +80,10 @@ export class UserService {
     return this.http.post<UserData>(APIS.users.createStudent, data)
   }
 
+  getInstructorById(instructorId: string) {
+    return this.http.get<UserData>(APIS.users.getInstructorById(instructorId));
+  }
+
   private updateUserData(value: UserData) {
     this.storageService.setValue(USER_CONSTANTS.USER_DATA, value);
     this.userSource$.next(value);

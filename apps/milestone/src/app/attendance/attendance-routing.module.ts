@@ -5,7 +5,7 @@ import { AuthGuard } from '../auth/services/auth.guard';
 import { AddAttendanceComponent } from './add-attendance/add-attendance.component';
 
 const routes: Routes = [
-  { path: 'add', component: AddAttendanceComponent, canActivate: [AuthGuard]}//, data: {roles: [UserRoles.RetrieveUser]},
+  { path: ':id/add', component: AddAttendanceComponent, canActivate: [AuthGuard]}//, data: {roles: [UserRoles.RetrieveUser]},
 ];
 
 @NgModule({
