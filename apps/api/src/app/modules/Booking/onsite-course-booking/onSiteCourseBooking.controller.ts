@@ -42,7 +42,10 @@ import { CreateOnSiteBookingDto } from './dto/createOnSiteBooking.dto';
       return bookings
     }
   
-   
+    @Get('course/:courseId')
+    findByCourseId(@Param('courseId') courseId: string) {
+      return this.onsiteCourseBookingService.findByCourseId(courseId);
+    } 
   
     // @Delete(':id')
     // remove(@Param('id') id: string) {

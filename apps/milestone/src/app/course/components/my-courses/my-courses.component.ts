@@ -5,6 +5,8 @@ import { sampleCourses } from '../../models/courses.sample';
 import { RoleService } from '../../../auth/services/role.service';
 import { CourseRoles } from '@milestone-academia/api-interfaces';
 import { CourseService } from '../../services/course.service';
+import { UserService } from '../../../user/services/user.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component({
   selector: 'milestone-academia-my-courses',
@@ -19,11 +21,14 @@ export class MyCoursesComponent implements OnInit {
   recentCourse: Course[] = sampleCourses.slice(0, 4);
   columns: 1 | 2 = 1;
   isStudent$ = this.roleService.isStudent$;
+  isInstructor$ = this.roleService.isInstructor$;
 
   constructor(
     private router: Router,
+    private userService: UserService,
     private roleService: RoleService,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private storageService: StorageService,
   ) {}
 
   get displayCreateCourse() {
@@ -31,28 +36,40 @@ export class MyCoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.getLoggedInUserCourses()
+    this.isStudent$.subscribe(isStudent => {
+      if (isStudent) {
+        this.getLoggedInUserCourses()
+      } else {
+        this.getInstructorCourse()
+      }
+    })
   }
   
   getLoggedInUserCourses(){
-    const uid : any = localStorage.getItem('userData');
-    const parsedData = JSON.parse(uid);
-    const userId = parsedData.userId;
+    const userData = this.storageService.getValue('userData');
+    const userId = userData.userId;
     this.courseService
     .getCoursesByUserId(userId)
     .subscribe((value: any) => {
       console.log(value);
       this.allCourses = value.map((v: any) => v.course);
     });
+  }
 
+  getInstructorCourse() {
+    const userData = this.storageService.getValue('userData');
+    this.userService.getInstructorById(userData.instructorData.id)
+    .subscribe((value: any) => {
+      console.log(value.courses);
+      this.allCourses = value.courses;
+    });
   }
 
   goToRoute(route: string) {
     this.router.navigate([route]);
   }
 
-  openEvaluations = () =>
-    this.router.navigate([`course/my-courses/evaluation`]);
-  openCourseDetails = (data: Course) =>
-    this.router.navigate([`course/details/${data.id}`]);
+  openCourseDetails = (data: Course) => this.goToRoute(`course/details/${data.id}`);
+
+  openCourseAttendance = (data: Course) => this.goToRoute(`attendance/${data.id}/add`);
 }

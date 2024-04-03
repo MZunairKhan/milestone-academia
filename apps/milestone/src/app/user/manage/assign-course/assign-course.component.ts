@@ -3,7 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DialogCloseConfig, DynamicDialogComponent } from '../../../shared/modules/dialog/models/dynamicDialogComponent';
 
 import { CourseService } from '../../../course/services/course.service';
-import { BookingService } from '../../../shared/services/booking.service';
+import { BookingService } from '../../../booking/booking.service';
 import { DurationService } from '../../../shared/services/duration.service';
 import { forkJoin } from 'rxjs';
 import { UserType } from '@milestone-academia/api-interfaces';

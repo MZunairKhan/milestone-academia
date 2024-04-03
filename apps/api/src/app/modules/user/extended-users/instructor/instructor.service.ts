@@ -47,6 +47,10 @@ export class InstructorService implements extendedPersonService<Instructor> {
     return this.instructorsRepository.findOneBy({ id: id });
   }
 
+  findOneWithRelations(id: string): Promise<Instructor> {
+    return this.instructorsRepository.findOne({ where: { id : id }, relations: ['user', 'courses']})
+  }
+
   findOneByUser(user: User): Promise<Instructor> {
     return this.instructorsRepository.findOne({ where: {user: user}, relations: ['user']})
   }
