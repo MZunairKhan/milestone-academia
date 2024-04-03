@@ -1,21 +1,28 @@
-<div class="question">
-  <h2>{{ selectedQuestion?.question }}</h2>
-</div>
-<div class="container">
-  <div
-    class="option"
-    (click)="selectedOptionIndex = i"
-    *ngFor="let option of options; let i = index"
-    [class.selected-option]="selectedOptionIndex === i"
-  >
-    <label for="{{ option }}">{{ option }}</label>
+<div *ngIf="isSubmitted === false">
+  <div  class="question">
+    <h2>Question: {{ selectedQuestion?.question }}</h2>
   </div>
+  <div  class="container">
+    <div
+      class="option"
+      (click)="selectedOptionIndex = i"
+      *ngFor="let option of options; let i = index"
+      [class.selected-option]="selectedOptionIndex === i"
+    >
+      <label for="{{ option }}">{{ option }}</label>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isSubmitted === true">
+<h1>Assessment completed and Answers submitted successfully</h1>
 </div>
 
 <button
   mat-raised-button
   color="warn"
-  *ngIf="isLastQuestion === false"
+  *ngIf="isLastQuestion === false && isSubmitted === false"
   (click)="handleNext(selectedQuestion.id)"
 >
   Next
@@ -23,8 +30,17 @@
 <button
   mat-raised-button
   color="warn"
-  *ngIf="isLastQuestion === true"
+  *ngIf="isLastQuestion === true && isSubmitted === false"
   (click)="handleNext(selectedQuestion.id)"
 >
   Submit
+</button>
+
+<button
+  mat-raised-button
+  color="warn"
+  *ngIf=" isSubmitted === true"
+  (click)="handleRoute()"
+>
+  Back to Courses
 </button>

@@ -17,6 +17,7 @@ export class QuizViewComponent implements OnInit {
   selectedOptionIndex: number;
   isLastQuestion = false;
   answers: any = [];
+  isSubmitted: boolean = false
 
   constructor(private router: Router, private courseService: CourseService) {}
 
@@ -42,9 +43,14 @@ export class QuizViewComponent implements OnInit {
     this.selectedOptionIndex = -1;
     if (this.isLastQuestion) {
       console.log('Submitting answers...');
+      this.isSubmitted =true
     } else {
       this.questionNumber += 1;
       this.fetchQuestion();
     }
+  }
+
+  handleRoute(){
+    this.router.navigate([`course/my-courses`]);
   }
 }
