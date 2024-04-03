@@ -1,0 +1,64 @@
+<div class="mcqs-list-row">
+  <mat-card class="course-list-header">
+    <h1>Questions</h1>
+
+    <button mat-raised-button color="warn" (click)="openAddMcqsDialog()">Add New</button>
+  </mat-card>
+</div>
+
+
+<div  class="mcqs-list-row scrollable">
+  <mat-grid-list [cols]="columns" gutterSize="12px" rowHeight="200px">
+    <mat-grid-tile *ngFor="let mcq of mcqs" [colspan]="1" [rowspan]="1">
+      <div  class="mcqs-list-element">
+        <mat-card class="mcqs-tile">
+          <div class="mcqs-tile-section">
+            <div class="mcqs-tile-details">
+              <div class="mcqs-title">
+                <h3>Question: {{mcq.question}}</h3>
+              </div>
+              <div class="course-level-difficulty">
+                <div class="course-level">
+                  <span>Grade:</span>
+                  <span class="heading">{{mcq.grade}}</span>
+                </div>
+                <div class="course-difficulty">
+                  <span>Difficulty Level:</span>
+                  <span class="heading">{{mcq.level}}</span>
+                </div>
+              </div>
+              <div  class="options">
+                <div  class="options-AC">
+                  <span index = 0>A: {{mcq.choices[0]}}
+                    <mat-icon style="color: green;" *ngIf="mcq.correctOption === indexOfA"  fontIcon="check"></mat-icon>
+                  </span>
+                  <span>C: {{mcq.choices[2]}}
+                    <mat-icon style="color: green;" *ngIf="mcq.correctOption === indexOfC"  fontIcon="check"></mat-icon>
+                  </span>
+                </div>
+
+                <div class="options-AC">
+                  <span
+                    >B: {{mcq.choices[1]}}
+                    <mat-icon style="color: green;" *ngIf="mcq.correctOption === indexOfB"  fontIcon="check"></mat-icon>
+
+                  </span>
+                  <span>D: {{mcq.choices[3]}}
+                    <mat-icon style="color: green;" *ngIf="mcq.correctOption === indexOfD"  fontIcon="check"></mat-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="vertical-line"></div>
+
+            <div class="quiz-actions">
+              <button class="quiz-actions-btn" (click)="openEditMcqsDialog(mcq)" mat-raised-button color="warn">Edit</button>
+              <button class="quiz-actions-btn" (click)="deleteMcq(mcq.id)" mat-raised-button color="warn">Delete</button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+

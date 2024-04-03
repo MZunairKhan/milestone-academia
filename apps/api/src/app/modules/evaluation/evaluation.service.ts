@@ -27,6 +27,7 @@ export class EvaluationService {
       correctOption: createMcqsDto.correctOption,
       question: createMcqsDto.question,
       subjectId: subject,
+      grade:createMcqsDto.grade,
       level: createMcqsDto.level,
     });
   }
@@ -51,7 +52,7 @@ return await this.mcqsRepository.update(id,updateMcqDto)
   async findMcqsWithFilterAndPagination(
     searchMcqDTO: SearchMcqsDTO
   ) {
-    const {question, level , subject , page , limit} = searchMcqDTO ;
+    const {question, level , subject , page , grade ,limit} = searchMcqDTO ;
 
     const pages = page ? page : 1
     const limits = limit ? limit : 5
@@ -61,6 +62,10 @@ return await this.mcqsRepository.update(id,updateMcqDto)
    
     if (level) {
       queryBuilder.andWhere('mcqs.level IN (:...level)', { level: level });
+    }
+
+    if (grade) {
+      queryBuilder.andWhere('mcqs.grade = :grade', { grade });
     }
 
     if (subject) {

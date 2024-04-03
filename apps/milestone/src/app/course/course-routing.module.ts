@@ -9,6 +9,7 @@ import { CreateCourseComponent } from './components/create-course/create-course.
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { EvaluationComponent } from './components/evaluation/evaluation.component';
 import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
+import { InstructorViewComponent } from './components/instructor-view/instructor-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -18,6 +19,8 @@ const routes: Routes = [
   { path: 'my-courses/evaluation', component: EvaluationComponent, canActivate: [AuthGuard], data: {roles: [CourseRoles.RetrieveCourse]}  },
   { path: 'my-courses/evaluation/new/assestment', component: QuizViewComponent, canActivate: [AuthGuard], data: {roles: [CourseRoles.RetrieveCourse]}  },
   { path: 'details/:id', component: CourseDetailsComponent, canActivate: [AuthGuard], data: {roles: [CourseRoles.RetrieveCourse]}  },
+  { path: 'instructor/view', component: InstructorViewComponent, canActivate: [AuthGuard], },
+
 ];
 
 @NgModule({

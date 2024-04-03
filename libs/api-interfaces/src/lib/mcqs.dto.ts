@@ -1,4 +1,4 @@
-import { Levels } from "../enums";
+import { CourseLevel, Levels } from "../enums";
 
 export interface CreateMcqsDTOBase {
     question: string;
@@ -6,4 +6,5 @@ export interface CreateMcqsDTOBase {
     level: Levels;
     correctOption: number;
     choices: string[];
+    grade:CourseLevel
   }

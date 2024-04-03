@@ -58,7 +58,11 @@ export const APIS = {
     },
     evaluation: {
         
-        getAllMcqs:  `${extension}/evaluation/getAll-mcqs`
+        getAllMcqs:  `${extension}/evaluation/getAll-mcqs`,
+        createMcqs: `${extension}/evaluation/create-mcqs`,
+        deleteById: (id: string) => `${extension}/evaluation/deleteMcq/${id}`,
+        updateMcq:  (id: string) => `${extension}/evaluation/update-mcqs/${id}`
+
 
     },
     durations: {

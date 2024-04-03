@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { APIS } from 'apps/milestone/src/environments/api-routes';
 
-import { CreateCourseDTOBase } from '@milestone-academia/api-interfaces';
+import { CreateCourseDTOBase, CreateMcqsDTOBase } from '@milestone-academia/api-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -57,8 +57,16 @@ export class CourseService {
     return this.http.delete(APIS.course.deleteById(id))
   }
 
+  deleteMcqsById(id: string) {
+    return this.http.delete(APIS.evaluation.deleteById(id))
+  }
+
   createCourse(data: CreateCourseDTOBase) {
     return this.http.post<any>(APIS.course.create, data)
+  }
+
+  createMcqs(data: any) {
+    return this.http.post<any>(APIS.evaluation.createMcqs, data)
   }
 
   getCoursesByUserId(id: string) {
@@ -67,6 +75,12 @@ export class CourseService {
 
   getAllMcqs() {
     return  this.http.get<any>(APIS.evaluation.getAllMcqs)
+  }
+
+  updateMcq(data:any) {
+    const {id, ...rest} = data;
+    const updatedData = {...rest}
+    return  this.http.patch<any>(APIS.evaluation.updateMcq(id), updatedData)
   }
 
   private updateUserData(value: any) {
