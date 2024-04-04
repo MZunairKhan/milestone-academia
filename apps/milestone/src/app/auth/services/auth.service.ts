@@ -54,6 +54,12 @@ export class AuthService {
     })
   }
 
+  handleSuccessfullLogin(value:any){
+    this.updateAuthData(value);
+    this.storageService.setValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA, value);
+    this.getUserRoles();
+  }
+
   onSuccessFullLogin(value : any){
     this.updateAuthData(value);
     this.storageService.setValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA, value);
@@ -64,7 +70,7 @@ export class AuthService {
   login(userName: string, password: string) {  
     return this.http.post(APIS.auth.login, {userName, password})
   }
-  refreshToken(refresh:string) {  
+  refreshToken(refresh:any) {  
     return this.http.post(APIS.auth.refreshToken, {refresh})
   }
 
@@ -74,6 +80,7 @@ export class AuthService {
 
   logout() {
     this.removeUserData();
+    localStorage.clear()
     this.routeTo('auth/logout');
   }
 
@@ -97,7 +104,7 @@ export class AuthService {
     this.authSource$.next(Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT));
   }
   
-  private updateAuthData(value: AuthData) {
+  public updateAuthData(value: AuthData) {
     this.authSource$.next(value);
   }
 

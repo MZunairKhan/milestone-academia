@@ -36,14 +36,14 @@ export class AuthService {
       upn: user.email,
       userType: user.userType,
       username: user.userName,
-    });
+    },{ expiresIn: '1800s' });
     const refresh_token = this.jwtService.sign({ 
       sub: user.id,
       upn: user.email,
       userType: user.userType,
       username: user.userName,
-    });
-    const tokenData = this.jwtService.decode(refresh_token);
+    },{ expiresIn: '4h' });
+    const tokenData = this.jwtService.decode(access_token);
 
     return {
       access_token,
@@ -58,18 +58,11 @@ export class AuthService {
       upn: user.upn,
       userType: user.userType,
       username: user.username,
-    });
-    const refresh_token = this.jwtService.sign({ 
-      sub: user.userId,
-      upn: user.upn,
-      userType: user.userType,
-      username: user.username,
-    });
+    },{ expiresIn: '1800s' });
     const tokenData = this.jwtService.decode(access_token);
 
     return {
       access_token,
-      refresh_token,
       tokenData,
     };
   }
