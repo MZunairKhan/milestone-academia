@@ -25,7 +25,11 @@ export class AppComponent  implements OnInit{
   ) {}
 
   ngOnInit() {
+    const isUserLoggedIn = localStorage.getItem('isLoggedIn');
+    const token = localStorage.getItem('refresh_token');
+    if(isUserLoggedIn && token){
       this.startTokenRefreshInterval();
+    }
   }
 
   get displayCreateCourse() {
