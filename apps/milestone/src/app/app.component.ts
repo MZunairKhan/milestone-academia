@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { RoleService } from './auth/services/role.service';
 import { CourseRoles } from '@milestone-academia/api-interfaces';
 import { AuthService } from './auth/services/auth.service';
-import { StorageService } from './shared/services/storage.service';
 
 @Component({
   selector: 'milestone-academia-root',
@@ -53,24 +52,18 @@ export class AppComponent  implements OnInit{
     const token = localStorage.getItem('refresh_token');
     if (token) {
         const expiryTime = parseInt(localStorage.getItem('exp') || '0', 10) * 1000; 
-        const expiryDate = new Date(1712227975 * 1000); 
-        console.log('Expiry time',expiryDate);
         const currentTime = new Date().getTime();
         const timeDifference = (expiryTime - currentTime) - 60000;
-        console.log('current time', currentTime);
-        console.log('time difference',timeDifference);
         
           if(timeDifference > 0){
             this.tokenRefreshInterval = setInterval(() => {
               this.authService.refreshToken(token).subscribe((value: any) => {
                 localStorage.setItem('exp', value.userData.exp)
                 this.authService.handleSuccessfullLogin(value.userData);
-                console.log('Token refreshed');
                 this.startTokenRefreshInterval();
               });
           }, timeDifference);
           }else{
-            console.log('Token Expired');
             localStorage.clear();
           }
             

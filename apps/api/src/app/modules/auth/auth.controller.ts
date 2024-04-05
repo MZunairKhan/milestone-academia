@@ -32,7 +32,6 @@ export class AuthController {
 
     if (user) {
       const userData = await this.authService.login(user);
-      console.log(userData);
       const cookieSettings: CookieOptions =
         this.authService.prepareCookieSettings();
 
@@ -69,7 +68,6 @@ export class AuthController {
 
       return {
         userData: userData.tokenData,
-        // refresh_token: userData.refresh_token
       }
     
   }
@@ -77,7 +75,6 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('test')
   async test(@Req() request): Promise<boolean> {
-    console.log('USER',request.user);
     return true;
   }
 

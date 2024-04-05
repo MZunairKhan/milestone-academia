@@ -15,7 +15,6 @@ import { RefreshJwtStrategy } from './refresh-jwt.strategy';
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
-      // signOptions: { expiresIn: '15s' },
     }),
   ],
   providers: [AuthService, JwtStrategy,RefreshJwtStrategy],

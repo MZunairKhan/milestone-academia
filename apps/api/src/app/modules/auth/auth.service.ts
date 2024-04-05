@@ -36,13 +36,13 @@ export class AuthService {
       upn: user.email,
       userType: user.userType,
       username: user.userName,
-    },{ expiresIn: '1800s' });
+    },{ expiresIn: process.env.JWT_EXPIRES_IN});
     const refresh_token = this.jwtService.sign({ 
       sub: user.id,
       upn: user.email,
       userType: user.userType,
       username: user.userName,
-    },{ expiresIn: '4h' });
+    },{ expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN });
     const tokenData = this.jwtService.decode(access_token);
 
     return {
@@ -58,7 +58,7 @@ export class AuthService {
       upn: user.upn,
       userType: user.userType,
       username: user.username,
-    },{ expiresIn: '1800s' });
+    },{ expiresIn: process.env.JWT_EXPIRES_IN });
     const tokenData = this.jwtService.decode(access_token);
 
     return {
