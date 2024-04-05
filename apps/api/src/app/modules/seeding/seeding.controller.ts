@@ -299,7 +299,8 @@ export class SeedingController {
         3,4,7
       ],
       subject: newSubject,
-      correctOption:2
+      correctOption:2,
+      grade:'OLevel'
     }
 
     const newMcq = await this.seedingService.seedMcqs(mcq)

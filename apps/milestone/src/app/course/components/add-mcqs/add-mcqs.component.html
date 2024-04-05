@@ -1,0 +1,119 @@
+<form
+  class="milestone-user-info"
+  [formGroup]="mcqsDataForm"
+  (ngSubmit)="onSubmit($event)"
+>
+  <div class="user-info-row">
+    <mat-label class="label">Question:</mat-label>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <textarea
+        matInput
+        formControlName="question"
+        placeholder="Enter your question"
+      ></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="user-info-row">
+    <mat-label class="label">Grade:</mat-label>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Grade</mat-label>
+      <mat-select formControlName="grade">
+        <mat-option *ngFor="let grade of grades" value="{{ grade }}">{{
+          grade
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="user-info-row">
+    <mat-label class="label">Difficulty Level:</mat-label>
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>Level</mat-label>
+      <mat-select formControlName="level">
+        <mat-option *ngFor="let level of levels" [value]="level">{{
+          level
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-divider class="user-info-divider"></mat-divider>
+
+  <div class="options-label">
+    <div class="heading">Options</div>
+    <div class="heading">Is Correct</div>
+  </div>
+
+  <div class="options">
+    <mat-form-field style="width: 60%">
+      <input matInput formControlName="optionOne" placeholder="Enter Option1" />
+    </mat-form-field>
+    <div>
+      <mat-radio-button
+        [checked]="correctOption === 0"
+        (change)="handleRadioClick($event)"
+        value="0"
+      ></mat-radio-button>
+    </div>
+  </div>
+
+  <div class="options">
+    <mat-form-field style="width: 60%">
+      <input matInput formControlName="optionTwo" placeholder="Enter Option2" />
+    </mat-form-field>
+
+    <div>
+      <mat-radio-button
+        [checked]="correctOption === 1"
+        (change)="handleRadioClick($event)"
+        value="1"
+      ></mat-radio-button>
+    </div>
+  </div>
+  <div class="options">
+    <mat-form-field style="width: 60%">
+      <input
+        matInput
+        formControlName="optionThree"
+        placeholder="Enter Option3"
+      />
+    </mat-form-field>
+
+    <div>
+      <mat-radio-button
+        [checked]="correctOption === 2"
+        (change)="handleRadioClick($event)"
+        value="2"
+      ></mat-radio-button>
+    </div>
+  </div>
+  <div class="options">
+    <mat-form-field style="width: 60%">
+      <input
+        matInput
+        formControlName="optionFour"
+        placeholder="Enter Option4"
+      />
+    </mat-form-field>
+
+    <div>
+      <mat-radio-button
+        [checked]="correctOption === 3"
+        (change)="handleRadioClick($event)"
+        value="3"
+      ></mat-radio-button>
+    </div>
+  </div>
+  <div class="submit-btn">
+    <button
+      type="submit"
+      [disabled]="!mcqsDataForm.valid"
+      mat-raised-button
+      color="warn"
+      mat-dialog-close
+    >
+      Submit
+    </button>
+  </div>
+</form>

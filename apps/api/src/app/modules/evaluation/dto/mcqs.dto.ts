@@ -1,4 +1,4 @@
-import { CreateMcqsDTOBase, Levels } from "@milestone-academia/api-interfaces";
+import { CourseLevel, CreateMcqsDTOBase, Levels } from "@milestone-academia/api-interfaces";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateMcqsDTO implements CreateMcqsDTOBase {
@@ -9,6 +9,11 @@ export class CreateMcqsDTO implements CreateMcqsDTOBase {
     enum: Levels,
     })
     level: Levels;
+
+    @ApiProperty({
+    enum: CourseLevel,
+    })
+    grade: CourseLevel;
   
     @ApiProperty()
     subjectId: string;

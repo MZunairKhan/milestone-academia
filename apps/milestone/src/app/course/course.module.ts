@@ -9,6 +9,8 @@ import { MyCoursesComponent } from './components/my-courses/my-courses.component
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { EvaluationComponent } from './components/evaluation/evaluation.component';
 import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
+import { InstructorViewComponent } from './components/instructor-view/instructor-view.component';
+import { AddMcqsComponent } from './components/add-mcqs/add-mcqs.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { QuizViewComponent } from './components/quiz-view/quiz-view.component';
     MyCoursesComponent,
     CreateCourseComponent,
     EvaluationComponent,
-    QuizViewComponent
+    QuizViewComponent,
+    InstructorViewComponent,
+    AddMcqsComponent
   ],
   imports: [CommonModule, SharedModule, CourseRoutingModule],
 })

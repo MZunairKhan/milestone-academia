@@ -5,7 +5,7 @@ import {
     ManyToOne,
     PrimaryGeneratedColumn,
   } from 'typeorm';
-import {  Levels } from '@milestone-academia/api-interfaces';
+import {  CourseLevel, Levels } from '@milestone-academia/api-interfaces';
 import { TimeBaseEntity } from '../../../common/entities/timeBase.entity';
 import { Subject } from '../../subject/entity/subject.entity';
   
@@ -25,6 +25,12 @@ import { Subject } from '../../subject/entity/subject.entity';
       enum: Levels,
     })
     level: Levels;
+
+    @Column({
+      type: 'enum',
+      enum: CourseLevel,
+    })
+    grade: CourseLevel;
   
     @Column()
     question: string;
