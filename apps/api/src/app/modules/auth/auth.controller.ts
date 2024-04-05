@@ -56,7 +56,6 @@ export class AuthController {
   async refreshToken(@Body() refresh:string ,
   @Res({ passthrough: true }) response: Response,
   @Req() request) {
-  
       const userData = await this.authService.refreshJwt(request.user)
       const cookieSettings: CookieOptions =
         this.authService.prepareCookieSettings();
@@ -69,7 +68,6 @@ export class AuthController {
 
       return {
         userData: userData.tokenData,
-        refresh_token: userData.refresh_token
       }
     
   }
@@ -77,7 +75,6 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('test')
   async test(@Req() request): Promise<boolean> {
-    console.log('USER',request.user);
     return true;
   }
 
