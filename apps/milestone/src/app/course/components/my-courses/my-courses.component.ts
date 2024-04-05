@@ -72,4 +72,9 @@ export class MyCoursesComponent implements OnInit {
   openCourseDetails = (data: Course) => this.goToRoute(`course/details/${data.id}`);
 
   openCourseAttendance = (data: Course) => this.goToRoute(`attendance/${data.id}/add`);
+
+  openStudentAttendance(data: Course) {
+    const userData = this.storageService.getValue('userData');
+    this.goToRoute(`attendance/${data.id}/student/${userData.studentData.id}`);
+  }
 }

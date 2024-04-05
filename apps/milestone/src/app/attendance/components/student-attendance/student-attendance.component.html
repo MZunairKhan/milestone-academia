@@ -1,0 +1,14 @@
+<div class="student-attendance-row">
+    <mat-card class="student-attendance-header">
+        <h2>Student Attendance</h2>
+    </mat-card>
+</div>
+
+<div class="student-attendance-row">
+    <mat-card style="display: flex; justify-content: space-between;">
+        <h3>Summary</h3>
+        <h3 style="color: green;">Present | {{summary.present.length}}</h3>
+        <h3 style="color: red;">Absent | {{summary.absent.length}}</h3>
+        <h3 style="color: chocolate;">Leave | {{summary.leave.length}}</h3>
+    </mat-card>
+</div>

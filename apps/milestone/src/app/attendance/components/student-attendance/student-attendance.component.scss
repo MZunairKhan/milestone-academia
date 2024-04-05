@@ -1,0 +1,22 @@
+.student-attendance-row {
+    width: 95%;
+    margin: 10px 0px;
+}
+
+h2, h3 {
+    margin: 0;
+}
+
+.student-attendance-header {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.scrollable {
+    max-height: calc(100% - 80px);
+    overflow: hidden;
+    overflow-y: auto;
+}
