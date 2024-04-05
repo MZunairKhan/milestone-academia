@@ -14,7 +14,7 @@
   </mat-card>
 </div>
 
-<div class="course-list-row" *ngIf="isStudent$ | async">
+<!-- <div class="course-list-row" *ngIf="isStudent$ | async">
   <h2>Recent Courses</h2>
 </div>
 
@@ -28,7 +28,7 @@
       <h3>{{ course.name }}</h3>
     </mat-card>
   </div>
-</div>
+</div> -->
 
 <div class="course-list-row">
   <h2>All Courses</h2>
@@ -72,6 +72,15 @@
                 (click)="openCourseDetails(course)"
               >
                 Details
+              </button>
+              <button
+                *ngIf="isStudent$ | async"
+                class="evaluations-detail-btn"
+                mat-raised-button
+                color="warn"
+                (click)="openStudentAttendance(course)"
+              >
+                Attendance
               </button>
               <button
                 *ngIf="isInstructor$ | async"

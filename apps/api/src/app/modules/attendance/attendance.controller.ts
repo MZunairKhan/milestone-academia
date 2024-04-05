@@ -23,9 +23,10 @@ export class AttendanceController {
 
   @Get('/instructor/:instructorId/course/:courseId/student/:studentId')
   getStudentAttendance( 
-  @Param('instructorId') instructorId: string,
-  @Param('courseId') courseId: string,
-  @Param('studentId') studentId: string) {
+    @Param('instructorId') instructorId: string,
+    @Param('courseId') courseId: string,
+    @Param('studentId') studentId: string
+  ) {
     return this.attendanceService.getStudentAttendance(instructorId , courseId ,studentId);
   }
 
@@ -35,6 +36,14 @@ export class AttendanceController {
     @Param('courseId') courseId: string )
   {
     return this.attendanceService.getStudentAttendance(instructorId ,courseId );
+  }
+
+  @Get('/course/:courseId/student/:studentId')
+  getStudentAttendanceByCourse( 
+    @Param('courseId') courseId: string,
+    @Param('studentId') studentId: string
+  ) {
+    return this.attendanceService.getStudentAttendance(null , courseId ,studentId);
   }
 
   @Get(':id')

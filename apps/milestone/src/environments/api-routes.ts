@@ -92,6 +92,10 @@ export const APIS = {
             instructorId: string,
             courseId: string
         ) => `${extension}/attendance/instructor/${instructorId}/course/${courseId}`,
+        getByStudentCourse: (
+            courseId: string,
+            studentId: string
+        ) => `${extension}/attendance/course/${courseId}/student/${studentId}`,
         getById: (id: string) => `${extension}/attendance/${id}`,
     }
 }

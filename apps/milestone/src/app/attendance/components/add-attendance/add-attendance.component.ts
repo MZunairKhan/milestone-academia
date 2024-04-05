@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AttendanceStatus } from '@milestone-academia/api-interfaces';
 
-import { BookingService } from '../../booking/booking.service';
-import { AttendanceService } from '../services/attendance.service';
+import { BookingService } from '../../../booking/booking.service';
+import { AttendanceService } from '../../services/attendance.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
     class:'milestone-router-component'
   }
 })
-export class AddAttendanceComponent implements OnInit {
+export class AddAttendanceComponent implements OnInit, OnDestroy {
   private routeSub: Subscription;
 
   today = new Date();
@@ -34,11 +34,11 @@ export class AddAttendanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
-      console.log(params['id']) //log the value of id
-      this.getCourseBookings(params['id']);
-    });
-    this.attendanceDateForm.valueChanges.subscribe(v => console.log(v));
+    this.routeSub = this.route.params.subscribe(params => this.getCourseBookings(params['id']));
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
   }
 
   getCourseBookings(courseId: string) {
@@ -49,7 +49,6 @@ export class AddAttendanceComponent implements OnInit {
         this.attendanceDateForm.addControl(b.id, new FormControl(new Date(), Validators.required));
         this.attendanceForm.addControl(b.id, new FormControl(AttendanceStatus.Present, Validators.required));
       })
-      console.log(this.attendanceDateForm)
     })
   }
 

@@ -50,32 +50,30 @@ export class AttendanceService {
       .leftJoinAndSelect('OnSiteCourseBooking.course', 'course')
       .leftJoinAndSelect('OnSiteCourseBooking.student', 'student')
       .leftJoinAndSelect('OnSiteCourseBooking.courseDuration', 'courseDuration')
-      .leftJoinAndSelect('course.instructor', 'instructor')
+      // .leftJoinAndSelect('course.instructor', 'instructor_courses')
+      // .leftJoinAndSelect('instructor_courses.instructorId', 'instructor')
       .select([
         'attendance.id',
         'attendance.date',
+        'attendance.attendanceStatus',
         'OnSiteCourseBooking.id',
         'student.id',
         'course.id',
         'course.name',
         'courseDuration.id',
-        'instructor.id',
+        // 'instructor.id',
       ]);
 
+    query.where('course.id = :courseId', { courseId });
+
+    // if (instructorId) {
+    //   query.andWhere('instructor.id = :instructorId', { instructorId });
+    // }
+
     if (!studentId) {
-      query.where(
-        'instructor.id = :instructorId AND course.id = :courseId',
-        { instructorId, courseId }
-      );
-    
-    } else {
-      query.where(
-        'instructor.id = :instructorId AND course.id = :courseId AND student.id = :studentId',
-        { instructorId, courseId, studentId }
-      );
-    
-      
+      query.andWhere('student.id = :studentId', { studentId });
     }
+
     const result = query.getMany();
     return result;
   }

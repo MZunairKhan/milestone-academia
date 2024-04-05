@@ -59,4 +59,8 @@ export class AttendanceService {
     return this.http.get<any>(APIS.attendance.getByInstructorCourse(instructorId, courseId));
   }
 
+  getByStudentCourse(courseId: string, studentId: string) {
+    return this.http.get<any>(APIS.attendance.getByStudentCourse(courseId, studentId));
+  }
+
 }
