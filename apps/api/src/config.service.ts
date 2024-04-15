@@ -1,5 +1,6 @@
 // src/config/config.service.ts
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { Log } from './logs/log.entity';
 
 require('dotenv').config();
 
@@ -42,7 +43,7 @@ class ConfigService {
       autoLoadEntities: true,
       synchronize: true,
 
-      // entities: ['**/*.entity{.ts,.js}'],
+      entities: [Log],
 
       // migrationsTableName: 'migration',
 

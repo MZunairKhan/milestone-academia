@@ -1,0 +1,4 @@
+{"level":"error","message":"Message: This is Log message, Error: BadRequestException: invalid User , StackTrace: undefined, className: User-Controller , MethodName: forgotPassword","timestamp":"2024-04-15T12:23:34.322Z"}
+{"level":"error","message":"Message: This is Log message, Error: BadRequestException: invalid User , StackTrace: undefined, className: User-Controller , MethodName: forgotPassword","timestamp":"2024-04-15T12:45:38.726Z"}
+{"level":"error","message":"Message: This is Log message, Error: BadRequestException: invalid User , StackTrace: error.stackTrace, className: User-Controller , MethodName: forgotPassword","timestamp":"2024-04-15T12:46:33.705Z"}
+{"level":"error","message":"Message: This is Log message, Error: BadRequestException: invalid User , StackTrace: , className: User-Controller , MethodName: forgotPassword","timestamp":"2024-04-15T12:46:55.156Z"}

@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "\\milestone-academia\\apps\\api\\src\\logs\\.aaafcfd6c2d431696e254e15f31d83983c0cfe9d-audit.json",
+    "files": [
+        {
+            "date": 1713164894550,
+            "name": "\\milestone-academia\\apps\\api\\src\\logs\\application-2024-04-15.log",
+            "hash": "24226d16482d2df18b5fef0c16281e3836004f75520ea4edaf4f31feaf7aceaf"
+        }
+    ],
+    "hashType": "sha256"
+}
