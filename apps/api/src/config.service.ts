@@ -1,6 +1,6 @@
 // src/config/config.service.ts
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Log } from './logs/log.entity';
+import { Log } from '../../../../../../milestone-academia/logs/log.entity';
 
 require('dotenv').config();
 

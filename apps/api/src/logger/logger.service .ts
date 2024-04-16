@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import * as winston from 'winston';
 import { createLogger, transports, format } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
-import { Log } from '../logs/log.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LogicalLogger } from './logical-logger';
 import { CriticalLogger } from './critical-logger';
+import { Log } from '../../../../logs/log.entity';
 
 
 @Injectable()
@@ -21,7 +21,7 @@ export class LoggerService {
     this.logger = createLogger({
       transports: [
         new DailyRotateFile({
-          filename: '/milestone-academia/apps/api/src/logs/application-%DATE%.log',
+          filename: process.env.LOGS_FILE_PATH,
           datePattern: 'YYYY-MM-DD',
           zippedArchive: true,
           maxSize: '20m',

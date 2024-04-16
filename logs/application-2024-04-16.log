@@ -1,0 +1,2 @@
+{"level":"error","message":"Message: This is Log message, Error: BadRequestException: invalid User , StackTrace: , className: User-Controller , MethodName: forgotPassword","timestamp":"2024-04-16T06:39:46.876Z"}
+{"level":"error","message":"Message: This is Log message, Error: BadRequestException: invalid User , StackTrace: , className: User-Controller , MethodName: forgotPassword","timestamp":"2024-04-16T06:40:56.583Z"}

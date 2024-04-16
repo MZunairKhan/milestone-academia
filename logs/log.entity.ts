@@ -1,6 +1,6 @@
 
+import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { LoggerEnum } from '../logger/logging.enum';
 
 @Entity()
 export class Log {
