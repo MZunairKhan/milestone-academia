@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LogicalLogger } from './logical-logger';
 import { CriticalLogger } from './critical-logger';
-import { Log } from '../../../../logs/log.entity';
+import { Log } from './log.entity';
 
 
 @Injectable()
