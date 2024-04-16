@@ -110,7 +110,7 @@ export class UsersService {
       throw new BadRequestException('invalid User');
     }
 
-    const systemGeneratedPassword = randomPasswordString(10, '!@#$%&0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    const systemGeneratedPassword = randomPasswordString(10, process.env.RANDOM_PASSWORD_STRING);
   
     const pepper = await this.appConfigService.findByKey('pepper');
 
