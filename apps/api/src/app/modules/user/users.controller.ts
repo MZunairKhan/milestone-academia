@@ -4,6 +4,8 @@ import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles/roles.decorator';
 import { RolesGuard } from '../auth/roles/roles.guard';
 import { UserRoles } from '@milestone-academia/api-interfaces';
+import { LoggerService } from '../../../logger/logger.service ';
+
 
 import { UsersService } from './users.service';
 import { StudentsService } from './extended-users/student/student.service';
@@ -19,6 +21,7 @@ import { User } from './entity/user.entity';
 import { Student } from './extended-users/student/entity/student.entity';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
   
 @ApiTags('Users')
 @Controller()
@@ -27,6 +30,7 @@ export class UsersController {
     private readonly usersService: UsersService,
     private readonly studentsService: StudentsService,
     private readonly instructorsService: InstructorService,
+    private readonly logger: LoggerService
 
   ) {}
 
@@ -135,9 +139,33 @@ export class UsersController {
   }
 
   @Post('forgot-password')
-  async forgotPassword(@Body() data:any) {
-    const {email} = data;
-   return this.usersService.forgotPassword(email);
+  async forgotPassword(@Body() data: any) {
+    try {
+      const { email } = data;
+      const response =  await this.usersService.forgotPassword(email);
+
+      const log = {
+        methodName: 'forgotPassword',
+        className: 'User-Controller',
+        message: 'This is Log message',
+        level: LoggerEnum.Info
+        
+      }
+      this.logger.info(log);
+      this.logger.saveLog(log)
+
+      return response
+    } catch (error) {
+      const log = {
+        methodName: 'forgotPassword',
+        className: 'User-Controller',
+        message: 'This is Log message',
+        stackTrace: '',
+        error: error
+      }
+      this.logger.error(log);
+      throw error;
+    }
   }
 
   @Put('instructor/:instructorId/course/:courseId')

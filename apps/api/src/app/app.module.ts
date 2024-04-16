@@ -18,6 +18,7 @@ import { OnSiteCoureBookingModule } from './modules/Booking/onsite-course-bookin
 import { AttendanceModule } from './modules/attendance/attendance.module';
 import { OnSiteEvaluationModule } from './modules/onsiteEvaluation/onsiteEvaluation.module';
 import { EvaluationModule } from './modules/evaluation/evaluation.module';
+import { LoggerModule } from '../logger/logger.modules';
 
 // import { StudentsModule } from './modules/student/students.module';
 // import { InstructorsModule } from './modules/instructor/instructor.module';
@@ -30,6 +31,8 @@ import { EvaluationModule } from './modules/evaluation/evaluation.module';
       wildcard: false,
       delimiter: '.',
     }),
+    LoggerModule,
+    
     
     RouterModule.register([
       {
@@ -103,5 +106,6 @@ import { EvaluationModule } from './modules/evaluation/evaluation.module';
     // StudentsModule,
     // InstructorsModule
   ],
+ 
 })
 export class AppModule {}
