@@ -48,8 +48,8 @@ export class UsersController {
       const response  =  this.usersService.mapToDto(user);
 
       const log = {
-        methodName: 'create',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.create.name,
+        className: UsersController.name,
         message: LoggingMessages.users.info.create(user.id),
         level: LoggerEnum.Info,
         
@@ -63,8 +63,8 @@ export class UsersController {
 
     }catch(error){
       const log = {
-        methodName: 'create',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.create.name,
+        className: UsersController.name,
         message: LoggingMessages.users.error.userCreationError,
         stackTrace: '',
         error: error
@@ -153,8 +153,8 @@ export class UsersController {
       }
 
       const log = {
-        methodName: 'create-user',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.createUser.name,
+        className: UsersController.name,
         message: LoggingMessages.users.info.createUser(user.id),
         level: LoggerEnum.Info,
         
@@ -166,8 +166,8 @@ export class UsersController {
       return response;
     }catch(error){
       const log = {
-        methodName: 'create-user',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.createUser.name,
+        className: UsersController.name,
         message: LoggingMessages.users.error.userCreationError,
         stackTrace: '',
         error: error
@@ -197,8 +197,8 @@ export class UsersController {
   
       const response  =  this.studentsService.mapToDto(student);
       const log = {
-        methodName: 'create-student',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.createStudent.name,
+        className: UsersController.name,
         message: LoggingMessages.users.info.createStudent(user.id),
         level: LoggerEnum.Info,
         
@@ -209,8 +209,8 @@ export class UsersController {
       return response 
     }catch(error){
       const log = {
-        methodName: 'create-student',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.createStudent.name,
+        className: UsersController.name,
         message: LoggingMessages.users.error.studentCreationError,
         stackTrace: '',
         error: error
@@ -229,8 +229,8 @@ export class UsersController {
       const response =  await this.usersService.forgotPassword(email);
 
       const log = {
-        methodName: 'forgot-password',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.forgotPassword.name,
+        className: UsersController.name,
         message:  LoggingMessages.users.info.forgotPasswordSuccess(email),
         level: LoggerEnum.Info
         
@@ -241,8 +241,8 @@ export class UsersController {
       return response
     } catch (error) {
       const log = {
-        methodName: 'forgot-Password',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.forgotPassword.name,
+        className: UsersController.name,
         message: LoggingMessages.users.error.forgotPasswordFailed(data.email),
         stackTrace: '',
         error: error
@@ -261,8 +261,8 @@ export class UsersController {
     const response  =  this.instructorsService.assignCourse(instructorId, courseId);
 
     const log = {
-      methodName: 'assignCourseToInstructor',
-      className: 'User-Controller',
+      methodName: UsersController.prototype.assignCourseToInstructor.name,
+      className: UsersController.name,
       message:  LoggingMessages.users.info.courseAssignedtoInstructorSuccessfully(instructorId, courseId),
       level: LoggerEnum.Info
       
@@ -273,8 +273,8 @@ export class UsersController {
     return response
   }catch(error){
     const log = {
-      methodName: 'assignCourseToInstructor',
-      className: 'User-Controller',
+      methodName: UsersController.prototype.assignCourseToInstructor.name,
+      className: UsersController.name,
       message: LoggingMessages.users.error.courseAssignedtoInstructorFailed(instructorId, courseId),
       stackTrace: '',
       error: error
@@ -310,8 +310,8 @@ export class UsersController {
     await this.usersService.update(user.id, updateUserDto);
 
     const log = {
-      methodName: 'updateUser',
-      className: 'User-Controller',
+      methodName: UsersController.prototype.updateUser.name,
+      className: UsersController.name,
       message:  LoggingMessages.users.info.updateUserSuccess(user.id),
       level: LoggerEnum.Info
       
@@ -325,8 +325,8 @@ export class UsersController {
     }
     }catch(error){
       const log = {
-        methodName: 'updateUser',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.updateUser.name,
+        className: UsersController.name,
         message: LoggingMessages.users.error.updateUserFailed(request.userId),
         stackTrace: '',
         error: error
@@ -402,8 +402,8 @@ export class UsersController {
       const res = await this.usersService.remove(id);
 
       const log = {
-        methodName: 'remove',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.remove.name,
+        className: UsersController.name,
         message:  LoggingMessages.users.info.deleteUserSuccess(user.id),
         level: LoggerEnum.Info
         
@@ -417,8 +417,8 @@ export class UsersController {
       }
     }catch(error){
       const log = {
-        methodName: 'updateUser',
-        className: 'User-Controller',
+        methodName: UsersController.prototype.remove.name,
+        className: UsersController.name,
         message: LoggingMessages.users.error.deleteUserFailed(id),
         stackTrace: '',
         error: error
