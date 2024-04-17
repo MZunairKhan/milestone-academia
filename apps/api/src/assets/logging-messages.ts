@@ -28,12 +28,6 @@ export const LoggingMessages = {
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
-  courses: {
-    info: 'This is courses Info Log',
-    error: 'This is error log',
-    warn: 'This is warn log',
-    debug: 'This is Debug Log'
-  },
   auth: {
     info: {
       loginSuccess: (userName: string)=> `User with userName ${userName} Logged In Successfully`,
@@ -55,8 +49,17 @@ export const LoggingMessages = {
     debug: 'This is Debug Log'
   },
   course: {
-    info: 'This is course Info Log',
-    error: 'This is error log',
+    info: {
+      create: (id: string)=> `Course with id ${id} created successfully`,
+      delete: (id: string)=> `Course with id ${id} deleted successfully`
+    },
+    error: {
+      courseCreationError: `Error while Course Creation `,
+      errorFindingAll: `Error while getting all courses`,
+      errorfindPaginatedCourses: `Error While getting paginated courses`,
+      errorFinfingOneById: (id: string)=> `Error while getting course with id  ${id}`,
+      deleteCourseFailed: (id: string)=> `Course with id ${id} deleted Failed`
+    },
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
