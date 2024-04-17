@@ -67,8 +67,19 @@ export const LoggingMessages = {
     debug: 'This is Debug Log'
   },
   onsiteCourseBooking: {
-    info: 'This is onsiteCourseBooking Info Log',
-    error: 'This is error log',
+    info: {
+      create: (id: string)=> `onsiteCourseBooking with id ${id} has been created successfully`,
+    },
+    error: {
+      onsiteCourseBookingCreationError: 'Error while creating onsiteCourseBooking ',
+      errorGettingAllonsiteCourseBooking: `Error while getting All onsiteCourseBooking`,
+      errorGettingById: (id: string)=>  `Error while getting onsiteCourseBooking with id ${id}`,
+      errorGettingByStudentId: (studentId: string)=>  `Error while getting onsiteCourseBooking with StudentId ${studentId}`,
+      errorGettingByUserId: (userId: string)=>  `Error while getting onsiteCourseBooking with userId ${userId}`,
+      errorGettingByCourseId: (courseId: string)=>  `Error while getting onsiteCourseBooking with courseId ${courseId}`,
+
+
+    },
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },

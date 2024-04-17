@@ -57,7 +57,8 @@ export class OnsiteCourseBookingService {
 
   async findOne(id: string): Promise<OnSiteCourseBooking> {
     return await this.onSiteCourseBookingRepository.findOne({ where: { id: id }, relations: this.relations });
-  }
+    }
+   
 
   async findByStudentId(studentId: string): Promise<OnSiteCourseBooking[]> {
     const student = await this.getStudent(studentId);
