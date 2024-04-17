@@ -15,7 +15,13 @@ export const LoggingMessages = {
         forgotPasswordFailed: (email: string)=>  `Error while sending new password to email: ${email}`,
         courseAssignedtoInstructorFailed: (courseId: string , instructorId: string)=> `Error while assigning course with id ${courseId} to instructor with id ${instructorId}.`,
         updateUserFailed: (id: string)=> `Error while updating user with id ${id} Failed`,
-        deleteUserFailed: (id: string)=> `Error while deleting User with id ${id} Failed`
+        deleteUserFailed: (id: string)=> `Error while deleting User with id ${id} Failed`,
+        errorGettingPaginatedUser: `Error while getting paginated users`,
+        errorGettingInstructorById: (id:string)=> `Error while getting Instructor by id ${id} `,
+        errorGettingUserById: (id:string)=> `Error while getting User by id ${id} `,
+        errorGettingUserData: (id: string)=> `Error while getting UserData by id ${id}`,
+        errorGettingAllUsers: `Error while getting All Users`,
+
 
 
     },

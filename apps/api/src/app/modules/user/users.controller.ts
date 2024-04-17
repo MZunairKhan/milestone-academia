@@ -107,8 +107,16 @@ export class UsersController {
         totalPages,
       };
     }catch(error){
-      console.log(error);
+      const log = {
+        methodName: UsersController.prototype.findPaginatedUser.name,
+        className: UsersController.name,
+        message: LoggingMessages.users.error.errorGettingPaginatedUser,
+        stackTrace: '',
+        error: error
+      }
+      this.logger.error(log);
       throw error;
+    
     }
 
     
@@ -290,8 +298,15 @@ export class UsersController {
       return await this.instructorsService.findOneWithRelations(instructorId);
 
     }catch(error){
-  console.log(error);
-  throw error
+      const log = {
+        methodName: UsersController.prototype.findOneByInstructorId.name,
+        className: UsersController.name,
+        message: LoggingMessages.users.error.errorGettingInstructorById(instructorId),
+        stackTrace: '',
+        error: error
+      }
+      this.logger.error(log);
+      throw error;
     }
   }
 
@@ -358,8 +373,15 @@ export class UsersController {
   
       return dto;
     }catch(error){
-      console.log(error);
-      throw error
+      const log = {
+        methodName: UsersController.prototype.findOne.name,
+        className: UsersController.name,
+        message: LoggingMessages.users.error.errorGettingUserData(request.user['sub']),
+        stackTrace: '',
+        error: error
+      }
+      this.logger.error(log);
+      throw error;
     }
     
   }
@@ -374,8 +396,15 @@ export class UsersController {
       .filter(user => user.email !== request?.user?.upn)
       .map(user => this.usersService.mapToDto(user));
     }catch(error){
-      console.log(error);
-      throw error
+      const log = {
+        methodName: UsersController.prototype.findAll.name,
+        className: UsersController.name,
+        message: LoggingMessages.users.error.errorGettingAllUsers,
+        stackTrace: '',
+        error: error
+      }
+      this.logger.error(log);
+      throw error;
     }
    
   }
@@ -388,8 +417,15 @@ export class UsersController {
       await this.addExtendedUserData(dto, user);
       return dto;
     }catch(error){
-      console.log(error);
-      throw error
+      const log = {
+        methodName: UsersController.prototype.findOneById.name,
+        className: UsersController.name,
+        message: LoggingMessages.users.error.errorGettingUserById(id),
+        stackTrace: '',
+        error: error
+      }
+      this.logger.error(log);
+      throw error;
     }
     
   }
