@@ -42,7 +42,6 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
         stackTrace: stackTrace
       }
       this.logger.error(log)
-      this.logger.saveLog(log)
      }
   
     @Post()

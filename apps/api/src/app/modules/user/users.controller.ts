@@ -55,7 +55,6 @@ export class UsersController {
       stackTrace: stackTrace
     }
     this.logger.error(log)
-    this.logger.saveLog(log)
    }
 
   @Post()
