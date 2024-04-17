@@ -1,7 +1,30 @@
 export const LoggingMessages = {
   users: {
-    info: 'This is users Info Log',
-    error: 'This is error log',
+    info: {
+        create: (id: string)=> `User with id ${id} has been created successfully`,
+        createUser: (id: string)=> `User with id ${id} has been created successfully`,
+        createStudent: (id: string)=> `Student with id ${id} has been created successfully`,
+        forgotPasswordSuccess: (email: string)=> `Password has been changed successfully and new password sent to ${email}`,
+        courseAssignedtoInstructorSuccessfully: (courseId: string , instructorId: string)=> `Course with id ${courseId} has been Assigned to Instructor with id ${instructorId} successfully.`,
+        updateUserSuccess: (id: string)=> `User With id ${id} Updated Successfully.`,
+        deleteUserSuccess: (id: string)=> `User with id ${id} deleted Successfully`
+    },
+    error: {
+        userCreationError: 'Error while creating user ',
+        studentCreationError: 'Error while creating student ',
+        forgotPasswordFailed: (email: string)=>  `Error while sending new password to email: ${email}`,
+        courseAssignedtoInstructorFailed: (courseId: string , instructorId: string)=> `Error while assigning course with id ${courseId} to instructor with id ${instructorId}.`,
+        updateUserFailed: (id: string)=> `Error while updating user with id ${id} Failed`,
+        deleteUserFailed: (id: string)=> `Error while deleting User with id ${id} Failed`,
+        errorGettingPaginatedUser: `Error while getting paginated users`,
+        errorGettingInstructorById: (id:string)=> `Error while getting Instructor by id ${id} `,
+        errorGettingUserById: (id:string)=> `Error while getting User by id ${id} `,
+        errorGettingUserData: (id: string)=> `Error while getting UserData by id ${id}`,
+        errorGettingAllUsers: `Error while getting All Users`,
+
+
+
+    },
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
