@@ -17,38 +17,64 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
 import { USER_ROLE_SET, BaseRole } from '@milestone-academia/api-interfaces';
 import { RefreshJwtAuthGuard } from './refresh-jwt-auth.guard';
+import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
+import { LoggerService } from 'apps/api/src/logger/logger.service ';
   
 @ApiTags('Auth')
 @Controller()
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService,
+              private readonly logger: LoggerService
+    ) {}
 
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) response: Response
   ): Promise<any> {
-    const user = await this.authService.validateUser(loginDto);
+    try{
+      const user = await this.authService.validateUser(loginDto);
 
-    if (user) {
-      const userData = await this.authService.login(user);
-      const cookieSettings: CookieOptions =
-        this.authService.prepareCookieSettings();
-
-      response.cookie(
-        process.env.JWT_ACCESS_TOKEN_KEY,
-        userData.access_token,
-        cookieSettings
-      );
-       
-      return {
-        userData: userData.tokenData,
-        refresh_token: userData.refresh_token
+      if (user) {
+        const userData = await this.authService.login(user);
+        const cookieSettings: CookieOptions =
+          this.authService.prepareCookieSettings();
+  
+        response.cookie(
+          process.env.JWT_ACCESS_TOKEN_KEY,
+          userData.access_token,
+          cookieSettings
+        );
+        const log = {
+          methodName: AuthController.prototype.login.name,
+          className: AuthController.name,
+          message:  LoggingMessages.auth.info.loginSuccess(loginDto.userName),
+          level: LoggerEnum.Info
+          
+        }
+        this.logger.info(log);
+        this.logger.saveLog(log)
+        return {
+          userData: userData.tokenData,
+          refresh_token: userData.refresh_token
+        }
+        
+      } else {
+        throw new BadRequestException('invalid username and/or password');
       }
-      
-    } else {
-      throw new BadRequestException('invalid username and/or password');
+    }catch(error){
+      const log = {
+        methodName: AuthController.prototype.login.name,
+          className: AuthController.name,
+        message: LoggingMessages.auth.error.loginFailed(loginDto.userName),
+        stackTrace: '',
+        error: error
+      }
+      this.logger.error(log);
+      throw error;
     }
+   
   }
 
   @UseGuards(RefreshJwtAuthGuard)
@@ -56,6 +82,7 @@ export class AuthController {
   async refreshToken(@Body() refresh:string ,
   @Res({ passthrough: true }) response: Response,
   @Req() request) {
+    try{
       const userData = await this.authService.refreshJwt(request.user)
       const cookieSettings: CookieOptions =
         this.authService.prepareCookieSettings();
@@ -69,6 +96,18 @@ export class AuthController {
       return {
         userData: userData.tokenData,
       }
+    }catch(error){
+      const log = {
+        methodName: AuthController.prototype.refreshToken.name,
+          className: AuthController.name,
+        message: LoggingMessages.auth.error.refreshTokenFailed(request.id),
+        stackTrace: '',
+        error: error
+      }
+      this.logger.error(log);
+      throw error
+    }
+     
     
   }
 
@@ -84,8 +123,33 @@ export class AuthController {
     @Body() resetPasswordDto: ResetPasswordDto,
     @Req() request
   ) {
-    const userName = request.username;
-    return this.authService.resetPassword(resetPasswordDto, userName);
+    try{
+      const userName = request.username;
+      const response  =  this.authService.resetPassword(resetPasswordDto, userName);
+
+      const log = {
+        methodName: AuthController.prototype.resetPassword.name,
+        className: AuthController.name,
+        message:  LoggingMessages.auth.info.resetPasswordSuccess(request.id),
+        level: LoggerEnum.Info
+        
+      }
+      this.logger.info(log);
+      this.logger.saveLog(log)
+
+      return response
+    }catch(error){
+      const log = {
+        methodName: AuthController.prototype.resetPassword.name,
+          className: AuthController.name,
+        message: LoggingMessages.auth.error.resetPasswordFailed(request.id),
+        stackTrace: '',
+        error: error
+      }
+      this.logger.error(log);
+      throw error;
+    }
+   
   }
 
   @UseGuards(JwtAuthGuard)
