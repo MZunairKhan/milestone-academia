@@ -6,23 +6,23 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 import { APIS } from '../../../environments/api-routes';
 import { StorageService } from '../../shared/services/storage.service';
 
-import { AuthData } from '../models/auth.model';
 import { AUTH_CONSTANTS } from '../auth.constants';
 import { USER_CONSTANTS } from '../../user/constants/user.constants';
+import { InternalAuthData } from '@milestone-academia/api-interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  authSource$: BehaviorSubject<AuthData> = new BehaviorSubject<AuthData>(
+  authSource$: BehaviorSubject<InternalAuthData> = new BehaviorSubject<InternalAuthData>(
     Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT)
   );
 
-  authData$: Observable<AuthData> = this.authSource$.asObservable()
+  authData$: Observable<InternalAuthData> = this.authSource$.asObservable()
   .pipe(
-    map((value: AuthData) => {
-      const userData: AuthData = 
+    map((value: InternalAuthData) => {
+      const userData: InternalAuthData = 
         value?.upn ? value : this.storageService.getValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
       return userData;
     })
@@ -31,7 +31,7 @@ export class AuthService {
   loggedIn$: Observable<boolean> = this.authSource$.asObservable()
   .pipe(
     map(value => {
-      const userData: AuthData | null = 
+      const userData: InternalAuthData | null = 
         value.upn ? value : this.storageService.getValue(AUTH_CONSTANTS.STORAGE.AUTH_DATA);
       return userData?.upn ? true : false;
     })
@@ -104,7 +104,7 @@ export class AuthService {
     this.authSource$.next(Object.create(AUTH_CONSTANTS.STORAGE.DEFAULT_AUTH_OBJECT));
   }
   
-  public updateAuthData(value: AuthData) {
+  public updateAuthData(value: InternalAuthData) {
     this.authSource$.next(value);
   }
 

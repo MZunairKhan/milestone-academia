@@ -6,7 +6,7 @@ import { Course } from './entity/course.entity';
 import { CreateCourseDTO } from './dto/create-course.dto';
 import { readCourseDTO } from './dto/read-course.dto';
 import { SearchCourseDTO } from './dto/search-course.dto';
-import { returnPaginatedCourseDTOBase } from '@milestone-academia/api-interfaces';
+import { CreateCourseDTOBase, returnPaginatedCourseDTOBase } from '@milestone-academia/api-interfaces';
   
 @ApiTags('Course')
 @Controller()
@@ -17,11 +17,6 @@ export class CoursesController {
   async create(@Body() createSubjectDto: CreateCourseDTO): Promise<Course> {
     const course = await this.coursesService.create(createSubjectDto);
     return course;
-    // if (course) {
-    //   return `Course ${course.name} created sucessfully`
-    // } else {
-    //   return `Had an issue creating Course ${course.name}`
-    // }
   }
 
   @Get()
@@ -35,20 +30,16 @@ export class CoursesController {
     @Body() searchCourseDTO: SearchCourseDTO,
   ):  Promise<returnPaginatedCourseDTOBase> {
 
-    
-    const [courses , total] = await this.coursesService.findCoursesWithFilterAndPagination( searchCourseDTO);
-    
+    const [courses , total] = await this.coursesService.findCoursesWithFilterAndPagination( searchCourseDTO);    
     const {limit , page} = searchCourseDTO ;
-
     const totalPages = Math.ceil(total / searchCourseDTO.limit);
 
-
     return {
-      courses,
+      courses: courses.map(c => this.coursesService.mapToDto(c)),
       total,
       page,
       limit,
-      totalPages,
+      totalPages
     };
   }
 

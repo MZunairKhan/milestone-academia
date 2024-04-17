@@ -36,13 +36,17 @@ export class AuthService {
       upn: user.email,
       userType: user.userType,
       username: user.userName,
+      presenceType: user.presenceType
     },{ expiresIn: process.env.JWT_EXPIRES_IN});
+
     const refresh_token = this.jwtService.sign({ 
       sub: user.id,
       upn: user.email,
       userType: user.userType,
       username: user.userName,
+      presenceType: user.presenceType
     },{ expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN });
+
     const tokenData = this.jwtService.decode(access_token);
 
     return {
