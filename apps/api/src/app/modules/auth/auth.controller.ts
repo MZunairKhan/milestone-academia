@@ -28,6 +28,29 @@ export class AuthController {
               private readonly logger: LoggerService
     ) {}
 
+    infoLog(methodName: string ,  message: string){
+      const log =  {
+        className: AuthController.name,
+        methodName: methodName ,
+        message: message,
+        level: LoggerEnum.Info
+      }
+      this.logger.info(log)
+      this.logger.saveLog(log)
+     }
+  
+     errorLog(methodName: string ,  message: string , error: any, stackTrace: any){
+      const log =  {
+        className: AuthController.name,
+        methodName: methodName ,
+        message: message,
+        error: error,
+        stackTrace: stackTrace
+      }
+      this.logger.error(log)
+
+     }
+
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,
@@ -46,15 +69,9 @@ export class AuthController {
           userData.access_token,
           cookieSettings
         );
-        const log = {
-          methodName: AuthController.prototype.login.name,
-          className: AuthController.name,
-          message:  LoggingMessages.auth.info.loginSuccess(loginDto.userName),
-          level: LoggerEnum.Info
-          
-        }
-        this.logger.info(log);
-        this.logger.saveLog(log)
+      
+        this.infoLog(AuthController.prototype.login.name,
+          LoggingMessages.auth.info.loginSuccess(loginDto.userName),)
         return {
           userData: userData.tokenData,
           refresh_token: userData.refresh_token
@@ -64,14 +81,9 @@ export class AuthController {
         throw new BadRequestException('invalid username and/or password');
       }
     }catch(error){
-      const log = {
-        methodName: AuthController.prototype.login.name,
-          className: AuthController.name,
-        message: LoggingMessages.auth.error.loginFailed(loginDto.userName),
-        stackTrace: '',
-        error: error
-      }
-      this.logger.error(log);
+      this.errorLog(AuthController.prototype.login.name,
+        LoggingMessages.auth.error.loginFailed(loginDto.userName),
+        error,'')
       throw error;
     }
    
@@ -97,14 +109,9 @@ export class AuthController {
         userData: userData.tokenData,
       }
     }catch(error){
-      const log = {
-        methodName: AuthController.prototype.refreshToken.name,
-          className: AuthController.name,
-        message: LoggingMessages.auth.error.refreshTokenFailed(request.id),
-        stackTrace: '',
-        error: error
-      }
-      this.logger.error(log);
+      this.errorLog(AuthController.prototype.refreshToken.name,
+        LoggingMessages.auth.error.refreshTokenFailed(request.id),
+        error,'')
       throw error
     }
      
@@ -127,26 +134,14 @@ export class AuthController {
       const userName = request.username;
       const response  =  this.authService.resetPassword(resetPasswordDto, userName);
 
-      const log = {
-        methodName: AuthController.prototype.resetPassword.name,
-        className: AuthController.name,
-        message:  LoggingMessages.auth.info.resetPasswordSuccess(request.id),
-        level: LoggerEnum.Info
-        
-      }
-      this.logger.info(log);
-      this.logger.saveLog(log)
+      this.infoLog(AuthController.prototype.resetPassword.name,
+        LoggingMessages.auth.info.resetPasswordSuccess(request.id), )
 
       return response
     }catch(error){
-      const log = {
-        methodName: AuthController.prototype.resetPassword.name,
-          className: AuthController.name,
-        message: LoggingMessages.auth.error.resetPasswordFailed(request.id),
-        stackTrace: '',
-        error: error
-      }
-      this.logger.error(log);
+      this.errorLog(AuthController.prototype.resetPassword.name,
+        LoggingMessages.auth.error.resetPasswordFailed(request.id),
+        error,'')
       throw error;
     }
    
