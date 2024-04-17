@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CourseService } from '../../course/services/course.service';
 
 @Component({
   selector: 'milestone-dashboard-courses',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard-courses.component.scss'],
 })
 export class DashboardCoursesComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private courseService: CourseService,
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.courseService.UserCourses$.subscribe(v => console.log(v))
+  }
 }

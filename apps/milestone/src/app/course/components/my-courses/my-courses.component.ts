@@ -47,9 +47,7 @@ export class MyCoursesComponent implements OnInit {
   
   getLoggedInUserCourses(){
     const userData = this.storageService.getValue('userData');
-    const userId = userData.userId;
-    this.courseService
-    .getCoursesByUserId(userId)
+    this.courseService.getCoursesByUserId(userData.userId)
     .subscribe((value: any) => {
       console.log(value);
       this.allCourses = value.map((v: any) => v.course);
