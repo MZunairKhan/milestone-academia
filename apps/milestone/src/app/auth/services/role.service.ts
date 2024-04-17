@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserRoles, UserType } from '@milestone-academia/api-interfaces';
+import { PresenceType, UserRoles, UserType } from '@milestone-academia/api-interfaces';
 import { AuthService } from './auth.service';
 import { map } from 'rxjs';
 
@@ -22,8 +22,14 @@ export class RoleService {
     return roles.every(role => providedRoles.includes(role));
   }
 
+  userType$ = this.authData.pipe(map(v => v.userType));
+  presenceType$ = this.authData.pipe(map(v => v.presenceType));
+
   isStaff$ = this.authData.pipe(map(v => v.userType === UserType.Staff));
   isMaster$ = this.authData.pipe(map(v => v.userType === UserType.Master));
   isStudent$ = this.authData.pipe(map(v => v.userType === UserType.Student));
   isInstructor$ = this.authData.pipe(map(v => v.userType === UserType.Instructor));
+
+  isOnline$ = this.authData.pipe(map(v => v.presenceType === PresenceType.Online));
+  isInPerson$ = this.authData.pipe(map(v => v.presenceType === PresenceType.InPerson));
 }

@@ -9,6 +9,7 @@ import { CourseContentService } from './courseContent.service';
 import { CourseFeatureService } from './courseFeature.service';
 import { CourseDurationService } from '../../Booking/course-duration/courseDuration.service';
 import { SearchCourseDTO } from '../dto/search-course.dto';
+import { CourseLevel, CourseType, CreateCourseDTOBase } from '@milestone-academia/api-interfaces';
 
 @Injectable()
 export class CourseService {
@@ -62,7 +63,10 @@ export class CourseService {
     const pages = page ? page : 1
     const limits = limit ? limit : 1
 
-    const queryBuilder = this.coursesRepository.createQueryBuilder('course');
+    const queryBuilder = this.coursesRepository
+    .createQueryBuilder('course')
+    .leftJoinAndSelect('course.subject', 'subject')
+    .leftJoinAndSelect('course.courseDuration', 'courseDuration')
 
     if (courseLevel && courseLevel.length > 0) {
       queryBuilder.where('course.courseLevel IN (:...courseLevels)', { courseLevels: courseLevel });
@@ -94,5 +98,19 @@ export class CourseService {
 
   async remove(id: string): Promise<void> {
     await this.coursesRepository.delete(id);
+  }
+
+  mapToDto(course: Course): CreateCourseDTOBase {
+    return {
+      name: course.name,
+      subjectId: course.subject.id,
+      courseDurationId: course.courseDuration.id,
+      courseType: course.courseType as CourseType,
+      courseLevel: course.courseLevel as CourseLevel,
+      description: course.description,
+      subText: course.subText,
+      details: course.details,
+      price: course.price
+    }
   }
 }

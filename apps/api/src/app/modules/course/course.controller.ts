@@ -77,16 +77,14 @@ export class CoursesController {
     const [courses , total] = await this.coursesService.findCoursesWithFilterAndPagination( searchCourseDTO);
     
     const {limit , page} = searchCourseDTO ;
-
     const totalPages = Math.ceil(total / searchCourseDTO.limit);
 
-
     return {
-      courses,
+      courses: courses.map(c => this.coursesService.mapToDto(c)),
       total,
       page,
       limit,
-      totalPages,
+      totalPages
     };
   }catch(error){
     this.errorLog(CoursesController.prototype.findPaginatedCourses.name,

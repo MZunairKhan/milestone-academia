@@ -1,4 +1,5 @@
-import { PresenceType, UserType } from "@milestone-academia/api-interfaces";
+import { UserType, PresenceType } from "../enums";
+
 
 export interface InternalAuthData {
     upn: string;

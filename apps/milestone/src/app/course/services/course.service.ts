@@ -10,36 +10,9 @@ import { CreateCourseDTOBase, CreateMcqsDTOBase } from '@milestone-academia/api-
 })
 export class CourseService {
 
-  userSource$: BehaviorSubject<any> = new BehaviorSubject<any>({}
-    // Object.create(USER_CONSTANTS.DEFAULT_USER_OBJECT)
-  );
+  UserCoursesSources$: BehaviorSubject<CreateCourseDTOBase[]> = new BehaviorSubject<CreateCourseDTOBase[]>([]);
 
-  userData$: Observable<any> = this.userSource$.asObservable()
-  .pipe(
-    map((value: any) => {
-      const userData: any = 
-        value?.userName ? value : {};
-      return userData;
-    })
-  );
-
-  studentData$: Observable<any> = this.userSource$.asObservable()
-  .pipe(
-    map((value: any) => {
-      const userData: any = 
-        value?.userName ? value : {};
-      return userData.userType === 'Student' ? userData.studentData : {};
-    })
-  );
-
-  isStudent$: Observable<boolean> = this.userSource$.asObservable()
-  .pipe(
-    map((value: any) => {
-      const userData: any = 
-        value?.userName ? value : {};
-      return userData.userType === 'Student';
-    })
-  );
+  UserCourses$: Observable<CreateCourseDTOBase[]> = this.UserCoursesSources$.asObservable();
   
   constructor(
     private http: HttpClient,
@@ -81,9 +54,5 @@ export class CourseService {
     const {id, ...rest} = data;
     const updatedData = {...rest}
     return  this.http.patch<any>(APIS.evaluation.updateMcq(id), updatedData)
-  }
-
-  private updateUserData(value: any) {
-    this.userSource$.next(value);
   }
 }
