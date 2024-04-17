@@ -35,8 +35,16 @@ export const LoggingMessages = {
     debug: 'This is Debug Log'
   },
   auth: {
-    info: 'This is auth Info Log',
-    error: 'This is error log',
+    info: {
+      loginSuccess: (userName: string)=> `User with userName ${userName} Logged In Successfully`,
+      resetPasswordSuccess: (id: string)=> `User with id ${id} resets password Successfully `
+    },
+    error: {
+      loginFailed: (userName: string)=> `User with username ${userName} logged in failed`,
+      refreshTokenFailed: (id: string)=> `Refresh Token Failed for UserId ${id} `,
+      resetPasswordFailed: (id: string)=> `User with id ${id} resets password Failed `
+
+    },
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },

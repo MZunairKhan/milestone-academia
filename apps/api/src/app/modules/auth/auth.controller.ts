@@ -17,38 +17,76 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
 import { USER_ROLE_SET, BaseRole } from '@milestone-academia/api-interfaces';
 import { RefreshJwtAuthGuard } from './refresh-jwt-auth.guard';
+import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
+import { LoggerService } from 'apps/api/src/logger/logger.service ';
   
 @ApiTags('Auth')
 @Controller()
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService,
+              private readonly logger: LoggerService
+    ) {}
+
+    infoLog(methodName: string ,  message: string){
+      const log =  {
+        className: AuthController.name,
+        methodName: methodName ,
+        message: message,
+        level: LoggerEnum.Info
+      }
+      this.logger.info(log)
+      this.logger.saveLog(log)
+     }
+  
+     errorLog(methodName: string ,  message: string , error: any, stackTrace: any){
+      const log =  {
+        className: AuthController.name,
+        methodName: methodName ,
+        message: message,
+        error: error,
+        stackTrace: stackTrace
+      }
+      this.logger.error(log)
+
+     }
 
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) response: Response
   ): Promise<any> {
-    const user = await this.authService.validateUser(loginDto);
+    try{
+      const user = await this.authService.validateUser(loginDto);
 
-    if (user) {
-      const userData = await this.authService.login(user);
-      const cookieSettings: CookieOptions =
-        this.authService.prepareCookieSettings();
-
-      response.cookie(
-        process.env.JWT_ACCESS_TOKEN_KEY,
-        userData.access_token,
-        cookieSettings
-      );
-       
-      return {
-        userData: userData.tokenData,
-        refresh_token: userData.refresh_token
-      }
+      if (user) {
+        const userData = await this.authService.login(user);
+        const cookieSettings: CookieOptions =
+          this.authService.prepareCookieSettings();
+  
+        response.cookie(
+          process.env.JWT_ACCESS_TOKEN_KEY,
+          userData.access_token,
+          cookieSettings
+        );
       
-    } else {
-      throw new BadRequestException('invalid username and/or password');
+        this.infoLog(AuthController.prototype.login.name,
+          LoggingMessages.auth.info.loginSuccess(loginDto.userName),)
+        return {
+          userData: userData.tokenData,
+          refresh_token: userData.refresh_token
+        }
+        
+      } else {
+        throw new BadRequestException('invalid username and/or password');
+      }
+    }catch(error){
+      this.errorLog(AuthController.prototype.login.name,
+        LoggingMessages.auth.error.loginFailed(loginDto.userName),
+        error,'')
+      throw error;
     }
+   
   }
 
   @UseGuards(RefreshJwtAuthGuard)
@@ -56,6 +94,7 @@ export class AuthController {
   async refreshToken(@Body() refresh:string ,
   @Res({ passthrough: true }) response: Response,
   @Req() request) {
+    try{
       const userData = await this.authService.refreshJwt(request.user)
       const cookieSettings: CookieOptions =
         this.authService.prepareCookieSettings();
@@ -69,6 +108,13 @@ export class AuthController {
       return {
         userData: userData.tokenData,
       }
+    }catch(error){
+      this.errorLog(AuthController.prototype.refreshToken.name,
+        LoggingMessages.auth.error.refreshTokenFailed(request.id),
+        error,'')
+      throw error
+    }
+     
     
   }
 
@@ -84,8 +130,21 @@ export class AuthController {
     @Body() resetPasswordDto: ResetPasswordDto,
     @Req() request
   ) {
-    const userName = request.username;
-    return this.authService.resetPassword(resetPasswordDto, userName);
+    try{
+      const userName = request.username;
+      const response  =  this.authService.resetPassword(resetPasswordDto, userName);
+
+      this.infoLog(AuthController.prototype.resetPassword.name,
+        LoggingMessages.auth.info.resetPasswordSuccess(request.id), )
+
+      return response
+    }catch(error){
+      this.errorLog(AuthController.prototype.resetPassword.name,
+        LoggingMessages.auth.error.resetPasswordFailed(request.id),
+        error,'')
+      throw error;
+    }
+   
   }
 
   @UseGuards(JwtAuthGuard)
