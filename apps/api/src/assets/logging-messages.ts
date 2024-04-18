@@ -43,8 +43,19 @@ export const LoggingMessages = {
     debug: 'This is Debug Log'
   },
   subject: {
-    info: 'This is subject Info Log',
-    error: 'This is error log',
+    info: {
+      create: (id: string)=> `subject with id ${id} created successfully`,
+      delete: (id: string)=> `subject with id ${id} deleted successfully`,
+      updateCourseSuccess: (id: string)=> `subject with id ${id} updated successfully`
+    },
+    error: {
+      subjectCreationError: `Error while subject Creation `,
+      errorFindingAll: `Error while getting all subject`,
+      errorFinfingOneById: (id: string)=> `Error while getting subject with id  ${id}`,
+      deleteSubjectFailed: (id: string)=> `subject with id ${id} deleted Failed`,
+      updateSubjectFailed: (id: string)=> `subject with id ${id} updated Failed`
+
+    },
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
@@ -160,15 +171,50 @@ export const LoggingMessages = {
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
-  durations: {
-    info: 'This is durations Info Log',
-    error: 'This is error log',
+  email: {
+    info: {
+      emailSentSuccessfully: (email: string)=> `Email sent to ${email} successfully`
+    },
+    error: {
+      emailFailure: (email: string)=> `Error while sending email to ${email}`
+
+    },
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
   attendance: {
-    info: 'This is attendance Info Log',
-    error: 'This is error log',
+    info: {
+      create: (id: string)=> `attendance with id ${id} has been created successfully`,
+    
+
+    },
+    error: {
+      attendanceCreationError: `Error while creating attendance`,
+      errorFindingAllAttendance: `Error Finding All attendance`,
+      errorFindingOneAttendance: (studentId: string, courseId: string , instructorId: string)=> `Error findind attendance with student id:: ${studentId}, instructorId :${instructorId} and courseId ${courseId}  `,
+      errorFindingAttendanceByCourseAndInstructorId: ( courseId: string , instructorId: string)=> `Error findind attendance with instructorId :${instructorId} and courseId ${courseId}  `,
+      errorGetStudentAttendanceByCourse: ( courseId: string , studentId: string)=> `Error findind attendance with studentId :${studentId} and courseId ${courseId}  `,
+      errorFindingOneById: (id: string)=> `Error while getting attendance with id  ${id}`,
+
+    },
+    warn: 'This is warn log',
+    debug: 'This is Debug Log'
+  },
+  onsiteEvaluation: {
+    info: {
+     
+        create: (id: string)=> `onsiteEvaluation with id ${id} created successfully`,
+        delete: (id: string)=> `onsiteEvaluation with id ${id} deleted successfully`,
+        updateOnsiteEvaluationSuccess: (id: string)=> `onsiteEvaluation with id ${id} updated successfully`
+      },
+      error: {
+        onsiteEvaluationCreationError: `Error while onsiteEvaluation Creation `,
+        errorFindingAll: `Error while getting all onsiteEvaluations`,
+        errorFinfingOneById: (id: string)=> `Error while getting onsiteEvaluation with id  ${id}`,
+        deleteOnsiteEvaluationFailed: (id: string)=> `onsiteEvaluation with id ${id} deletion Failed`,
+        updateOnsiteEvaluationFailed: (id: string)=> `onsiteEvaluation with id ${id} updated Failed`
+  
+      },
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
