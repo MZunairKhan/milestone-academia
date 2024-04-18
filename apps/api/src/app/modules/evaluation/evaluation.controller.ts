@@ -40,6 +40,7 @@ export class EvaluationController {
         stackTrace: stackTrace
       }
       this.logger.error(log)
+      throw error
      }
 
   @Post('create-mcqs')
@@ -55,7 +56,7 @@ export class EvaluationController {
     }catch(error){
       this.errorLog(EvaluationController.prototype.createMcqs.name,
         LoggingMessages.evaluation.error.mcqCreationError,error,'')
-        throw error
+        
     }
   }
 
@@ -67,7 +68,7 @@ export class EvaluationController {
     }catch(error){
       this.errorLog(EvaluationController.prototype.findAllMcqs.name,
         LoggingMessages.evaluation.error.errorFindingAllMcqs,error,'')
-        throw error
+        
     }
   }
 
@@ -80,7 +81,7 @@ export class EvaluationController {
   }catch(error){
     this.errorLog(EvaluationController.prototype.findOneMcq.name,
       LoggingMessages.evaluation.error.errorFindingOneMcqs(id),error,'')
-      throw error
+      
   }
   }
 
@@ -97,7 +98,7 @@ export class EvaluationController {
     }catch(error){
       this.errorLog(EvaluationController.prototype.remove.name,
         LoggingMessages.evaluation.error.errorMcqDeletion(id),error,'')
-        throw error
+        
     }
   }
 
@@ -123,7 +124,7 @@ export class EvaluationController {
    }catch(error){
     this.errorLog(EvaluationController.prototype.findPaginatedMcqs.name,
       LoggingMessages.evaluation.error.errorfindPaginatedMcqs,error,'')
-      throw error
+      
    }
     
     
@@ -151,7 +152,7 @@ export class EvaluationController {
     }catch(error){
       this.errorLog(EvaluationController.prototype.updateMcqs.name,
         LoggingMessages.evaluation.error.errorUpdateMcqs(id),error,'')
-        throw error
+        
     }
    
   }
