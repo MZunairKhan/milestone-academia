@@ -66,6 +66,23 @@ export const LoggingMessages = {
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
+  courseBooking: {
+    info: {
+      create: (id: string)=> `courseBooking with id ${id} created successfully`,
+      delete: (id: string)=> `courseBooking with id ${id} deleted successfully`,
+      updateCourseBookingSuccess: (id: string)=> `courseBooking with id ${id} updated successfully`
+    },
+    error: {
+      courseBookingCreationError: `Error while courseBooking Creation `,
+      errorFindingAll: `Error while getting all courseBooking`,
+      errorFinfingOneById: (id: string)=> `Error while getting courseBooking with id  ${id}`,
+      deleteCourseBookingFailed: (id: string)=> `courseBooking with id ${id} deletion Failed`,
+      updateCourseBookingFailed: (id: string)=> `courseBooking with id ${id} updated Failed`
+
+    },
+    warn: 'This is warn log',
+    debug: 'This is Debug Log'
+  },
   booking: {
     info: 'This is booking Info Log',
     error: 'This is error log',
