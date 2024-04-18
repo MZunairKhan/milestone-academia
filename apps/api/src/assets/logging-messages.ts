@@ -51,14 +51,17 @@ export const LoggingMessages = {
   course: {
     info: {
       create: (id: string)=> `Course with id ${id} created successfully`,
-      delete: (id: string)=> `Course with id ${id} deleted successfully`
+      delete: (id: string)=> `Course with id ${id} deleted successfully`,
+      updateCourseSuccess: (id: string)=> `Course with id ${id} updated successfully`
     },
     error: {
       courseCreationError: `Error while Course Creation `,
       errorFindingAll: `Error while getting all courses`,
       errorfindPaginatedCourses: `Error While getting paginated courses`,
       errorFinfingOneById: (id: string)=> `Error while getting course with id  ${id}`,
-      deleteCourseFailed: (id: string)=> `Course with id ${id} deleted Failed`
+      deleteCourseFailed: (id: string)=> `Course with id ${id} deleted Failed`,
+      updateCourseFailed: (id: string)=> `Course with id ${id} updated Failed`
+
     },
     warn: 'This is warn log',
     debug: 'This is Debug Log'

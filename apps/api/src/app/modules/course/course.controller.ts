@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Query, } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Query, Patch, BadRequestException, } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
 import { CourseService } from './services/course.service';
@@ -10,6 +10,7 @@ import { returnPaginatedCourseDTOBase } from '@milestone-academia/api-interfaces
 import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { UpdateCourseDto } from './dto/update-course.dto';
   
 @ApiTags('Course')
 @Controller()
@@ -99,11 +100,38 @@ export class CoursesController {
  async findOne(@Param('id') id: string): Promise<Course> {
     try{
       return await this.coursesService.findOne(id);
-
     }catch(error){
+      console.log('ERROOORRR');
       this.errorLog(CoursesController.prototype.findOne.name,
         LoggingMessages.course.error.errorFinfingOneById(id),error,'')
         throw error
+    }
+  }
+
+  @Patch('update-course/:id')
+  async updateCourse(
+    @Param('id') id: string,
+    @Body() updateCourseDto: UpdateCourseDto,
+  ) {
+    try{
+    const course = await this.coursesService.findOne(id);
+    if (!course) {
+      throw new BadRequestException('invalid Course id');
+    }
+    await this.coursesService.update(course.id, updateCourseDto);
+
+    this.infoLog(CoursesController.prototype.updateCourse.name,
+      LoggingMessages.course.info.updateCourseSuccess(id))
+
+    return {
+      Success: true,
+      Message: "Updated Successfully"
+    }
+    }catch(error){
+      this.errorLog(CoursesController.prototype.updateCourse.name,
+        LoggingMessages.course.error.updateCourseFailed(id),
+        error,'' )
+      throw error;
     }
   }
 

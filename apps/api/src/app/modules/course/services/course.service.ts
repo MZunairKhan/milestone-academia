@@ -10,6 +10,7 @@ import { CourseFeatureService } from './courseFeature.service';
 import { CourseDurationService } from '../../Booking/course-duration/courseDuration.service';
 import { SearchCourseDTO } from '../dto/search-course.dto';
 import { CourseLevel, CourseType, CreateCourseDTOBase } from '@milestone-academia/api-interfaces';
+import { UpdateCourseDto } from '../dto/update-course.dto';
 
 @Injectable()
 export class CourseService {
@@ -55,6 +56,11 @@ export class CourseService {
     return this.coursesRepository.find({relations: ['courseDuration', 'content', 'features', 'subject']});
   }
 
+  async update(id: string, updateCourseDto: UpdateCourseDto) {
+  
+    return await this.coursesRepository.update(id, updateCourseDto);
+   }
+
   async findCoursesWithFilterAndPagination(
     searchCourseDTO : SearchCourseDTO
   ) {
@@ -92,8 +98,12 @@ export class CourseService {
     return await queryBuilder.getManyAndCount();
   }
 
-  findOne(id: string): Promise<Course> {
-    return this.coursesRepository.findOne({relations: ['courseDuration', 'content', 'features', 'subject'], where: {id: id}});
+async findOne(id: string): Promise<Course> {
+    const course =  await this.coursesRepository.findOne({relations: ['courseDuration', 'content', 'features', 'subject'], where: {id: id}});
+    if(!course){
+      throw new BadRequestException(`Course with id ${id} not found`);
+    }
+    return course
   }
 
   async remove(id: string): Promise<void> {
