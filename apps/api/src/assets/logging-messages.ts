@@ -90,8 +90,20 @@ export const LoggingMessages = {
     debug: 'This is Debug Log'
   },
   evaluation: {
-    info: 'This is evaluation Info Log',
-    error: 'This is error log',
+    info: {
+      createMcq: (id: string)=> `Mcq with id ${id} has been created successfully`,
+      mcqDeleted: (id: string)=> `Mcq with id ${id} has been deleted successfully`,
+      mcqUpdated: (id: string)=> `Mcq with id ${id} has been Updated successfully`,
+
+    },
+    error: {
+      mcqCreationError: `Error while creating Evaluation`,
+      errorFindingAllMcqs: `Error Finding All Mcqs`,
+      errorFindingOneMcqs: (id: string)=> `Error findind mcq with id ${id}`,
+      errorMcqDeletion: (id: string)=> `Error while deleting Mcq with id ${id} `,
+      errorfindPaginatedMcqs: `Error in finding paginated mcqs`,
+      errorUpdateMcqs: (id: string)=> `Error while updating Mcq with id ${id} `,
+    },
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
