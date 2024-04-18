@@ -42,7 +42,7 @@ export class BookingsController {
         stackTrace: stackTrace
       }
       this.logger.error(log);
-      
+      throw error
      }
 
   @Post()
