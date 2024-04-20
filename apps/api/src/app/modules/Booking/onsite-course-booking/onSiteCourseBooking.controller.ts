@@ -42,6 +42,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
         stackTrace: stackTrace
       }
       this.logger.error(log)
+      throw error;
      }
   
     @Post()
@@ -60,7 +61,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
         this.errorLog(OnsiteCourseBookingController.prototype.create.name,
           LoggingMessages.onsiteCourseBooking.error.onsiteCourseBookingCreationError,
           error, '')
-        throw error;
+        
 
       }
     }
@@ -74,7 +75,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
         this.errorLog(OnsiteCourseBookingController.prototype.findAll.name,
           LoggingMessages.onsiteCourseBooking.error.errorGettingAllonsiteCourseBooking,
           error,'')
-        throw error;
+        
       }
     }
   
@@ -87,7 +88,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
         this.errorLog(OnsiteCourseBookingController.prototype.findOne.name,
           LoggingMessages.onsiteCourseBooking.error.errorGettingById(id),
           error,'')
-        throw error;
+        
       }
     }
   
@@ -101,7 +102,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
           LoggingMessages.onsiteCourseBooking.error.errorGettingByStudentId(studentId),
           error,''
           )
-        throw error;
+        
       }
     }
 
@@ -114,7 +115,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
       this.errorLog(OnsiteCourseBookingController.prototype.findByUserId.name,
         LoggingMessages.onsiteCourseBooking.error.errorGettingByUserId(userId),
         error,'')
-      throw error;
+      
     }
       
     }
@@ -136,7 +137,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
         this.errorLog(OnsiteCourseBookingController.prototype.findByCourseId.name,
           LoggingMessages.onsiteCourseBooking.error.errorGettingByCourseId(courseId),
           error,'')
-        throw error;
+        
       }
 
     } 

@@ -66,6 +66,23 @@ export const LoggingMessages = {
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
+  courseBooking: {
+    info: {
+      create: (id: string)=> `courseBooking with id ${id} created successfully`,
+      delete: (id: string)=> `courseBooking with id ${id} deleted successfully`,
+      updateCourseBookingSuccess: (id: string)=> `courseBooking with id ${id} updated successfully`
+    },
+    error: {
+      courseBookingCreationError: `Error while courseBooking Creation `,
+      errorFindingAll: `Error while getting all courseBooking`,
+      errorFinfingOneById: (id: string)=> `Error while getting courseBooking with id  ${id}`,
+      deleteCourseBookingFailed: (id: string)=> `courseBooking with id ${id} deletion Failed`,
+      updateCourseBookingFailed: (id: string)=> `courseBooking with id ${id} updated Failed`
+
+    },
+    warn: 'This is warn log',
+    debug: 'This is Debug Log'
+  },
   booking: {
     info: 'This is booking Info Log',
     error: 'This is error log',
@@ -89,6 +106,42 @@ export const LoggingMessages = {
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
+  courseDuration: {
+    info: {
+     
+        create: (id: string)=> `courseDuration with id ${id} created successfully`,
+        delete: (id: string)=> `courseDuration with id ${id} deleted successfully`,
+        updateCourseDurationSuccess: (id: string)=> `courseDuration with id ${id} updated successfully`
+      },
+      error: {
+        courseBookingCreationError: `Error while courseDuration Creation `,
+        errorFindingAll: `Error while getting all courseDuration`,
+        errorFinfingOneById: (id: string)=> `Error while getting courseDuration with id  ${id}`,
+        deleteCourseDurationFailed: (id: string)=> `courseDuration with id ${id} deletion Failed`,
+        updateCourseDurationFailed: (id: string)=> `courseDuration with id ${id} updated Failed`
+  
+      },
+    warn: 'This is warn log',
+    debug: 'This is Debug Log'
+  },
+  timeSlot: {
+    info: {
+     
+        create: (id: string)=> `timeSlot with id ${id} created successfully`,
+        delete: (id: string)=> `timeSlot with id ${id} deleted successfully`,
+        updateTimeSlotSuccess: (id: string)=> `timeSlot with id ${id} updated successfully`
+      },
+      error: {
+        courseTimeSlotError: `Error while timeSlot Creation `,
+        errorFindingAll: `Error while getting all timeSlot`,
+        errorFinfingOneById: (id: string)=> `Error while getting timeSlot with id  ${id}`,
+        deleteTimeSlotFailed: (id: string)=> `timeSlot with id ${id} deletion Failed`,
+        updateTimeSlotFailed: (id: string)=> `timeSlot with id ${id} updated Failed`
+  
+      },
+    warn: 'This is warn log',
+    debug: 'This is Debug Log'
+  },
   evaluation: {
     info: {
       createMcq: (id: string)=> `Mcq with id ${id} has been created successfully`,
@@ -109,12 +162,6 @@ export const LoggingMessages = {
   },
   durations: {
     info: 'This is durations Info Log',
-    error: 'This is error log',
-    warn: 'This is warn log',
-    debug: 'This is Debug Log'
-  },
-  timeslots: {
-    info: 'This is timeslot Info Log',
     error: 'This is error log',
     warn: 'This is warn log',
     debug: 'This is Debug Log'
