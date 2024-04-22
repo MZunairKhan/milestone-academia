@@ -4,6 +4,11 @@ export function randomPasswordString(length: number, chars : string) {
     return result;
 }
 
+export function validateEmail(email: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
 
 export function getCurrentDateTime() {
     const options: Intl.DateTimeFormatOptions = {

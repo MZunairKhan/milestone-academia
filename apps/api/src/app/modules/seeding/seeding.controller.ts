@@ -30,7 +30,7 @@ export class SeedingController {
       firstName: 'Master',
       lastName: 'User',
       userName: 'master',
-      email: 'info@test.com',
+      email: 'info@master.com',
       password: 'master',
       presenceType: PresenceType.Online,
       userType: UserType.Master
@@ -41,7 +41,7 @@ export class SeedingController {
       firstName: 'test',
       lastName: 'instructor',
       userName: 'instructor',
-      email: 'info@test.com',
+      email: 'info@instructor.com',
       password: 'instructor',
       presenceType: PresenceType.Online,
       userType: UserType.Instructor
@@ -51,7 +51,7 @@ export class SeedingController {
       firstName: 'test',
       lastName: 'student 1',
       userName: 'student1',
-      email: 'info@test.com',
+      email: 'info@student1.com',
       password: 'student1',
       presenceType: PresenceType.Online,
       userType: UserType.Student
@@ -61,7 +61,7 @@ export class SeedingController {
       firstName: 'test',
       lastName: 'student 2',
       userName: 'student2',
-      email: 'info@test.com',
+      email: 'info@student2.com',
       password: 'student2',
       presenceType: PresenceType.Online,
       userType: UserType.Student
@@ -71,7 +71,7 @@ export class SeedingController {
       firstName: 'test',
       lastName: 'student 3',
       userName: 'student3',
-      email: 'info@test.com',
+      email: 'info@student3.com',
       password: 'student3',
       presenceType: PresenceType.Online,
       userType: UserType.Student
@@ -81,7 +81,7 @@ export class SeedingController {
       firstName: 'test',
       lastName: 'student 4',
       userName: 'student4',
-      email: 'info@test.com',
+      email: 'info@student4.com',
       password: 'student4',
       presenceType: PresenceType.Online,
       userType: UserType.Student
@@ -91,7 +91,7 @@ export class SeedingController {
       firstName: 'test',
       lastName: 'student 5',
       userName: 'student5',
-      email: 'info@test.com',
+      email: 'info@student5.com',
       password: 'student5',
       presenceType: PresenceType.Online,
       userType: UserType.Student
