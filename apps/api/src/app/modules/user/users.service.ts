@@ -27,10 +27,36 @@ export class UsersService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
+  validateEmail(email: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
+
+ async getUserByEmail(email: string){
+    return await this.usersRepository.findOneBy({email: email})
+  }
+
   async create(
     createUserDto: CreateUserDTO,
     userType?: UserType
   ): Promise<User> {
+
+    const isEmailValid = this.validateEmail(createUserDto.email);
+    if(!isEmailValid){
+      throw new Error('Invalid email format');
+    }
+    const existingUser = await this.getCountByEmail(createUserDto.email);
+    if (existingUser>0) {
+      throw new Error('Email already exists');
+    }
+
+    const isUserNameExists = await this.getCountByUsername(createUserDto.userName);
+
+    if(isUserNameExists>0){
+      throw new Error('UserName already exists');
+    }
+
     const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
@@ -38,6 +64,8 @@ export class UsersService {
     user.email = createUserDto.email;
     user.createdDate = new Date();
     user.userType = userType ?? UserType.Student;
+
+    
 
     if (createUserDto.presenceType) {
       user.presenceType = createUserDto.presenceType;
@@ -162,7 +190,22 @@ export class UsersService {
     throw new NotFoundException('User not found');
   }
 
-  return user;  }
+  return user;  
+}
+
+async getCountByUsername(userName: string) {
+  const queryBuilder = this.usersRepository.createQueryBuilder('user');
+    queryBuilder.where('user.userName = :userName', { userName })
+
+return await queryBuilder.getCount();  
+}
+
+async getCountByEmail(email: string) {
+  const queryBuilder = this.usersRepository.createQueryBuilder('user');
+    queryBuilder.where('user.email = :email', { email })
+
+return await queryBuilder.getCount();  
+}
 
   async remove(id: string): Promise<any> {
   return  await this.usersRepository.softDelete({id});

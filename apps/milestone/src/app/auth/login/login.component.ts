@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   });
 
   forgotPasswordForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.email, Validators.required]),
   });
   
   constructor(
