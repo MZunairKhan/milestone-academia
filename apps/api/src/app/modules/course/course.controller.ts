@@ -38,7 +38,8 @@ export class CoursesController {
       error: error,
       stackTrace: stackTrace
     }
-    this.logger.error(log)
+    this.logger.error(log);
+    throw error
    }
 
   @Post()
@@ -51,7 +52,7 @@ export class CoursesController {
     }catch(error){
       this.errorLog(CoursesController.prototype.create.name,
         LoggingMessages.course.error.courseCreationError,error,'')
-        throw error
+        
 
     }
 
@@ -65,7 +66,7 @@ export class CoursesController {
     }catch(error){
       this.errorLog(CoursesController.prototype.findAll.name,
         LoggingMessages.course.error.errorFindingAll,error,'')
-        throw error
+        
     }
     
   }
@@ -90,7 +91,7 @@ export class CoursesController {
   }catch(error){
     this.errorLog(CoursesController.prototype.findPaginatedCourses.name,
       LoggingMessages.course.error.errorfindPaginatedCourses,error,'')
-      throw error
+      
   }
     
     
@@ -104,7 +105,7 @@ export class CoursesController {
       console.log('ERROOORRR');
       this.errorLog(CoursesController.prototype.findOne.name,
         LoggingMessages.course.error.errorFinfingOneById(id),error,'')
-        throw error
+        
     }
   }
 
@@ -131,7 +132,7 @@ export class CoursesController {
       this.errorLog(CoursesController.prototype.updateCourse.name,
         LoggingMessages.course.error.updateCourseFailed(id),
         error,'' )
-      throw error;
+      ;
     }
   }
 
@@ -146,7 +147,7 @@ export class CoursesController {
   }catch(error){
     this.errorLog(CoursesController.prototype.remove.name,
       LoggingMessages.course.error.deleteCourseFailed(id),error,'')
-      throw error
+      
   }
     
   }
