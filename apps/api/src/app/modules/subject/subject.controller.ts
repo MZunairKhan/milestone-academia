@@ -4,35 +4,90 @@ import { ApiTags } from '@nestjs/swagger';
 import { Subject } from './entity/subject.entity';
 import { SubjectService } from './subject.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
+import { LoggerService } from 'apps/api/src/logger/logger.service ';
+import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
+import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
 
   
 @ApiTags('Subject')
 @Controller()
 export class SubjectsController {
-  constructor(private readonly subjectService: SubjectService) {}
+  constructor(private readonly subjectService: SubjectService,
+    private readonly logger: LoggerService) {}
+
+  infoLog(methodName: string ,  message: string){
+    const log =  {
+      className: SubjectsController.name,
+      methodName: methodName ,
+      message: message,
+      level: LoggerEnum.Info
+    }
+    this.logger.info(log)
+    this.logger.saveLog(log)
+   }
+
+   errorLog(methodName: string ,  message: string , error: any, stackTrace: any){
+    const log =  {
+      className: SubjectsController.name,
+      methodName: methodName ,
+      message: message,
+      error: error,
+      stackTrace: stackTrace
+    }
+    this.logger.error(log);
+    throw error
+   }
 
   @Post()
-  async create(@Body() createSubjectDto: CreateSubjectDto): Promise<string> {
-    const subject = await this.subjectService.create(createSubjectDto);
-    if (subject) {
-      return `Subject ${subject.name} created sucessfully`
-    } else {
-      return `Had an issue creating Subject ${subject.name}`
+  async create(@Body() createSubjectDto: CreateSubjectDto): Promise<Subject> {
+    try{
+      const subject = await this.subjectService.create(createSubjectDto);
+      this.infoLog(SubjectsController.prototype.create.name,
+        LoggingMessages.subject.info.create(subject.id))
+   
+      return subject
+    }catch(error){
+      this.errorLog(SubjectsController.prototype.create.name,
+        LoggingMessages.subject.error.subjectCreationError,error,'') 
     }
+    
   }
 
   @Get()
-  findAll(): Promise<Subject[]> {
-    return this.subjectService.findAll();
+ async findAll(): Promise<Subject[]> {
+  try{
+    return await this.subjectService.findAll();
+
+  }catch(error){
+    this.errorLog(SubjectsController.prototype.findAll.name,
+      LoggingMessages.subject.error.errorFindingAll,error,'') 
+  }
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: string): Promise<Subject> {
-    return this.subjectService.findOne(id);
+ async findOne(@Param('id', ParseIntPipe) id: string): Promise<Subject> {
+  try{
+    return await this.subjectService.findOne(id);
+
+  }catch(error){
+    this.errorLog(SubjectsController.prototype.findOne.name,
+      LoggingMessages.subject.error.errorFinfingOneById(id),error,'') 
+  }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
-    return this.subjectService.remove(id);
+async  remove(@Param('id') id: string): Promise<void> {
+  try{
+    const res = await this.subjectService.remove(id);
+
+    this.infoLog(SubjectsController.prototype.remove.name,
+      LoggingMessages.subject.info.delete(id))
+
+    return res
+
+  }catch(error){
+    this.errorLog(SubjectsController.prototype.remove.name,
+      LoggingMessages.subject.error.deleteSubjectFailed(id),error,'') 
+  }
   }
 }
