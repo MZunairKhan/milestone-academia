@@ -13,7 +13,7 @@ import { PresenceType } from './enums/presenceType.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { EventMessagesEnum } from '../../common/enums/event-messages.enum';
-import { getCurrentDateTime, getResetPasswordTemplate, getWelcomeUserTemplate, randomPasswordString } from '../../common/utils';
+import { getCurrentDateTime, getResetPasswordTemplate, getWelcomeUserTemplate, randomPasswordString, validateEmail } from '../../common/utils';
 
 
 @Injectable()
@@ -27,10 +27,7 @@ export class UsersService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
-  validateEmail(email: string): boolean {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  }
+
 
 
  async getUserByEmail(email: string){
@@ -42,7 +39,7 @@ export class UsersService {
     userType?: UserType
   ): Promise<User> {
 
-    const isEmailValid = this.validateEmail(createUserDto.email);
+    const isEmailValid = validateEmail(createUserDto.email);
     if(!isEmailValid){
       throw new Error('Invalid email format');
     }
