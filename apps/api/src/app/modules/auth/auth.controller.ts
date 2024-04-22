@@ -47,7 +47,8 @@ export class AuthController {
         error: error,
         stackTrace: stackTrace
       }
-      this.logger.error(log)
+      this.logger.error(log);
+      throw error;
 
      }
 
@@ -84,7 +85,7 @@ export class AuthController {
       this.errorLog(AuthController.prototype.login.name,
         LoggingMessages.auth.error.loginFailed(loginDto.userName),
         error,'')
-      throw error;
+     
     }
    
   }
@@ -112,7 +113,7 @@ export class AuthController {
       this.errorLog(AuthController.prototype.refreshToken.name,
         LoggingMessages.auth.error.refreshTokenFailed(request.id),
         error,'')
-      throw error
+     
     }
      
     
@@ -142,7 +143,7 @@ export class AuthController {
       this.errorLog(AuthController.prototype.resetPassword.name,
         LoggingMessages.auth.error.resetPasswordFailed(request.id),
         error,'')
-      throw error;
+     ;
     }
    
   }

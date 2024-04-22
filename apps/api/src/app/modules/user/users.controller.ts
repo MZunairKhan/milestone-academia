@@ -54,7 +54,8 @@ export class UsersController {
       error: error,
       stackTrace: stackTrace
     }
-    this.logger.error(log)
+    this.logger.error(log);
+    throw error
    }
 
   @Post()
@@ -79,7 +80,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.create.name,
         LoggingMessages.users.error.userCreationError,
         error,'')
-      throw error;
+      ;
     }
    
   }
@@ -127,7 +128,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.findPaginatedUser.name,
         LoggingMessages.users.error.errorGettingPaginatedUser,
         error,'' )
-      throw error;
+      ;
     
     }
 
@@ -180,7 +181,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.createUser.name,
         LoggingMessages.users.error.userCreationError,
         error,'')
-      throw error;
+      ;
     }
    
   }
@@ -212,7 +213,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.createStudent.name,
         LoggingMessages.users.error.studentCreationError,
         error,'')
-      throw error;
+      ;
     }
  }
    
@@ -232,7 +233,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.forgotPassword.name,
         LoggingMessages.users.error.forgotPasswordFailed(data.email),
         error,'')
-      throw error;
+      ;
     }
   }
 
@@ -252,7 +253,7 @@ export class UsersController {
     this.errorLog(UsersController.prototype.assignCourseToInstructor.name,
       LoggingMessages.users.error.courseAssignedtoInstructorFailed(instructorId, courseId),
       error,'')
-    throw error;
+    ;
   }
   }
 
@@ -265,7 +266,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.findOneByInstructorId.name,
         LoggingMessages.users.error.errorGettingInstructorById(instructorId),
         error,'')
-      throw error;
+      ;
     }
   }
 
@@ -294,7 +295,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.updateUser.name,
         LoggingMessages.users.error.updateUserFailed(request.userId),
         error,'' )
-      throw error;
+      ;
     }
   }
 
@@ -323,7 +324,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.findOne.name,
         LoggingMessages.users.error.errorGettingUserData(request.user['sub']),
         error,'')
-      throw error;
+      ;
     }
     
   }
@@ -341,7 +342,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.findAll.name,
         LoggingMessages.users.error.errorGettingAllUsers,
         error,'')
-      throw error;
+      ;
     }
    
   }
@@ -357,7 +358,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.findOneById.name,
         LoggingMessages.users.error.errorGettingUserById(id),
         error,'')
-      throw error;
+      ;
     }
     
   }
@@ -380,7 +381,7 @@ export class UsersController {
       this.errorLog(UsersController.prototype.remove.name,
         LoggingMessages.users.error.deleteUserFailed(id),
         error,'')
-      throw error;
+      ;
 
     }
    
