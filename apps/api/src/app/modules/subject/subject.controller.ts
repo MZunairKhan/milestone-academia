@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Bind, } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { Subject } from './entity/subject.entity';
@@ -7,6 +7,8 @@ import { CreateSubjectDto } from './dto/create-subject.dto';
 import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { UuidValidator } from '../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../common/utils';
 
   
 @ApiTags('Subject')
@@ -65,6 +67,7 @@ export class SubjectsController {
   }
 
   @Get(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async findOne(@Param('id', ParseIntPipe) id: string): Promise<Subject> {
   try{
     return await this.subjectService.findOne(id);
@@ -76,6 +79,7 @@ export class SubjectsController {
   }
 
   @Delete(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
 async  remove(@Param('id') id: string): Promise<void> {
   try{
     const res = await this.subjectService.remove(id);

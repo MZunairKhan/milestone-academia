@@ -1,3 +1,5 @@
+import { LoggerService } from "../../logger/logger.service ";
+
 export function randomPasswordString(length: number, chars : string) {
     let result = '';
     for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
@@ -7,6 +9,24 @@ export function randomPasswordString(length: number, chars : string) {
 export function validateEmail(email: string): boolean {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
+  }
+
+  
+export function createErrorLogger(): any {
+    return (obj: any) => {
+  
+      const log = {
+        className: obj.className,
+        methodName: obj.methodName,
+        message: obj.message,
+        error: obj?.error ?? 'error',
+        stackTrace: obj?.stackTrace ?? 'stackTrace'
+      };
+      const loggers = new LoggerService()
+  
+      loggers.error(log); 
+    //   throw new Error(obj.message);
+    };
   }
 
 

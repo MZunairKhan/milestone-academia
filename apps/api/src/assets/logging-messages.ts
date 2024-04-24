@@ -218,4 +218,7 @@ export const LoggingMessages = {
     warn: 'This is warn log',
     debug: 'This is Debug Log'
   },
+  uuid:{
+    error: (id: string)=> `Error while validating id ${id}`
+  }
 };

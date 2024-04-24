@@ -15,7 +15,7 @@ export class LoggerService {
 
   constructor(    
     @InjectRepository(Log)
-  private readonly logRepository: Repository<Log>,
+  private readonly logRepository?: Repository<Log>,
   ) 
   {
     this.logger = createLogger({

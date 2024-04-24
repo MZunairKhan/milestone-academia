@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Bind, Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import {OnSiteEvaluationService } from './onsiteEvaluation.service';
@@ -7,6 +7,8 @@ import { OnSiteEvaluation } from './entities/onsiteEvaluation.entity';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { UuidValidator } from '../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../common/utils';
   
 @ApiTags('Onsite-Evaluation')
 @Controller()
@@ -67,6 +69,7 @@ async  findAll() {
   }
 
   @Get(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
 async  findOne(@Param('id') id: string) {
   try{
     return await this.onSiteEvaluationService.findOne(id);
@@ -78,6 +81,7 @@ async  findOne(@Param('id') id: string) {
   }
 
   @Delete(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
 async  remove(@Param('id') id: string): Promise<void> {
   try{
     return await this.onSiteEvaluationService.remove(id);

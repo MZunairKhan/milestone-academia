@@ -6,6 +6,7 @@ import {
     Patch,
     Param,
     Delete,
+    Bind,
   } from '@nestjs/common';
   import { ApiTags } from '@nestjs/swagger';
 import { OnsiteCourseBookingService } from './onSiteCourseBooking.service';
@@ -13,6 +14,8 @@ import { CreateOnSiteBookingDto } from './dto/createOnSiteBooking.dto';
 import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
+import { UuidValidator } from '../../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../../common/utils';
   
   @ApiTags('onsite course booking')
   @Controller()
@@ -80,6 +83,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
     }
   
     @Get(':id')
+    @Bind(UuidValidator({errorLogger: createErrorLogger()}))
    async findOne(@Param('id') id: string) {
       try{
         return await this.onsiteCourseBookingService.findOne(id);
@@ -93,6 +97,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
     }
   
     @Get('student/:studentId')
+    @Bind(UuidValidator({errorLogger: createErrorLogger()}))
   async  findByStudentId(@Param('studentId') studentId: string) {
       try{
         return await this.onsiteCourseBookingService.findByStudentId(studentId);
@@ -107,6 +112,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
     }
 
     @Get('user/:userId')
+    @Bind(UuidValidator({errorLogger: createErrorLogger()}))
    async findByUserId(@Param('userId') userId: string) {
     try{
       const bookings  = await this.onsiteCourseBookingService.findByUserId(userId)
@@ -121,6 +127,7 @@ import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
     }
   
     @Get('course/:courseId')
+    @Bind(UuidValidator({errorLogger: createErrorLogger()}))
     findByCourseId(@Param('courseId') courseId: string) {
       try{
         return this.onsiteCourseBookingService.findByCourseId(courseId);
