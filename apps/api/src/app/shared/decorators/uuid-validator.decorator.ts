@@ -1,9 +1,8 @@
-import { BadRequestException, createParamDecorator, ExecutionContext, Injectable } from '@nestjs/common';
+import { BadRequestException, createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
 import { validate } from 'uuid';
-// import { YourService } from './your.service'; // Import your service here
 
-export const UuidValidator =   createParamDecorator(
+export const UuidValidator=   createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
 
     const request = ctx.switchToHttp().getRequest();
