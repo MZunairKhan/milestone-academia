@@ -31,4 +31,5 @@ RUN npm install -g pm2@latest
 RUN npm install 
 RUN npm install express
 COPY --from=builder /usr/src/app/dist/apps/api ./build
-ENTRYPOINT ["node","build/main.js"]
+EXPOSE 3333
+ENTRYPOINT ["pm2-runtime","build/main.js"]
