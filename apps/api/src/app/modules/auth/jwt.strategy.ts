@@ -19,7 +19,6 @@ export class JwtStrategy extends PassportStrategy(Strategy,'jwt') {
 
   // method to validate JWT
   async validate(payload: any): Promise<InternalAuthData> {
-
     if (!payload) {
       throw new UnauthorizedException();
     }

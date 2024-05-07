@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   getUserRoles() {  
-    this.http.get<string[]>(APIS.auth.roleSet)
+    this.http.get<string[]>(APIS.auth.roleSet , { withCredentials: true })
     .subscribe(value => {
       console.log(AUTH_CONSTANTS.STORAGE.ROLES, value);
       this.storageService.setValue(AUTH_CONSTANTS.STORAGE.ROLES, value);
@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   login(userName: string, password: string) {  
-    return this.http.post(APIS.auth.login, {userName, password})
+    return this.http.post(APIS.auth.login, {userName, password}, { withCredentials: true })
   }
   refreshToken(refresh:any) {  
     return this.http.post(APIS.auth.refreshToken, {refresh})

@@ -22,6 +22,7 @@ export class MyCoursesComponent implements OnInit {
   columns: 1 | 2 = 1;
   isStudent$ = this.roleService.isStudent$;
   isInstructor$ = this.roleService.isInstructor$;
+  isMaster$ = this.roleService.isMaster$
 
   constructor(
     private router: Router,
@@ -36,14 +37,21 @@ export class MyCoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isStudent$.subscribe(isStudent => {
-      if (isStudent) {
-        this.getLoggedInUserCourses()
-      } else {
-        this.getInstructorCourse()
+    this.isMaster$.subscribe(isMaster => {
+      if (isMaster) {
+        return;
       }
-    })
+  
+      this.isStudent$.subscribe(isStudent => {
+        if (isStudent) {
+          this.getLoggedInUserCourses();
+        } else {
+          this.getInstructorCourse();
+        }
+      });
+    });
   }
+  
   
   getLoggedInUserCourses(){
     const userData = this.storageService.getValue('userData');
@@ -56,7 +64,7 @@ export class MyCoursesComponent implements OnInit {
 
   getInstructorCourse() {
     const userData = this.storageService.getValue('userData');
-    this.userService.getInstructorById(userData.instructorData.id)
+    this.userService.getInstructorById(userData.instructorData.id ?? userData.userId)
     .subscribe((value: any) => {
       console.log(value.courses);
       this.allCourses = value.courses;

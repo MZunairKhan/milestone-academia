@@ -62,7 +62,7 @@ export class UserService {
   }
 
   getUserData() {
-    return this.http.get<UserData>(APIS.users.getUserData)
+    return this.http.get<UserData>(APIS.users.getUserData,  { withCredentials: true })
       .pipe(
         tap((value: UserData) => this.updateUserData(value))
       )

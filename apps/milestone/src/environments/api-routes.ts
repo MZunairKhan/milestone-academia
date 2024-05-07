@@ -1,101 +1,104 @@
+import { environment } from "./environment";
+
 const hostUrl = "http://localhost:3333";
 const extension = "api"
 
-const baseUrl = `${hostUrl}/${extension}`;
+// const baseUrl = `${hostUrl}/${baseUrl}`;
+const baseUrl = environment.production ? `${hostUrl}/${extension}` : `${extension}`
 
 export const APIS = {
     appConfig: {
-        create: `${extension}/common/appConfig`,
-        getAll: `${extension}/common/appConfig`,
-        getById: (id: string) => `${extension}/common/appConfig/${id}`,
-        getByKey: (key: string) => `${extension}/common/appConfigByKey/${key}`,
-        deleteById: (id: string) => `${extension}/common/appConfig/${id}`
+        create: `${baseUrl}/common/appConfig`,
+        getAll: `${baseUrl}/common/appConfig`,
+        getById: (id: string) => `${baseUrl}/common/appConfig/${id}`,
+        getByKey: (key: string) => `${baseUrl}/common/appConfigByKey/${key}`,
+        deleteById: (id: string) => `${baseUrl}/common/appConfig/${id}`
     },
     users: {
-        create: `${extension}/users`,
-        getAll: `${extension}/users/paginated-user`,
-        getUserData: `${extension}/users/userData`,
-        createUser: `${extension}/users/create-user`,
-        createStudent: `${extension}/users/create-student`,
-        assignCourseToInstructor: (instructorId: string, courseId: string) => `${extension}/users/instructor/${instructorId}/course/${courseId}`,
-        getInstructorById: (instructorId: string) => `${extension}/users/getInstructorById/${instructorId}`, 
-        getById: (id: string) => `${extension}/users/${id}`,
-        deleteById: (id: string) => `${extension}/users/${id}`,
-        forgotPassword: `${extension}/users/forgot-password`,
+        create: `${baseUrl}/users`,
+        getAll: `${baseUrl}/users/paginated-user`,
+        getUserData: `${baseUrl}/users/userData`,
+        createUser: `${baseUrl}/users/create-user`,
+        createStudent: `${baseUrl}/users/create-student`,
+        assignCourseToInstructor: (instructorId: string, courseId: string) => `${baseUrl}/users/instructor/${instructorId}/course/${courseId}`,
+        getInstructorById: (instructorId: string) => `${baseUrl}/users/getInstructorById/${instructorId}`, 
+        getById: (id: string) => `${baseUrl}/users/${id}`,
+        deleteById: (id: string) => `${baseUrl}/users/${id}`,
+        forgotPassword: `${baseUrl}/users/forgot-password`,
 
     },
     auth: {
-        login: `http://localhost:3333/api/auth/login`,
-        refreshToken: `${extension}/auth/refresh-token`,
-        test: `${extension}/auth/test`,
-        roleSet: `${extension}/auth/role-set`,
+        login: `${baseUrl}/auth/login`,
+        refreshToken: `${baseUrl}/auth/refresh-token`,
+        test: `${baseUrl}/auth/test`,
+        roleSet: `${baseUrl}/auth/role-set`,
 
     },
     subject: {
-        create: `${extension}/subject`,
-        getAll: `${extension}/subject`,
-        getById: (id: string) => `${extension}/subject/${id}`,
-        deleteById: (id: string) => `${extension}/subject/${id}`
+        create: `${baseUrl}/subject`,
+        getAll: `${baseUrl}/subject`,
+        getById: (id: string) => `${baseUrl}/subject/${id}`,
+        deleteById: (id: string) => `${baseUrl}/subject/${id}`
     },
     course: {
-        create: `${extension}/course`,
-        getAll: `${extension}/course`,
-        getById: (id: string) => `${extension}/course/${id}`,
-        deleteById: (id: string) => `${extension}/course/${id}`
+        create: `${baseUrl}/course`,
+        getAll: `${baseUrl}/course`,
+        getById: (id: string) => `${baseUrl}/course/${id}`,
+        deleteById: (id: string) => `${baseUrl}/course/${id}`
     },
     booking: {
-        create: `${extension}/bookings`,
-        getAll: `${extension}/bookings`,
-        getById: (id: string) => `${extension}/bookings/${id}`,
-        updateById: (id: string) => `${extension}/bookings/${id}`,
-        deleteById: (id: string) => `${extension}/bookings/${id}`
+        create: `${baseUrl}/bookings`,
+        getAll: `${baseUrl}/bookings`,
+        getById: (id: string) => `${baseUrl}/bookings/${id}`,
+        updateById: (id: string) => `${baseUrl}/bookings/${id}`,
+        deleteById: (id: string) => `${baseUrl}/bookings/${id}`
     },
     onsiteCourseBooking: {
-        create: `${extension}/onsite-course-booking`,
-        getAll: `${extension}/onsite-course-booking`,
-        getById: (id: string) => `${extension}/onsite-course-booking/${id}`,
-        getByStudentId: (id: string) => `${extension}/onsite-course-booking/student/${id}`,
-        getByCourseId: (id: string) => `${extension}/onsite-course-booking/course/${id}`,
-        getByUserId: (id: string) => `${extension}/onsite-course-booking/user/${id}`,
+        create: `${baseUrl}/onsite-course-booking`,
+        getAll: `${baseUrl}/onsite-course-booking`,
+        getById: (id: string) => `${baseUrl}/onsite-course-booking/${id}`,
+        getByStudentId: (id: string) => `${baseUrl}/onsite-course-booking/student/${id}`,
+        getByCourseId: (id: string) => `${baseUrl}/onsite-course-booking/course/${id}`,
+        getByUserId: (id: string) => `${baseUrl}/onsite-course-booking/user/${id}`,
     },
     evaluation: {
         
-        getAllMcqs:  `${extension}/evaluation/getAll-mcqs`,
-        createMcqs: `${extension}/evaluation/create-mcqs`,
-        deleteById: (id: string) => `${extension}/evaluation/deleteMcq/${id}`,
-        updateMcq:  (id: string) => `${extension}/evaluation/update-mcqs/${id}`
+        getAllMcqs:  `${baseUrl}/evaluation/getAll-mcqs`,
+        createMcqs: `${baseUrl}/evaluation/create-mcqs`,
+        deleteById: (id: string) => `${baseUrl}/evaluation/deleteMcq/${id}`,
+        updateMcq:  (id: string) => `${baseUrl}/evaluation/update-mcqs/${id}`
 
 
     },
     durations: {
-        create: `${extension}/durations`,
-        getAll: `${extension}/durations`,
-        getById: (id: string) => `${extension}/durations/${id}`,
-        updateById: (id: string) => `${extension}/durations/${id}`,
-        deleteById: (id: string) => `${extension}/durations/${id}`
+        create: `${baseUrl}/durations`,
+        getAll: `${baseUrl}/durations`,
+        getById: (id: string) => `${baseUrl}/durations/${id}`,
+        updateById: (id: string) => `${baseUrl}/durations/${id}`,
+        deleteById: (id: string) => `${baseUrl}/durations/${id}`
     },
     timeslots: {
-        create: `${extension}/timeslots`,
-        getAll: `${extension}/timeslots`,
-        getById: (id: string) => `${extension}/timeslots/${id}`,
-        updateById: (id: string) => `${extension}/timeslots/${id}`,
-        deleteById: (id: string) => `${extension}/timeslots/${id}`
+        create: `${baseUrl}/timeslots`,
+        getAll: `${baseUrl}/timeslots`,
+        getById: (id: string) => `${baseUrl}/timeslots/${id}`,
+        updateById: (id: string) => `${baseUrl}/timeslots/${id}`,
+        deleteById: (id: string) => `${baseUrl}/timeslots/${id}`
     },
     attendance: {
-        create: `${extension}/attendance`,
+        create: `${baseUrl}/attendance`,
         getByInstructorCourseStudent: (
             instructorId: string,
             courseId: string,
             studentId: string
-        ) => `${extension}/attendance/instructor/${instructorId}/course/${courseId}/student/${studentId}`,
+        ) => `${baseUrl}/attendance/instructor/${instructorId}/course/${courseId}/student/${studentId}`,
         getByInstructorCourse: (
             instructorId: string,
             courseId: string
-        ) => `${extension}/attendance/instructor/${instructorId}/course/${courseId}`,
+        ) => `${baseUrl}/attendance/instructor/${instructorId}/course/${courseId}`,
         getByStudentCourse: (
             courseId: string,
             studentId: string
-        ) => `${extension}/attendance/course/${courseId}/student/${studentId}`,
-        getById: (id: string) => `${extension}/attendance/${id}`,
+        ) => `${baseUrl}/attendance/course/${courseId}/student/${studentId}`,
+        getById: (id: string) => `${baseUrl}/attendance/${id}`,
     }
 }

@@ -6,11 +6,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { ManageUsersComponent } from './manage/manage-users/manage-users.component';
 import { AuthGuard } from '../auth/services/auth.guard';
 import { UserRoles } from '@milestone-academia/api-interfaces';
+import { RolesGuard } from '../auth/services/role.gurad';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: {roles: [UserRoles.RetrieveUser]} },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],  },
+  { path: 'profile', component: ProfileComponent, canActivate: [RolesGuard], data: {roles: [UserRoles.RetrieveUser]} },
   { path: 'manage', component: ManageUsersComponent, canActivate: [AuthGuard], data: {roles: [...Object.values(UserRoles)]} },
 ];
 

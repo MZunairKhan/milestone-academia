@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class RolesGuard implements CanActivate {
 
   constructor(
     private storageService: StorageService,
@@ -28,10 +28,17 @@ export class AuthGuard implements CanActivate {
         if (!isLoggedIn) {
           return this.router.createUrlTree(['/auth/login']);
         } else {
-          return true;
+          const roles: string[] = route.data['roles'] as Array<string> ?? [];
+          const userRoles: string[] =  this.storageService.getValue(AUTH_CONSTANTS.STORAGE.ROLES);
+          console.log('userroles', userRoles);
+          if(!userRoles){
+            throw new Error('Not Allowed')
+          }
+          const shouldRoute = roles.every(role => userRoles.includes(role))
+                
+          return shouldRoute;
         }
       })
     );
-  }
-  
+    }
 }

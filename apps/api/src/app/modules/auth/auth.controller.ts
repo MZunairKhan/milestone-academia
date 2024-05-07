@@ -64,7 +64,6 @@ export class AuthController {
         const userData = await this.authService.login(user);
         const cookieSettings: CookieOptions =
           this.authService.prepareCookieSettings();
-  
         response.cookie(
           process.env.JWT_ACCESS_TOKEN_KEY,
           userData.access_token,
