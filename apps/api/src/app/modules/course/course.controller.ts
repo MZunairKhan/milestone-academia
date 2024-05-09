@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Query, Patch, BadRequestException, } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Query, Patch, BadRequestException, Bind, } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
 import { CourseService } from './services/course.service';
@@ -11,6 +11,8 @@ import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { UuidValidator } from '../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../common/utils';
   
 @ApiTags('Course')
 @Controller()
@@ -98,6 +100,7 @@ export class CoursesController {
   }
 
   @Get(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async findOne(@Param('id') id: string): Promise<Course> {
     try{
       return await this.coursesService.findOne(id);
@@ -110,6 +113,7 @@ export class CoursesController {
   }
 
   @Patch('update-course/:id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
   async updateCourse(
     @Param('id') id: string,
     @Body() updateCourseDto: UpdateCourseDto,
@@ -137,6 +141,7 @@ export class CoursesController {
   }
 
   @Delete(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async remove(@Param('id') id: string): Promise<void> {
   try{
     const response = await this.coursesService.remove(id);

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Bind,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CourseDurationService } from './courseDuration.service';
@@ -13,6 +14,8 @@ import { CourseDurationDto } from './dto/courseDuration.dto';
 import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { UuidValidator } from '../../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../../common/utils';
 
 @ApiTags('Durations')
 @Controller()
@@ -71,6 +74,7 @@ export class CourseDurationController {
 }
 
   @Get(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
   async findOne(@Param('id') id: string) {
     try{
 
@@ -82,6 +86,7 @@ export class CourseDurationController {
   }
 
   @Patch(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
 async  update(
     @Param('id') id: string,
     @Body() courseDurationDto: CourseDurationDto
@@ -98,6 +103,7 @@ async  update(
   }
 
   @Delete(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
   async remove(@Param('id') id: string) {
     try{
       const response = await this.courseDurationService.remove(id);

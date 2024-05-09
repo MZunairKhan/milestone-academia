@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Query, Patch, BadRequestException, } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, ParseIntPipe, Query, Patch, BadRequestException, Bind, } from '@nestjs/common';
 import {ApiTags } from '@nestjs/swagger';
 
 import { CreateMcqsDTO } from './dto/mcqs.dto';
@@ -10,6 +10,8 @@ import { UsersService } from '../user/users.service';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { UuidValidator } from '../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../common/utils';
 
   
 @ApiTags('Evaluation')
@@ -74,6 +76,7 @@ export class EvaluationController {
 
  
   @Get('findOneMcq/:id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async findOneMcq(@Param('id') id: string): Promise<MCQS> {
   try{
     return await this.evaluationService.findOneMcq(id);
@@ -86,6 +89,7 @@ export class EvaluationController {
   }
 
   @Delete('deleteMcq/:id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async remove(@Param('id') id: string): Promise<void> {
     try{
       const response  =  await this.evaluationService.removeMcq(id);
@@ -131,6 +135,7 @@ export class EvaluationController {
   }
 
   @Patch('update-mcqs/:id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
   async updateMcqs(
     @Body() updateMcqDto: UpdateMcqsDto,
     @Param('id') id: string

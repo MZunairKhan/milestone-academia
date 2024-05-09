@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Bind,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AttendanceService } from './attendance.service';
@@ -13,6 +14,8 @@ import { AttendanceDto } from './dto/createAttendance.dto';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { UuidValidator } from '../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../common/utils';
 
 @ApiTags('Attendance')
 @Controller()
@@ -60,6 +63,7 @@ export class AttendanceController {
   }
 
   @Get('/instructor/:instructorId/course/:courseId/student/:studentId')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
 async  getStudentAttendance( 
     @Param('instructorId') instructorId: string,
     @Param('courseId') courseId: string,
@@ -75,6 +79,7 @@ async  getStudentAttendance(
   }
 
   @Get('/instructor/:instructorId/course/:courseId')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async getStudentsAttendance( 
     @Param('instructorId') instructorId: string,
     @Param('courseId') courseId: string )
@@ -90,6 +95,7 @@ async  getStudentAttendance(
   }
 
   @Get('/course/:courseId/student/:studentId')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async getStudentAttendanceByCourse( 
     @Param('courseId') courseId: string,
     @Param('studentId') studentId: string
@@ -106,7 +112,8 @@ async  getStudentAttendance(
   }
 
   @Get(':id')
-async  findOne(@Param('id') id: string) {
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
+  async findOne(@Param('id') id: string) {
   try{
     return await this.attendanceService.findOne(id);
 

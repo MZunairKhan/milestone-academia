@@ -1,10 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, 
-  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, ParseIntPipe, Query, NotFoundException, Put, } from '@nestjs/common';
+  UseGuards, Req, HttpException, HttpStatus, Patch, BadRequestException, ParseIntPipe, Query, NotFoundException, Put, NestMiddleware, Request, UsePipes, Bind} from '@nestjs/common';
 import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles/roles.decorator';
 import { RolesGuard } from '../auth/roles/roles.guard';
 import { UserRoles } from '@milestone-academia/api-interfaces';
 import { LoggerService } from '../../../logger/logger.service ';
+
 
 
 import { UsersService } from './users.service';
@@ -23,17 +24,23 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { log } from 'console';
+import {  UuidValidator } from '../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../common/utils';
   
 @ApiTags('Users')
 @Controller()
 export class UsersController {
+  
+
   constructor(
     private readonly usersService: UsersService,
     private readonly studentsService: StudentsService,
     private readonly instructorsService: InstructorService,
-    private readonly logger: LoggerService
+    private readonly logger: LoggerService,
 
   ) {}
+
 
   infoLog(methodName: string ,  message: string){
     const log =  {
@@ -57,6 +64,8 @@ export class UsersController {
     this.logger.error(log);
     throw error
    }
+
+
 
   @Post()
   async create(@Body() createUserDto: CreateUserDTO): Promise<Partial<User>> {
@@ -97,7 +106,7 @@ export class UsersController {
     @Query('username') username: string,
     @Query('page') page: number,
     @Query('limit',) limit: number,
-  ) {
+    ) {
     try{
       const [users , total] = await this.usersService.findAllWithFiltersAndPagination(
         userType,
@@ -187,7 +196,7 @@ export class UsersController {
   }
 
   @Post('create-student')
-  async createStudent(@Body() dto: CreateStudentUserDTO): Promise<Partial<Student>> {
+  async createStudent(@Body() dto: CreateStudentUserDTO, ): Promise<Partial<Student>> {
     try{
       const user = await this.usersService.create(dto);
     
@@ -238,12 +247,16 @@ export class UsersController {
   }
 
   @Put('instructor/:instructorId/course/:courseId')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
   async assignCourseToInstructor(
     @Param('instructorId') instructorId: string,
-    @Param('courseId') courseId: string
-  ): Promise<void> {
+    @Param('courseId') courseId: string,
+    @Req() req: Request
+   ) {
   try{
-    const response  =  this.instructorsService.assignCourse(instructorId, courseId);
+    // console.log('REQUEST ISS UISS', userId);
+
+    const response  = await this.instructorsService.assignCourse(instructorId, courseId);
 
     this.infoLog(UsersController.prototype.assignCourseToInstructor.name,
       LoggingMessages.users.info.courseAssignedtoInstructorSuccessfully(instructorId, courseId))
@@ -258,7 +271,11 @@ export class UsersController {
   }
 
   @Get('getInstructorById/:instructorId')
-  async findOneByInstructorId(@Param('instructorId') instructorId: string): Promise<any> {
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
+  async findOneByInstructorId(
+    @Param('instructorId') instructorId: string,
+   )
+    : Promise<any> {
     try{
       return await this.instructorsService.findOneWithRelations(instructorId);
 
@@ -348,6 +365,7 @@ export class UsersController {
   }
 
   @Get(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
   async findOneById(@Param('id') id: string): Promise<ReadUserDto> {
     try{
       const user = await this.usersService.findOne(id);
@@ -364,6 +382,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
   async remove(@Param('id') id: string): Promise<any> {
     try{
       const user = await this.usersService.findOne(id);
@@ -405,3 +424,5 @@ export class UsersController {
     }
   }
 }
+
+

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Bind,
 } from '@nestjs/common';
 import { CreateBookingDto } from './dto/createBooking.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -14,6 +15,8 @@ import { UpdateBookingDto } from './dto/updateBooking.dto';
 import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { UuidValidator } from '../../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../../common/utils';
 
 @ApiTags('Bookings')
 @Controller()
@@ -73,6 +76,7 @@ async  findAll() {
   }
 
   @Get(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async findOne(@Param('id') id: string) {
     try{
       return await this.bookingsService.findOne(id);
@@ -85,6 +89,7 @@ async  findAll() {
   }
 
   @Patch(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async update(@Param('id') id: string, @Body() updateBookingDto: UpdateBookingDto) {
     try{
       const response =  await this.bookingsService.update(id, updateBookingDto);
@@ -100,6 +105,7 @@ async  findAll() {
   }
 
   @Delete(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
 async  remove(@Param('id') id: string) {
   try{
     const response  =  await this.bookingsService.remove(id);

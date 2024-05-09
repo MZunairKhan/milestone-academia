@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module , NestModule, MiddlewareConsumer  } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from '../config.service';
@@ -19,7 +19,6 @@ import { AttendanceModule } from './modules/attendance/attendance.module';
 import { OnSiteEvaluationModule } from './modules/onsiteEvaluation/onsiteEvaluation.module';
 import { EvaluationModule } from './modules/evaluation/evaluation.module';
 import { LoggerModule } from '../logger/logger.modules';
-
 // import { StudentsModule } from './modules/student/students.module';
 // import { InstructorsModule } from './modules/instructor/instructor.module';
 
@@ -106,6 +105,7 @@ import { LoggerModule } from '../logger/logger.modules';
     // StudentsModule,
     // InstructorsModule
   ],
+ 
  
 })
 export class AppModule {}

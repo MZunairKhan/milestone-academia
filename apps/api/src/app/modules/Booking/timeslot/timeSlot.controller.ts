@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Bind,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { TimeSlotService } from './timeSlot.service';
@@ -13,6 +14,8 @@ import { TimeSlotDto } from './dto/timeSlot.dto';
 import { LoggerEnum } from 'apps/api/src/logger/logging.enum';
 import { LoggerService } from 'apps/api/src/logger/logger.service ';
 import { LoggingMessages } from 'apps/api/src/assets/logging-messages';
+import { UuidValidator } from '../../../shared/decorators/uuid-validator.decorator';
+import { createErrorLogger } from '../../../common/utils';
 
 @ApiTags('Timeslots')
 @Controller()
@@ -75,6 +78,7 @@ export class TimeSlotController {
   }
 
   @Get(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async findOne(@Param('id') id: string) {
   try{
     return await this.timeSlotService.findOne(id);
@@ -86,6 +90,7 @@ export class TimeSlotController {
   }
 
   @Patch(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async update(@Param('id') id: string, @Body() timeSlotDto: TimeSlotDto) {
   try{
     const response = await this.timeSlotService.update(id, timeSlotDto);
@@ -100,6 +105,7 @@ export class TimeSlotController {
   }
 
   @Delete(':id')
+  @Bind(UuidValidator({errorLogger: createErrorLogger()}))
  async remove(@Param('id') id: string) {
   try{
     const response = await this.timeSlotService.remove(id);
